@@ -6,6 +6,9 @@ import android.os.Bundle;
 // Hello from the other side
 // **** *** GitLab
 
+
+// From Wael 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
