@@ -15,6 +15,15 @@ import android.os.Bundle;
 //From Mariam
 //from masmoudi
 
+
+
+
+
+
+
+
+
+//from chaima
 public class MainActivity extends AppCompatActivity {
 
     @Override
