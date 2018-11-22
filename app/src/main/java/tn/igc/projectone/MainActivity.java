@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 // Hello from the other side
-// **** *** GitLab
 
 
-// From Wael 
+// From Wael
+
+
+
+// From Achouri
 
 public class MainActivity extends AppCompatActivity {
 
