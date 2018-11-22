@@ -15,7 +15,7 @@ import android.os.Bundle;
 //From Mariam
 //from masmoudi
 // Hello from wassim ^_^
-// Nouri says Hi 
+// Nouri says Hi
 
 
 
