@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 // From Achouri
 
+//From Mariam
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
