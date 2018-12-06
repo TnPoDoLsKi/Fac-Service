@@ -1,25 +1,39 @@
 package tn.igc.projectone;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
-// Hello from the other side
 
+import tn.igc.projectone.search.Search;
 
-// From Wael
-
-
-
-// From Achouri
-
-//From Mariam
-//from masmoudi
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-}
+
+        Button button =findViewById(R.id.search_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"thyhyhu",Toast.LENGTH_LONG).show();
+                Fragment fragment = new Search();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.filo, fragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+  }
+  }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project One</string>
+    <string name="search_hint">search me</string>
+    <string name="app_label">search</string>
 </resources>
