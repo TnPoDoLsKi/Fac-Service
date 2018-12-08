@@ -74,7 +74,7 @@ public class    Search extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                 //adapter.getFilter().filter(newText);
+                 adapter.getFilter().filter(newText);
                 return false;
             }
         });
