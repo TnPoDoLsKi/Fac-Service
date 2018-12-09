@@ -25,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"thyhyhu",Toast.LENGTH_LONG).show();
                 Fragment fragment = new Search();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.filo, fragment);
+                fragmentTransaction.replace(R.id.fragment_view, fragment);
                 fragmentTransaction.commit();
 
             }

@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
-        android:id="@+id/filo"
+        android:id="@+id/fragment_view"
         android:layout_width="400dp"
         android:layout_height="400dp"
         >

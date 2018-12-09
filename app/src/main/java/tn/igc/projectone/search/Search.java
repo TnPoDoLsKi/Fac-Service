@@ -38,7 +38,8 @@ public class    Search extends Fragment {
     SearchView searchView;
     ListView listView;
     ArrayList<String> list;
-    ArrayAdapter<String > adapter;
+    /*ArrayAdapter<String > adapter;*/
+    SearchAdapter searchAdapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -57,24 +58,28 @@ public class    Search extends Fragment {
         list.add("Watermelon");
         list.add("Papaya");
 
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,list);
-        listView.setAdapter(adapter);
+/*        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,list);
+        listView.setAdapter(adapter);*/
+        searchAdapter = new SearchAdapter( getContext(),list);
+        listView.setAdapter(searchAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+           public boolean onQueryTextSubmit(String query) {
+/*
 
-                if(list.contains(query)){
-                    adapter.getFilter().filter(query);
+               if(list.contains(query){
+                    searchAdapter.getFilter().filter(query);
                 }else{
                     Toast.makeText(getContext(), "No Match found",Toast.LENGTH_LONG).show();
-                }
+                }*/
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                 adapter.getFilter().filter(newText);
+                // adapter.getFilter().filter(newText);
+                searchAdapter.getFilter().filter(newText);
                 return false;
             }
         });
