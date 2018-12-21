@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Project One</string>
+    <string-array name="formation_array">
+        <item>select an item</item>
+        <item>Licence</item>
+        <item>Ingénieur</item>
+        <item>Préparatoire</item>
+
+    </string-array>
 </resources>
