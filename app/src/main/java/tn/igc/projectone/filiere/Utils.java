@@ -8,18 +8,35 @@ import android.widget.ProgressBar;
 
 import tn.igc.projectone.R;
 
-import static android.content.ContentValues.TAG;
-
 
 class Utils {
-	static int processProgress = 0;
-	//	this method calls the next fragment (process)
-	static void nextProcess(FragmentManager fragmentManager,ProgressBar bar){
-		processProgress++;
 
-		bar.setProgress(processProgress*35);
+	static int processProgress = 0;
+	static String[] filere;
+
+	/**
+	 * @param fragmentManager : a Fragment Manager
+	 * @param bar             : a reference to the progressBar
+	 */
+	//	this method calls the next fragment (process)
+	// this version is only called the first time
+	static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
+		filere = new String[3];
+		nextProcess(fragmentManager, bar, null);
+	}
+
+	//	Overload
+	static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, String toSend) {
+		if (toSend != null) filere[processProgress - 1] = toSend;
+		if (fragmentManager == null) {
+			Log.d("CLICK", filere[0] + "|" + filere[1] + "|" + filere[2] + "|");
+			// here pass to next activity
+			return;
+		}
+
+
 		Fragment fragment;
-		switch (processProgress){
+		switch (++processProgress){
 			case 1: fragment = new Process1Fragment(); break;
 			case 2: fragment = new Process2Fragment(); break;
 			case 3: fragment = new Process3Fragment(); break;
@@ -33,6 +50,7 @@ class Utils {
 			fragmentTransaction.addToBackStack("filiereStack");
 		}
 		fragmentTransaction.commit();
+		bar.setProgress(processProgress*35);
 	}
 
 

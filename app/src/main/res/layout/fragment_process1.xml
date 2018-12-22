@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/process_num_layout">
 
         <Button
-            android:id="@+id/button_1"
+            android:id="@+id/button_1ere"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -75,7 +75,7 @@
             android:textColor="@color/colorWhite" />
 
         <Button
-            android:id="@+id/button_2"
+            android:id="@+id/button_2eme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
