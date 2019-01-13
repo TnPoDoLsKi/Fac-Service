@@ -1,4 +1,4 @@
-package tn.igc.projectone.filiere;
+package tn.igc.projectone.filiere.Fragments;
 
 
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import tn.igc.projectone.R;
+import tn.igc.projectone.filiere.Adapters.filiereCustomAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

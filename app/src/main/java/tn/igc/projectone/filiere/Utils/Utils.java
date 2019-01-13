@@ -1,4 +1,4 @@
-package tn.igc.projectone.filiere;
+package tn.igc.projectone.filiere.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,11 +7,14 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import tn.igc.projectone.R;
+import tn.igc.projectone.filiere.Fragments.Process1Fragment;
+import tn.igc.projectone.filiere.Fragments.Process2Fragment;
+import tn.igc.projectone.filiere.Fragments.Process3Fragment;
 
 
-class Utils {
+public class Utils {
 
-	static int processProgress = 0;
+    public static int processProgress = 0;
 	static String[] filere;
 
 	/**
@@ -20,13 +23,13 @@ class Utils {
 	 */
 	//	this method calls the next fragment (process)
 	// this version is only called the first time
-	static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
+    public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
 		filere = new String[3];
 		nextProcess(fragmentManager, bar, null);
 	}
 
 	//	Overload
-	static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, String toSend) {
+    public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, String toSend) {
 		if (toSend != null) filere[processProgress - 1] = toSend;
 		if (fragmentManager == null) {
 			Log.d("CLICK", filere[0] + "|" + filere[1] + "|" + filere[2] + "|");

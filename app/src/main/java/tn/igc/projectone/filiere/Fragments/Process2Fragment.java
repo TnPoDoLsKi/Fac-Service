@@ -1,4 +1,4 @@
-package tn.igc.projectone.filiere;
+package tn.igc.projectone.filiere.Fragments;
 
 
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import tn.igc.projectone.R;
+import tn.igc.projectone.filiere.Utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.

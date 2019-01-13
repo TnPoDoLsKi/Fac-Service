@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
 import tn.igc.projectone.R;
+import tn.igc.projectone.filiere.Utils.Utils;
 
 public class FiliereActivity extends AppCompatActivity {
 

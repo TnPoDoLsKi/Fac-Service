@@ -1,4 +1,4 @@
-package tn.igc.projectone.filiere;
+package tn.igc.projectone.filiere.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import tn.igc.projectone.R;
+import tn.igc.projectone.filiere.Utils.Utils;
 
-class filiereCustomAdapter extends ArrayAdapter<String> {
+public class filiereCustomAdapter extends ArrayAdapter<String> {
 	public filiereCustomAdapter(Context context, String[] filiere) {
 		super(context, R.layout.button_filiere_process3, filiere);
 	}

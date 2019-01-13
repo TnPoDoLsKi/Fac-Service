@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Project One</string>
 
+    <!--task : filiere-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choisir_votre_formation">Veuiller Choisir Votre Formation</string>
+    <string name="choisir_votre_niveau">Veuiller Choisir Votre Niveau</string>
+    <string name="choisir_votre_filiere">Veuiller Choisir Votre Filiere</string>
+    <!--end-->
+
 </resources>
