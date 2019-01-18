@@ -56,7 +56,8 @@ public class Process1Fragment extends Fragment {
 		for (int i = 0; i < layout.getChildCount(); i++) {
 			button = (Button) layout.getChildAt(i);
 			button.setOnClickListener(click);
-		}
+
+        }
 
 
 

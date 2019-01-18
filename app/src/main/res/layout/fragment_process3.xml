@@ -5,9 +5,10 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
     android:background="@color/colorWhite"
-    tools:context=".filiere.Fragments.Process3Fragment">
+    tools:context=".filiere.Fragments.Process3Fragment"
+    android:clickable="true"
+    android:focusable="true">
 
 
     <TextView
