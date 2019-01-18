@@ -1,28 +1,19 @@
-package tn.igc.projectone.search;
-
-
+package tn.igc.projectone.documentList;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -30,39 +21,40 @@ import java.util.ArrayList;
 
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
-import tn.igc.projectone.documentList.Document;
-import tn.igc.projectone.documentList.RecyclerViewAdapter;
+import tn.igc.projectone.search.SearchAdapter;
 
-public class    Search extends Fragment {
-    public Search() {
+public class DocumentList extends Fragment implements SearchView.OnQueryTextListener {
+    public DocumentList() {
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-
 
     }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        getActivity().setTitle("Search");
-        return inflater.inflate(R.layout.search_fragment, container, false);
+        getActivity().setTitle("Document List");
+
+        return inflater.inflate(R.layout.document_fragment, container, false);
     }
-
-
+   RecyclerView recyclerView;
 
     ArrayList<Document> documents;
     RecyclerViewAdapter recyclerViewAdapter;
+    RecyclerViewAdapter recyclerViewAdapter2;
+
     @Override
-        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.search_list);
+        setHasOptionsMenu(true);
+
+
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         documents = new ArrayList<>();
@@ -83,12 +75,38 @@ public class    Search extends Fragment {
 
         recyclerViewAdapter = new RecyclerViewAdapter(getContext(),documents);
         recyclerView.setAdapter(recyclerViewAdapter);
+
     }
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.action_search1);
+        inflater.inflate(R.menu.menu_main,menu);
+        MenuItem searchItem =menu.findItem(R.id.action_search);
 
+        SearchView searchView =(SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        String userInput = s.toLowerCase();
+        ArrayList<Document> newList =new ArrayList<>();
+        for (Document name : documents)
+        {
+            if(name.getDocName().toLowerCase().contains(userInput)){
+                newList.add(name);
+            }
+        }
+        recyclerViewAdapter.updateList(newList);
+        return false;
     }
 }

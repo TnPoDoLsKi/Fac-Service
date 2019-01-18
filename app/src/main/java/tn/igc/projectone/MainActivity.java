@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 
 import tn.igc.projectone.search.Search;
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //getSupportActionBar().hide(); //hide the title bar
 
         Button button =findViewById(R.id.search_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -35,4 +35,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
   }
+
   }

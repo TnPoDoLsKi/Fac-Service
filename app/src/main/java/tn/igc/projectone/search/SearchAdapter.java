@@ -41,7 +41,7 @@ CustomFilter cs ;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater=(LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row=inflater.inflate(R.layout.listview,null);
+        View row=inflater.inflate(R.layout.cardview,null);
         TextView t1=(TextView)row.findViewById(R.id.textview);
         t1.setText(originalArray.get(position));
 
