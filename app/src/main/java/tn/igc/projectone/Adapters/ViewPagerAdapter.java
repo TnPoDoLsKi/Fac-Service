@@ -1,4 +1,4 @@
-package tn.igc.projectone.Home;
+package tn.igc.projectone.Adapters;
 
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tn.igc.projectone.Fragments.Fragment_sem1;
+import tn.igc.projectone.Fragments.Fragment_sem2;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

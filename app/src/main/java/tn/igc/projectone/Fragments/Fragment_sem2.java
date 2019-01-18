@@ -1,4 +1,4 @@
-package com.example.lenovo.project_one.Recyle;
+package tn.igc.projectone.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,25 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lenovo.project_one.R;
+import tn.igc.projectone.Classes.Matiere;
+import tn.igc.projectone.Adapters.RecyclerViewAdapter;
+import tn.igc.projectone.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment_sem1 extends Fragment {
+public class Fragment_sem2 extends Fragment {
 
     View v;
     private RecyclerView mRecyclerView;
     private List<Matiere> matiereList ;
 
-    public Fragment_sem1() {
+    public Fragment_sem2() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.sem1_fragment,container,false);
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem1_recyclerView);
+        v = inflater.inflate(R.layout.sem2_fragment,container,false);
+        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem2_recyclerView);
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(),matiereList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(recyclerViewAdapter);
@@ -40,12 +42,11 @@ public class Fragment_sem1 extends Fragment {
         super.onCreate(savedInstanceState);
         matiereList = new ArrayList<>();
         matiereList.add(new Matiere("Algorithme et Structure des Données",R.mipmap.ic_code));
-        matiereList.add(new Matiere("Mathématiques Discrétes",R.mipmap.ic_math));
-        matiereList.add(new Matiere("Français 1",R.mipmap.ic_iffel));
-        matiereList.add(new Matiere("Culture d'Entreprise 1",R.mipmap.ic_soc));
-        matiereList.add(new Matiere("Programmation C 1",R.mipmap.ic_code));
-        matiereList.add(new Matiere("Algorithme et Structure des Données",R.mipmap.ic_code));
-        matiereList.add(new Matiere("Probabilité et Statistiques",R.mipmap.ic_math));
+        matiereList.add(new Matiere("Analyse Numérique",R.mipmap.ic_math));
+        matiereList.add(new Matiere("Français 2",R.mipmap.ic_iffel));
+        matiereList.add(new Matiere("Culture d'Entreprise 2",R.mipmap.ic_soc));
+        matiereList.add(new Matiere("Programmation C 2",R.mipmap.ic_code));
+        matiereList.add(new Matiere("Architecture d'Oridinateur",R.mipmap.ic_code));
 
     }
 }

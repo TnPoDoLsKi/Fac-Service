@@ -1,4 +1,4 @@
-package com.example.lenovo.project_one.Recyle;
+package tn.igc.projectone.Classes;
 
 public class Matiere {
     private String nom_matr;

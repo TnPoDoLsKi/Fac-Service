@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 
-import tn.igc.projectone.Home.Fragment_sem1;
-import tn.igc.projectone.Home.Fragment_sem2;
-import tn.igc.projectone.Home.ViewPagerAdapter;
+import tn.igc.projectone.Fragments.Fragment_sem1;
+import tn.igc.projectone.Fragments.Fragment_sem2;
+import tn.igc.projectone.Adapters.ViewPagerAdapter;
 
 // Hello from the other side
 
