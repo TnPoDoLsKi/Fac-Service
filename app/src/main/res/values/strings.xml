@@ -5,12 +5,8 @@
     <string name="choisir_votre_formation">Veuiller Choisir Votre Formation</string>
     <string name="choisir_votre_niveau">Veuiller Choisir Votre Niveau</string>
     <string name="choisir_votre_filiere">Veuiller Choisir Votre Filiere</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <!--end-->
     <!--task : uploadEnonce-->
     <string name="type_de_document">Type de document</string>
+    <string name="ajouter_une_autre_filiere">Ajouter une autre filiére</string>
 
 </resources>

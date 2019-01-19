@@ -11,7 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import tn.igc.projectone.R;
 
@@ -19,6 +23,11 @@ import tn.igc.projectone.R;
  * A simple {@link Fragment} subclass.
  */
 public class MainUploadFragment extends Fragment {
+
+    // used to store the list of selected tags (liste de filiere)
+    private ArrayList<String> filiereList;
+    private LinearLayout filiereListLayout;
+    private boolean multipleTags = false;
 
 
     public MainUploadFragment() {
@@ -37,7 +46,11 @@ public class MainUploadFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String filArr[] = {"prep", "ing", "licence"};
+        filiereList = new ArrayList<>();
+        filiereListLayout = view.findViewById(R.id.filiere_list);
+
+
+        final String filArr[] = {"Prep-A1", "Prep-A2", "FI-A1", "LFSI-A1",};
         String matArr[] = {"math", "info", "physique"};
         String semArr[] = {"Semestre 1", "Semester 2"};
         String typeArr[] = {"Cours", "TD", "DS", "Examen", "TP"};
@@ -60,18 +73,28 @@ public class MainUploadFragment extends Fragment {
         spinnerMat.setAdapter(adapterMat);
         spinnerType.setAdapter(adapterType);
 
-
+// Setup listener
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if ((parent == spinnerFil) || (parent == spinnerSem))
                     refreshMat();
-                Log.d("UPLOAD", "refreshMat: " + spinnerFil.getSelectedItem().toString());
-                /*
-                TODO : add multiple selection
-                TODO : add button and tags design
 
-                 */
+
+                if (parent == spinnerFil) {
+                    String tagString = spinnerFil.getSelectedItem().toString();
+                    if (!filiereList.contains(tagString)) {
+                        if (multipleTags) {
+                            filiereList.add(tagString);
+                            filiereListLayout.addView(addTag(tagString));
+                        } else {
+                            if (filiereList.size() > 0)
+                                filiereList.remove(0);
+                            filiereList.add(tagString);
+                        }
+                    }
+
+                }
 
 
             }
@@ -86,6 +109,17 @@ public class MainUploadFragment extends Fragment {
         spinnerFil.setOnItemSelectedListener(listener);
 
 
+//  multipleTags listener
+        filiereListLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!multipleTags) {
+                    multipleTags = true;
+                    ((ViewGroup) v).removeAllViews();
+                    ((ViewGroup) v).addView(addTag(spinnerFil.getSelectedItem().toString()));
+                }
+            }
+        });
     }
 
     /**
@@ -94,6 +128,36 @@ public class MainUploadFragment extends Fragment {
     private void refreshMat() {
 
 
+    }
+
+    /**
+     * method used to append new tags (filiere)
+     *
+     * @param tag : tag to be added
+     */
+    private View addTag(final String tag) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.button_tag_upload_ennonce, null);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMarginEnd(10);
+
+        view.setLayoutParams(lp);
+        ((TextView) view.findViewById(R.id.filiere_name)).setText(tag);
+
+        //each tag is removed onClick
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (filiereList.size() > 1) {
+                    filiereList.remove(tag);
+                    ((ViewGroup) v.getParent()).removeView(v);
+                    Log.d("REMOVE", "onClick:" + filiereList);
+                }
+
+            }
+        });
+
+        return view;
     }
 
 }
