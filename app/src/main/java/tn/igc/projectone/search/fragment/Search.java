@@ -1,13 +1,12 @@
-package tn.igc.projectone.search;
+package tn.igc.projectone.search.fragment;
 
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,22 +15,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
-
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
-import tn.igc.projectone.documentList.Document;
-import tn.igc.projectone.documentList.RecyclerViewAdapter;
+import tn.igc.projectone.documentList.classes.Document;
+import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
 
 public class    Search extends Fragment {
     public Search() {
@@ -50,7 +41,7 @@ public class    Search extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        getActivity().setTitle("Search");
+        getActivity().setTitle("");
         return inflater.inflate(R.layout.search_fragment, container, false);
     }
 
@@ -84,11 +75,29 @@ public class    Search extends Fragment {
         recyclerViewAdapter = new RecyclerViewAdapter(getContext(),documents);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.action_search1);
+        inflater.inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        //searchView.setIconifiedByDefault(true);
+        //searchView.setFocusable(true);
+        searchView.setIconified(false);
+        searchView.setQueryHint("Type something...");
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = searchView.findViewById(searchPlateId);
+       searchView.setMaxWidth(1800);
+        if (searchPlate!=null) {
+            searchPlate.setBackgroundColor(Color.GRAY);
 
+            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
+            if (searchText!=null) {
+                searchText.setTextColor(Color.DKGRAY);
+                searchText.setHintTextColor(Color.DKGRAY);
+            }
+        }
     }
 }

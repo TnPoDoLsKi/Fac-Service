@@ -1,4 +1,4 @@
-package tn.igc.projectone.documentList;
+package tn.igc.projectone.documentList.classes;
 
 import android.widget.ImageView;
 import android.widget.TextView;

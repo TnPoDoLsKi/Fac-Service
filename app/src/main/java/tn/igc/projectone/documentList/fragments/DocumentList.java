@@ -1,4 +1,4 @@
-package tn.igc.projectone.documentList;
+package tn.igc.projectone.documentList.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,13 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
 import java.util.ArrayList;
 
-import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
-import tn.igc.projectone.search.SearchAdapter;
+import tn.igc.projectone.documentList.classes.Document;
+import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
 
 public class DocumentList extends Fragment implements SearchView.OnQueryTextListener {
     public DocumentList() {
@@ -82,7 +79,7 @@ public class DocumentList extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_main,menu);
+        inflater.inflate(R.menu.menu_main1,menu);
         MenuItem searchItem =menu.findItem(R.id.action_search);
 
         SearchView searchView =(SearchView) searchItem.getActionView();
