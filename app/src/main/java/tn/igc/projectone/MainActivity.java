@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import tn.igc.projectone.search.fragment.Search;
+
 // Hello from the other side
 // From Wael
 // From Achouri
@@ -39,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new AddFragment();
                             break;
                         case R.id.parametre_button:
-                            selectedFragment = new settingFragment();
+                            selectedFragment = new AddFragment();
                             break;
                         case R.id.search_button:
-                            selectedFragment = new searchFragment();
+                            selectedFragment = new Search();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,selectedFragment).commit();
