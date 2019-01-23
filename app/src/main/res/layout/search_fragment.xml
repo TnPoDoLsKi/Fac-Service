@@ -194,15 +194,14 @@ android:background="@color/colorWhite"
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <RadioButton
-                android:buttonTint="@color/colors_style"
                 android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:buttonTint="@color/colors_style" />
 
             <RadioButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:buttonTint="@color/colors_style"
-                android:checked="true" />
+                android:buttonTint="@color/colors_style" />
         </RadioGroup>
 
         <TextView

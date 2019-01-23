@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.support.v7.app.AppCompatActivity;
 
 
+import tn.igc.projectone.documentList.fragments.DocumentList;
 import tn.igc.projectone.search.fragment.Search;
 
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new Search();
+                Fragment fragment = new DocumentList();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_view, fragment);
