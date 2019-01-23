@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomBar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new homeFragment());
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new AddFragment());
         bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navigationItemReselectedListener);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     switch (menuItem.getItemId()){
 
                         case R.id.home_button:
-                            selectedFragment = new homeFragment();
+                            selectedFragment = new AddFragment();
                             break;
                         case R.id.add_button:
                             selectedFragment = new AddFragment();
