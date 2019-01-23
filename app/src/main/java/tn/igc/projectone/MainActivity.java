@@ -3,10 +3,13 @@ package tn.igc.projectone;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import tn.igc.projectone.documentList.fragments.DocumentList;
 import tn.igc.projectone.search.fragment.Search;
 
 // Hello from the other side
@@ -24,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomBar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new AddFragment());
+        Fragment fragment = new DocumentList();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
         bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navigationItemReselectedListener);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
