@@ -13,6 +13,15 @@ import tn.igc.projectone.documentList.fragments.DocumentList;
 import tn.igc.projectone.search.fragment.Search;
 
 
+
+
+
+
+
+
+
+
+//from chaima
 public class MainActivity extends AppCompatActivity {
 
 
