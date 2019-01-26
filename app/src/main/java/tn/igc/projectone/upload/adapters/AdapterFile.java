@@ -38,12 +38,13 @@ public class AdapterFile extends ArrayAdapter<File> {
 
         name.setText(p.getName());
         percentage.setText(p.getPercentage());
-        Picasso.get()
+       /*// Picasso.get()
                 .load(p.getImage())
                 .placeholder(R.drawable.uploadicon)
                 .error(R.drawable.uploadicon)
-                .into(image);
-        //Picasso.get().load(p.getImage()).into(image);
+                .into(image);*/
+        Picasso.get().load(p.getImage()).into(image);
+
         return v;
 
     }

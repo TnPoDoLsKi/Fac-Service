@@ -15,15 +15,8 @@ import tn.igc.projectone.R;
 import tn.igc.projectone.upload.adapters.AdapterFile;
 import tn.igc.projectone.upload.other.File;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link uploadFragment1.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link uploadFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class uploadFragment1 extends Fragment {
+
+public class uploadFragment2 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,21 +28,14 @@ public class uploadFragment1 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public uploadFragment1() {
+    public uploadFragment2() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment uploadFragment1.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static uploadFragment1 newInstance(String param1, String param2) {
-        uploadFragment1 fragment = new uploadFragment1();
+    public static uploadFragment2 newInstance(String param1, String param2) {
+        uploadFragment2 fragment = new uploadFragment2();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,7 +56,8 @@ public class uploadFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v= inflater.inflate(R.layout.fragment_upload_fragment1, container, false);
+        View v = inflater.inflate(R.layout.fragment_upload_fragment2, container, false);
+
         ListView listView = v.findViewById(R.id.listview1);
 
         File f1 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
@@ -89,7 +76,8 @@ public class uploadFragment1 extends Fragment {
                 filelist);
 
         listView.setAdapter(adapterFile);
-       return v;
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,16 +95,7 @@ public class uploadFragment1 extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
