@@ -113,24 +113,18 @@
         android:id="@+id/textView6"
         android:layout_width="174dp"
         android:layout_height="26dp"
-        android:layout_marginBottom="119dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
         android:fontFamily="@font/lato"
         android:gravity="center_vertical"
         android:text="Vous avez un compte?"
         android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/CNX"
-        app:layout_constraintTop_toBottomOf="@+id/CNX"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="@+id/CNX" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="92dp"
         android:layout_height="23dp"
         android:layout_marginBottom="119dp"
-        android:layout_marginTop="25dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/lato"
         android:text="Connexion"
@@ -140,7 +134,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/CNX"
         app:layout_constraintTop_toBottomOf="@+id/CNX"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>
