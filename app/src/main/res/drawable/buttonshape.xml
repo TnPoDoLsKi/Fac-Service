@@ -6,8 +6,8 @@
         />
     <gradient
 
-        android:startColor="@color/colorAccent"
-        android:endColor="@color/colorAccent"
+        android:startColor="#f0f0f0"
+        android:endColor="#f0f0f0"
 
 
         />

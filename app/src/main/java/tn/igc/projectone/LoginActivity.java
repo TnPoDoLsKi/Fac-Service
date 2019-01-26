@@ -37,14 +37,14 @@ public class LoginActivity extends Activity {
                 if (null == strUserName || strUserName.length() == 0)
                 {
                     // showToast("Enter Your Name");
-                    userName.setError( "username is required!" );
+                    userName.setError( "Pseudo toujours réquis!" );
                     isUserValidated = false;
                 }
                 if (null == strPassword || strPassword.length() == 0)
                 {
                     // showToast("Enter Your Password");
                     isPasswordValidated = false;
-                    userPassword.setError( "password is required!" );
+                    userPassword.setError( "mot de passe toujours réquis!" );
                 }
             }
         });
