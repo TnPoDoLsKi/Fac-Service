@@ -1,4 +1,4 @@
-package tn.igc.projectone.Fragments;
+package tn.igc.projectone.Home.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import tn.igc.projectone.Classes.Matiere;
-import tn.igc.projectone.Adapters.RecyclerViewAdapter;
+import tn.igc.projectone.Home.Classes.Matiere;
+import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
 import tn.igc.projectone.R;
 
 import java.util.ArrayList;

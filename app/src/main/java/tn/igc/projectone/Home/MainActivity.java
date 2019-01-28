@@ -1,4 +1,4 @@
-package tn.igc.projectone;
+package tn.igc.projectone.Home;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 
-import tn.igc.projectone.Fragments.Fragment_sem1;
-import tn.igc.projectone.Fragments.Fragment_sem2;
-import tn.igc.projectone.Adapters.ViewPagerAdapter;
+import tn.igc.projectone.Home.Fragments.Fragment_sem1;
+import tn.igc.projectone.Home.Fragments.Fragment_sem2;
+import tn.igc.projectone.Home.Adapters.ViewPagerAdapter;
+import tn.igc.projectone.R;
 
 // Hello from the other side
 

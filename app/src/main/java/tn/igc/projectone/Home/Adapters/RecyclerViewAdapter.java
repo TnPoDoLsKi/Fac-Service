@@ -1,4 +1,4 @@
-package tn.igc.projectone.Adapters;
+package tn.igc.projectone.Home.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import tn.igc.projectone.Classes.Matiere;
+import tn.igc.projectone.Home.Classes.Matiere;
 import tn.igc.projectone.R;
 
 import java.util.List;

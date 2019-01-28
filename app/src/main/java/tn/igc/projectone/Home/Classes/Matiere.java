@@ -1,4 +1,4 @@
-package tn.igc.projectone.Classes;
+package tn.igc.projectone.Home.Classes;
 
 public class Matiere {
     private String nom_matr;
