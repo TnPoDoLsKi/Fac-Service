@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:itemBackground">#000000</item>
+
         <item name="android:fontFamily">@font/lato</item>
     </style>
 

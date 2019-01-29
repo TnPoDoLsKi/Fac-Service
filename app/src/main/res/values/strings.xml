@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Project One</string>
+    <string name="home">accuei</string>
+    <string name="search">recherche</string>
+    <string name="settings">parametre</string>
+    <string name="add">ajouter</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
     <!--task : filiere-->
     <string name="choisir_votre_formation">Veuiller Choisir Votre Formation</string>
