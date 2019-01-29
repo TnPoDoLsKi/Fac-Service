@@ -1,8 +1,10 @@
-package tn.igc.projectone;
+package tn.igc.projectone.authentification;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import tn.igc.projectone.R;
 
 public class Splash extends Activity {
 

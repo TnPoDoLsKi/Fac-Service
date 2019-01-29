@@ -7,5 +7,6 @@
     android:layout_height="wrap_content"
     android:textColor="#7fffffff"
     android:drawableLeft="@drawable/drawable_left_spinner"
+    android:background="@android:color/transparent"
     android:maxLines="1"
     android:textSize="18sp" />

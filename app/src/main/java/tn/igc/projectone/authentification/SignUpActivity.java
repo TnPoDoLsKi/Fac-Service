@@ -1,10 +1,7 @@
-package tn.igc.projectone;
+package tn.igc.projectone.authentification;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +12,8 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tn.igc.projectone.R;
 
 public class SignUpActivity extends AppCompatActivity {
     Spinner formation,filiere;

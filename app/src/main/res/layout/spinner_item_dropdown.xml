@@ -5,6 +5,6 @@
     android:layout_height="50dp"
     android:layout_marginTop="30dp"
     android:maxLines="1"
-    android:background="#2a8bd2"
+    android:background="@drawable/bg"
     android:textColor="#fff"
     android:textSize="20sp" />
