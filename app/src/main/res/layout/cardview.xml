@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="75dp"
     android:orientation="vertical"
@@ -77,8 +75,6 @@
             app:layout_constraintTop_toTopOf="@+id/textView1" />
 
 
-
-
         <at.markushi.ui.CircleButton
             android:id="@+id/circleButton"
             android:layout_width="22.5dp"
@@ -93,7 +89,6 @@
 
 
     </android.support.constraint.ConstraintLayout>
-
 
 
 </android.support.v7.widget.CardView>

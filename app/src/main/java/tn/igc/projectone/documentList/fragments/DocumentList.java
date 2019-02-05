@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tn.igc.projectone.R;
-import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
+import tn.igc.projectone.documentList.classes.Document;
 
 public class DocumentList extends Fragment implements SearchView.OnQueryTextListener {
     public DocumentList() {
@@ -38,7 +38,8 @@ public class DocumentList extends Fragment implements SearchView.OnQueryTextList
 
         return inflater.inflate(R.layout.document_fragment, container, false);
     }
-   RecyclerView recyclerView;
+
+    RecyclerView recyclerView;
 
     ArrayList<Document> documents;
     RecyclerViewAdapter recyclerViewAdapter;
@@ -55,22 +56,22 @@ public class DocumentList extends Fragment implements SearchView.OnQueryTextList
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         documents = new ArrayList<>();
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algorithme","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algorithme DS","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algebre Cours","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Analyse TD","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Math signal Cours","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algorithme TP","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algorithme Exams","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Transmission TD","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algebre TD","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Analyse Exams","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Transmission COurs","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algebre Exams","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algorithme Cours","Masmoudi Ousema"));
-        documents.add(new Document(R.drawable.index,R.drawable.ic_check_circle_24px,"Algorithme TD","Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algorithme", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algorithme DS", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algebre Cours", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Analyse TD", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Math signal Cours", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algorithme TP", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algorithme Exams", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Transmission TD", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algebre TD", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Analyse Exams", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Transmission COurs", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algebre Exams", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algorithme Cours", "Masmoudi Ousema"));
+        documents.add(new Document(R.drawable.index, R.drawable.ic_check_circle_24px, "Algorithme TD", "Masmoudi Ousema"));
 
-        recyclerViewAdapter = new RecyclerViewAdapter(getContext(),documents);
+        recyclerViewAdapter = new RecyclerViewAdapter(getContext(), documents);
         recyclerView.setAdapter(recyclerViewAdapter);
 
     }
@@ -79,10 +80,10 @@ public class DocumentList extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_main1,menu);
-        MenuItem searchItem =menu.findItem(R.id.action_search);
+        inflater.inflate(R.menu.menu_main1, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchView searchView =(SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
 
     }
@@ -96,10 +97,9 @@ public class DocumentList extends Fragment implements SearchView.OnQueryTextList
     @Override
     public boolean onQueryTextChange(String s) {
         String userInput = s.toLowerCase();
-        ArrayList<Document> newList =new ArrayList<>();
-        for (Document name : documents)
-        {
-            if(name.getDocName().toLowerCase().contains(userInput)){
+        ArrayList<Document> newList = new ArrayList<>();
+        for (Document name : documents) {
+            if (name.getDocName().toLowerCase().contains(userInput)) {
                 newList.add(name);
             }
         }

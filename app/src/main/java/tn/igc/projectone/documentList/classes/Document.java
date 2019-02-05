@@ -1,9 +1,5 @@
 package tn.igc.projectone.documentList.classes;
 
-import android.widget.ImageView;
-import android.widget.TextView;
-
-
 public class Document {
     private int profilePic;
     private int checked;

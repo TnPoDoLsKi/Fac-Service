@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-android:background="@color/colorWhite"
+    android:background="@color/colorWhite"
     tools:context="tn.igc.projectone.search.fragment.Search">
-
 
 
     <android.support.constraint.ConstraintLayout
@@ -246,8 +245,6 @@ android:background="@color/colorWhite"
 
 
     </ScrollView>
-
-
 
 
 </LinearLayout>
