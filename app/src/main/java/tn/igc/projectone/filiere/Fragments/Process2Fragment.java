@@ -12,7 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import java.util.ArrayList;
 
 import tn.igc.projectone.R;
 import tn.igc.projectone.filiere.Utils.Utils;
@@ -54,10 +57,22 @@ public class Process2Fragment extends Fragment {
 
 		Button b1 = getView().findViewById(R.id.button_1ere);
 		b1.setOnClickListener(click);
-		Button b2 = getView().findViewById(R.id.button_3eme);
+        Button b2 = getView().findViewById(R.id.button_2eme);
 		b2.setOnClickListener(click);
-		Button b3 = getView().findViewById(R.id.button_2eme);
+        Button b3 = getView().findViewById(R.id.button_3eme);
 		b3.setOnClickListener(click);
+        ImageView img3 = getView().findViewById(R.id.img_3eme);
+
+        // testing for some majors to remove 3rd year
+        ArrayList<String> twoYearMajors = new ArrayList<>();
+        twoYearMajors.add("Master");
+        twoYearMajors.add("Prep");
+        twoYearMajors.add("5c5080a2bb95dc104b9934ad");
+
+        if (twoYearMajors.contains(Utils.filere[0])) {
+            b3.setVisibility(View.GONE);
+            img3.setVisibility(View.GONE);
+        }
 	}
 
 }

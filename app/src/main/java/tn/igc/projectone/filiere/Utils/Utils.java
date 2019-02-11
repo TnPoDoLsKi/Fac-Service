@@ -15,13 +15,15 @@ import tn.igc.projectone.filiere.Fragments.Process3Fragment;
 public class Utils {
 
     public static int processProgress = 0;
-	static String[] filere;
+    public static String[] filere;
 
 	/**
 	 * @param fragmentManager : a Fragment Manager
 	 * @param bar             : a reference to the progressBar
 	 */
-	//	this method calls the next fragment (process)
+
+
+    //	this method calls the next fragment (process)
 	// this version is only called the first time
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
 		filere = new String[3];

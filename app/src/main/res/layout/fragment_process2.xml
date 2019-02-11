@@ -124,7 +124,7 @@
             app:layout_constraintTop_toTopOf="@+id/button_2eme" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/img_3eme"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:elevation="10dp"

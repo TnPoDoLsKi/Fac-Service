@@ -1,5 +1,6 @@
 package tn.igc.projectone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 
 import tn.igc.projectone.documentList.fragments.DocumentList;
 import tn.igc.projectone.filiere.API.APIInterface;
+import tn.igc.projectone.filiere.FiliereActivity;
 import tn.igc.projectone.search.fragment.Search;
 import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
@@ -24,10 +26,15 @@ import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 //from chaima
 public class MainActivity extends AppCompatActivity {
     public static APIInterface apiInterface;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startActivity(new Intent(MainActivity.this, FiliereActivity.class));
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomBar);
         Fragment fragment = new DocumentList();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -36,36 +43,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
         bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navigationItemReselectedListener);
 
-/*
-        apiInterface = APIClient.getClient().create(APIInterface .class);
-        Call<JsonArray> call_all_majors = apiInterface.getAllMajors();
 
-        call_all_majors.enqueue(new Callback<JsonArray>() {
-            @Override
-            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-
-                JsonArray majorsArray = response.body();
-                Log.d("123456", "onResponse: "+majorsArray);
-
-
-                int size = majorsArray.size();
-                for (int i = 0; i < size; i++) {
-                    JsonObject obj = response.body().get(i).getAsJsonObject();
-                    JsonElement majorName = obj.get("name");
-
-
-
-                }
-
-            }
-
-
-            @Override
-            public void onFailure(Call<JsonArray> call, Throwable t) {
-                Log.d("","onFailure:"+t);
-
-            }
-        });*/
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
