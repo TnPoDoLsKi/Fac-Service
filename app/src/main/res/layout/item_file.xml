@@ -28,7 +28,7 @@
 
         <TextView
             android:text="TextView"
-            android:layout_width="50dp"
+            android:layout_width="1dp"
             android:layout_height="match_parent"
             android:id="@+id/Tvpourcent"
             android:textColor="@color/colorAccent1"/>

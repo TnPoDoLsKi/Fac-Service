@@ -1,17 +1,18 @@
 package tn.igc.projectone;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.fxn.pix.Pix;
 
-import tn.igc.projectone.upload.fragments.uploadFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import tn.igc.projectone.upload.fragments.uploadFragment1;
 import tn.igc.projectone.upload.fragments.uploadFragment2;
 
@@ -47,14 +48,24 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new uploadFragment2();
+                Fragment fragment = new uploadFragment1();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frag, fragment);
                 fragmentTransaction.commit();
+
+
 //hhhhhhhhhhhhhhhhhhhhhhhhhhhh
+
 
             }
         });
+    }
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

@@ -1,12 +1,12 @@
 package tn.igc.projectone.upload.other;
 
-public class File {
+public class FileImage {
     String image;
     String name;
     String percentage;
 
 
-    public File(String image, String name, String percentage) {
+    public FileImage(String image, String name, String percentage) {
         this.image = image;
         this.name = name;
         this.percentage = percentage;
@@ -38,7 +38,7 @@ public class File {
 
     @Override
     public String toString() {
-        return "File{" +
+        return "FileImage{" +
                 "image='" + image + '\'' +
                 ", name='" + name + '\'' +
                 ", percentage='" + percentage + '\'' +

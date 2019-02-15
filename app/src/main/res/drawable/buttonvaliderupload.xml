@@ -5,7 +5,7 @@
     <corners android:radius="25dp" /><!-- round corners for imagebutton-->
 
     <size
-        android:width="70dp"
-        android:height="15dp"
+        android:width="100dp"
+        android:height="10dp"
         />
 </shape>

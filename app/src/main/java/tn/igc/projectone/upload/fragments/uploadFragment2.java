@@ -1,9 +1,7 @@
 package tn.igc.projectone.upload.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
 import tn.igc.projectone.R;
 import tn.igc.projectone.upload.adapters.AdapterFile;
-import tn.igc.projectone.upload.other.File;
+import tn.igc.projectone.upload.other.FileImage;
 
 
 public class uploadFragment2 extends Fragment {
@@ -60,12 +59,12 @@ public class uploadFragment2 extends Fragment {
 
         ListView listView = v.findViewById(R.id.listview1);
 
-        File f1 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        File f2 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        File f3 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        File f4 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f1 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f2 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f3 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f4 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
 
-        ArrayList<File> filelist = new ArrayList<>();
+        ArrayList<FileImage> filelist = new ArrayList<>();
         filelist.add(f1);
         filelist.add(f2);
         filelist.add(f3);

@@ -1,28 +1,31 @@
 package tn.igc.projectone.upload.fragments;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.fxn.pix.Options;
+import com.fxn.pix.Pix;
+import com.fxn.utility.PermUtil;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
 import tn.igc.projectone.R;
 import tn.igc.projectone.upload.adapters.AdapterFile;
-import tn.igc.projectone.upload.other.File;
+import tn.igc.projectone.upload.other.FileImage;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link uploadFragment1.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link uploadFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class uploadFragment1 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,19 +38,13 @@ public class uploadFragment1 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private ListView listView;
+
     public uploadFragment1() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment uploadFragment1.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static uploadFragment1 newInstance(String param1, String param2) {
         uploadFragment1 fragment = new uploadFragment1();
         Bundle args = new Bundle();
@@ -71,14 +68,23 @@ public class uploadFragment1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View v= inflater.inflate(R.layout.fragment_upload_fragment1, container, false);
-        ListView listView = v.findViewById(R.id.listview1);
+         listView = v.findViewById(R.id.lv4);
+        Button btn_upload = v.findViewById(R.id.button4);
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        File f1 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        File f2 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        File f3 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        File f4 = new File("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+                Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(2).setFrontfacing(true));
 
-        ArrayList<File> filelist = new ArrayList<>();
+            }
+        });
+
+/*        FileImage f1 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f2 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f3 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+        FileImage f4 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
+
+        ArrayList<FileImage> filelist = new ArrayList<>();
         filelist.add(f1);
         filelist.add(f2);
         filelist.add(f3);
@@ -88,8 +94,50 @@ public class uploadFragment1 extends Fragment {
                 R.id.tvname,
                 filelist);
 
-        listView.setAdapter(adapterFile);
+        listView.setAdapter(adapterFile);*/
        return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("hhhh", "requestCode ->  " + requestCode+"  resultCode "+resultCode);
+        switch (requestCode) {
+            case (100): {
+                if (resultCode == Activity.RESULT_OK) {
+                    ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                    ArrayList<FileImage> filelist = new ArrayList<>();
+                   // myAdapter.addImage(returnValue);
+                    for (String s : returnValue) {
+                        Log.e("val", " ->  " + s);
+                        FileImage fileImage = new FileImage(s,"","");
+                        filelist.add(fileImage);
+                    }
+                    AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
+                            R.layout.item_file,
+                            R.id.tvname,
+                            filelist);
+
+                    listView.setAdapter(adapterFile);
+                }
+            }
+            break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(1));
+                } else {
+                    Toast.makeText(getActivity(), "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,16 +155,7 @@ public class uploadFragment1 extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
