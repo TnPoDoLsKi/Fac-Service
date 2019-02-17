@@ -1,6 +1,5 @@
 package tn.igc.projectone;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,9 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import tn.igc.projectone.Settings.SettingsFragment;
 import tn.igc.projectone.documentList.fragments.DocumentList;
 import tn.igc.projectone.filiere.API.APIInterface;
-import tn.igc.projectone.filiere.FiliereActivity;
 import tn.igc.projectone.search.fragment.Search;
 import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(MainActivity.this, FiliereActivity.class));
+        //startActivity(new Intent(MainActivity.this, FiliereActivity.class));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomBar);
         Fragment fragment = new DocumentList();
@@ -57,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new AddFragment();
                         break;
                     case R.id.add_button:
-                        selectedFragment = new AddFragment();
+                        selectedFragment = new MainUploadFragment();
                         break;
                     case R.id.parametre_button:
-                        selectedFragment = new MainUploadFragment();
+                        selectedFragment = new SettingsFragment();
                         break;
                     case R.id.search_button:
                         selectedFragment = new Search();

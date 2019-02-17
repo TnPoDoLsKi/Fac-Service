@@ -69,17 +69,18 @@ public class MainUploadFragment extends Fragment {
         filiereList = new ArrayList<>();
 
         filiereListLayout = view.findViewById(R.id.filiere_list);
-        //majorsList();
-        //final String filArr[] = {"Prep-A1", "Prep-A2", "FI-A1", "LFSI-A1",};
-//        final String filArr[] = (String[]) majorsList().toArray(new String[0]);
 
         String semArr[] = {"Semestre 1", "Semester 2"};
-        String typeArr[] = {"Cours", "TD", "DS", "Examen", "TP"};
+        final String typeArr[] = {"Examen", "DS", "Cours", "TD", "TP"};
+        final String sessionArr[] = {"Principale", "Contrôle"};
 
         spinnerMat = view.findViewById(R.id.spinner_matiere);
         spinnerFil = view.findViewById(R.id.spinner_filier);
-        Spinner spinnerType = view.findViewById(R.id.spinner_type);
+        final Spinner spinnerType = view.findViewById(R.id.spinner_type);
         final Spinner spinnerSem = view.findViewById(R.id.spinner_semester);
+// session section
+        final Spinner spinnerSession = view.findViewById(R.id.spinner_session);
+        final LinearLayout sessionLayout = view.findViewById(R.id.session_section);
 
         majorsList();
 
@@ -122,6 +123,19 @@ public class MainUploadFragment extends Fragment {
                     else
                         semesterNbr = 2;
                 }
+
+                //type spinner
+                if (parent == spinnerType) {
+                    String typeString = parent.getSelectedItem().toString();
+                    if (typeString == typeArr[0] || typeString == typeArr[1]) {
+                        ArrayAdapter<String> adapterSession = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, sessionArr);
+                        spinnerSession.setAdapter(adapterSession);
+                        sessionLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        sessionLayout.setVisibility(View.INVISIBLE);
+                    }
+
+                }
             }
 
             @Override
@@ -133,6 +147,7 @@ public class MainUploadFragment extends Fragment {
 
         spinnerFil.setOnItemSelectedListener(listener);
         spinnerSem.setOnItemSelectedListener(listener);
+        spinnerType.setOnItemSelectedListener(listener);
 
 //  multipleTags listener
         filiereListLayout.setOnClickListener(new View.OnClickListener() {

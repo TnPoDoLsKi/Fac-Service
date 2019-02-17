@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
-        userName=(EditText)findViewById(R.id.editText);
+        userName = (EditText) findViewById(R.id.editText1);
         userPassword=(EditText)findViewById(R.id.editText2);
         connect=(Button)findViewById(R.id.button2);
         mdpforgot=(Button)findViewById(R.id.button);
