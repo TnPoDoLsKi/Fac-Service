@@ -20,9 +20,9 @@
         </activity>
 
         <activity android:name=".MainActivity">
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.SEARCH"/>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<action android:name="android.intent.action.SEARCH"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
         </activity>
 
         <activity android:name=".authentification.activities.LoginActivity" android:theme="@style/Theme.AppCompat.NoActionBar">

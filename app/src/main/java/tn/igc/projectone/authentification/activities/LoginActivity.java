@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
@@ -59,7 +60,7 @@ public class LoginActivity extends Activity {
 
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
-            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("major",SaveSharedPreference.getMajor(getApplicationContext()));
             startActivity(intent);
         } else {
@@ -149,7 +150,7 @@ public class LoginActivity extends Activity {
                             Toast.makeText(LoginActivity.this,token,Toast.LENGTH_LONG).show();
                             SaveSharedPreference.setMajor(getApplicationContext(), major);
                             SaveSharedPreference.setToken(getApplicationContext(),token);
-                            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
 
 

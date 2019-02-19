@@ -43,18 +43,13 @@ public interface APIInterface {
     Call<JsonArray> getAllCorrections();
 
 
-
-    @GET("task/{id}")
-    Call<JsonObject> getOneTask(@Path("id") String id);
-
     @FormUrlEncoded
-    @POST("task")
-    Call<HashMap> createTask(@Field("message") String msg, @Field("date") String date);
-
+    @POST("auth/signin")
+    Call<JsonObject>basicLogin(@Field("email") String email,@Field("password") String password);
     @FormUrlEncoded
-    @PUT("task/{id}")
-    Call<HashMap> updateTask(@Path("id") String idd, @Field("message") String message);
+    @POST("auth/signup")
+    Call<HashMap>basicsignup(@Field("email") String email,@Field("password") String password,@Field("type") String type,@Field("firstName")String firstName,@Field("lastName")String lastName,@Field("major")String major);
+    @GET("majors")
+    Call<JsonArray> getAllMajors();
 
-    @DELETE("task/{id}")
-    Call<HashMap> deleteTask(@Path("id") String id);
 }
