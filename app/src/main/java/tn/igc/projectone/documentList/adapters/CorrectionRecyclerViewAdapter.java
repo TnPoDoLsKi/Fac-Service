@@ -2,6 +2,7 @@ package tn.igc.projectone.documentList.adapters;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,21 +23,22 @@ import java.util.ArrayList;
 
 import at.markushi.ui.CircleButton;
 import tn.igc.projectone.MainActivity;
+import tn.igc.projectone.documentList.fragments.PdfViewer;
 import tn.igc.projectone.R;
-import tn.igc.projectone.documentList.classes.Document;
-import tn.igc.projectone.documentList.fragments.CorrectionList;
+import tn.igc.projectone.documentList.classes.CorrectionDoc;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class CorrectionRecyclerViewAdapter extends RecyclerView.Adapter<CorrectionRecyclerViewAdapter.MyViewHolder> {
 
     Context mContext ;
-    private ArrayList<Document> lsDocument;
-    private ArrayList<Document> documentListFull;
+    private ArrayList<CorrectionDoc> lsDocument;
+    private ArrayList<CorrectionDoc> documentListFull;
     DownloadManager dm;
     long queueid;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Document> lsDocument) {
+
+    public CorrectionRecyclerViewAdapter(Context context, ArrayList<CorrectionDoc> lsDocument) {
         this.mContext = context;
         this.lsDocument= lsDocument;
     }
@@ -50,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final MyViewHolder vHolder = new MyViewHolder(v);
         final String path =lsDocument.get(i).getFilePath();
         final String title =lsDocument.get(i).getTitle();
-/*        vHolder.circleButton.setOnClickListener(new View.OnClickListener() {
+        /*vHolder.circleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "fwe", Toast.LENGTH_LONG).show();
@@ -59,24 +61,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.setTitle(title);
                 queueid = dm.enqueue(request);
-
             }
         });*/
-        //ADD -----------------------------------------------------------------------------------------------------------------
-        //Begin
         vHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                String b_id = lsDocument.get(vHolder.getAdapterPosition()).get_id();
-                int b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
-                Boolean b_verifiedByProf= lsDocument.get(vHolder.getAdapterPosition()).getVerifiedByProf();
-                String b_title = lsDocument.get(vHolder.getAdapterPosition()).getTitle();
-                String b_firstName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getFirstName();
-                String b_lastName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getLastName();
                 String b_filePath=lsDocument.get(vHolder.getAdapterPosition()).getFilePath();
-                String b_description=lsDocument.get(vHolder.getAdapterPosition()).getDescription();
 
 
 
@@ -84,26 +76,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 Bundle bundle = new Bundle();
-                bundle.putString("b_id",b_id);
-                bundle.putInt("b_avatar",b_avatar);
-                bundle.putBoolean("b_verifiedByProf",b_verifiedByProf);
-                bundle.putString("b_title",b_title);
-                bundle.putString("b_firstName",b_firstName);
-                bundle.putString("b_lastName",b_lastName);
+
                 bundle.putString("b_filePath",b_filePath);
-                bundle.putString("b_description",b_description);
 
 
 
 
-                Fragment corrFragment = new CorrectionList();
-                corrFragment.setArguments(bundle);
+                Fragment PdfViewer = new PdfViewer();
+                PdfViewer.setArguments(bundle);
                 FragmentManager fragmentManager = ((MainActivity)mContext).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null).replace(R.id.container, corrFragment);
+                fragmentTransaction.addToBackStack(null).replace(R.id.container, PdfViewer);
                 fragmentTransaction.commit();
             }
         });
+
+
+
 
 
         return vHolder;
@@ -114,10 +103,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.docTitle.setText(lsDocument.get(i).getTitle());
+
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
+        if (lsDocument.get(i).getUser().getName().equals("Corrige de l'enseignant ")){
+            myViewHolder.userName.setTextColor(Color.parseColor("#008000"));
+        }
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
         myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
-
 
 
     }
@@ -144,9 +136,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
             userName = (TextView) itemView.findViewById(R.id.userName) ;
             avatar = (ImageView) itemView.findViewById(R.id.avatar);
+
         }
     }
-    public void updateList(ArrayList<Document> newList){
+    public void updateList(ArrayList<CorrectionDoc> newList){
         lsDocument =new ArrayList<>();
         lsDocument.addAll(newList);
         notifyDataSetChanged();

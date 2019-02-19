@@ -15,20 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
 
 import at.markushi.ui.CircleButton;
 import tn.igc.projectone.MainActivity;
+import tn.igc.projectone.documentList.fragments.PdfViewer;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.classes.Document;
-import tn.igc.projectone.documentList.fragments.CorrectionList;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapter<DocumentRecyclerViewAdapterInCorrection.MyViewHolder> {
 
     Context mContext ;
     private ArrayList<Document> lsDocument;
@@ -36,47 +35,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     DownloadManager dm;
     long queueid;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Document> lsDocument) {
+
+    public DocumentRecyclerViewAdapterInCorrection(Context context, ArrayList<Document> lsDocument) {
         this.mContext = context;
         this.lsDocument= lsDocument;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,  int i) {
         View v;
         v=LayoutInflater.from(mContext).inflate(R.layout.cardview,viewGroup,false);
-        // ------------------------------- Add final to vHolder declart -------------------------------------------------------
         final MyViewHolder vHolder = new MyViewHolder(v);
         final String path =lsDocument.get(i).getFilePath();
         final String title =lsDocument.get(i).getTitle();
-/*        vHolder.circleButton.setOnClickListener(new View.OnClickListener() {
+        /*vHolder.circleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "fwe", Toast.LENGTH_LONG).show();
                 dm = (DownloadManager) v.getContext().getSystemService(DOWNLOAD_SERVICE);
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(path));
+
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.setTitle(title);
                 queueid = dm.enqueue(request);
 
+
             }
         });*/
-        //ADD -----------------------------------------------------------------------------------------------------------------
-        //Begin
+
+
+
         vHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                String b_id = lsDocument.get(vHolder.getAdapterPosition()).get_id();
-                int b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
-                Boolean b_verifiedByProf= lsDocument.get(vHolder.getAdapterPosition()).getVerifiedByProf();
-                String b_title = lsDocument.get(vHolder.getAdapterPosition()).getTitle();
-                String b_firstName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getFirstName();
-                String b_lastName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getLastName();
                 String b_filePath=lsDocument.get(vHolder.getAdapterPosition()).getFilePath();
-                String b_description=lsDocument.get(vHolder.getAdapterPosition()).getDescription();
 
 
 
@@ -84,26 +78,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 Bundle bundle = new Bundle();
-                bundle.putString("b_id",b_id);
-                bundle.putInt("b_avatar",b_avatar);
-                bundle.putBoolean("b_verifiedByProf",b_verifiedByProf);
-                bundle.putString("b_title",b_title);
-                bundle.putString("b_firstName",b_firstName);
-                bundle.putString("b_lastName",b_lastName);
+
                 bundle.putString("b_filePath",b_filePath);
-                bundle.putString("b_description",b_description);
 
 
 
 
-                Fragment corrFragment = new CorrectionList();
-                corrFragment.setArguments(bundle);
+                Fragment PdfViewer = new PdfViewer();
+                PdfViewer.setArguments(bundle);
                 FragmentManager fragmentManager = ((MainActivity)mContext).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null).replace(R.id.container, corrFragment);
+                fragmentTransaction.addToBackStack(null).replace(R.id.container, PdfViewer);
                 fragmentTransaction.commit();
             }
         });
+
 
 
         return vHolder;
@@ -117,7 +106,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
         myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
-
 
 
     }
@@ -144,6 +132,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
             userName = (TextView) itemView.findViewById(R.id.userName) ;
             avatar = (ImageView) itemView.findViewById(R.id.avatar);
+
         }
     }
     public void updateList(ArrayList<Document> newList){
