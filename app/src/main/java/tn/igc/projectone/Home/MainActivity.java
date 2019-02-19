@@ -18,6 +18,7 @@ import io.realm.RealmConfiguration;
 import tn.igc.projectone.Home.Fragments.Fragment_sem1;
 import tn.igc.projectone.Home.Fragments.Fragment_sem2;
 import tn.igc.projectone.Home.Adapters.ViewPagerAdapter;
+import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.R;
 
 // Hello from the other side
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity  {
        // setTitle("Matiéres");
 
         //Realm init
-        Realm.init(getApplicationContext());
+        /*Realm.init(getApplicationContext());
 
 
         RealmConfiguration config =
@@ -64,19 +65,19 @@ public class MainActivity extends AppCompatActivity  {
                         .deleteRealmIfMigrationNeeded()
                         .build();
 
-        Realm.setDefaultConfiguration(config);
+        Realm.setDefaultConfiguration(config);*/
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
 
         setContentView(R.layout.activity_main);
-        /*Fragment fragment = new Matiere_Fragment();
+        Fragment fragment = new Matiere_Fragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_view, fragment);
-        fragmentTransaction.commit();*/
+        fragmentTransaction.commit();
 
 
-        tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
+        /*tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewPager_id);
         ll = (LinearLayout) findViewById(R.id.lvv);
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        });*/
     }
 
 

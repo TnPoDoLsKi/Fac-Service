@@ -18,55 +18,64 @@ import tn.igc.projectone.R;
 
 public class Matiere_Fragment extends Fragment {
     private TabLayout tabLayout;
-    private ViewPager viewPager ;
-    private ViewPagerAdapter adapter ;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
     private LinearLayout ll;
     View v;
 
     public Matiere_Fragment() {
     }
 
-   /* @Nullable
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.matiere_fragment, container, false);
-        tabLayout = (TabLayout) v.findViewById(R.id.tablayout_id);
-        viewPager = (ViewPager) v.findViewById(R.id.viewPager_id);
-        ll = (LinearLayout) v.findViewById(R.id.lvv);
+        tabLayout = (TabLayout)v.findViewById(R.id.tablayout_id);
+        viewPager = (ViewPager)v.findViewById(R.id.viewPager_id);
+        setupViewPager(viewPager);
+        ll = (LinearLayout)v.findViewById(R.id.lvv);
+        tabLayout.setupWithViewPager(viewPager);
+
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void setupViewPager(ViewPager viewPager) {
 
 
-        adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
 
-        adapter.AddFragment(new Fragment_sem1(),"Semestre 1");
-        adapter.AddFragment(new Fragment_sem2(),"Semestre 2");
+        // adapter.AddFragment();
+        adapter.AddFragment(new Fragment_sem1(), "Semestre 1");
+        adapter.AddFragment(new Fragment_sem2(), "Semestre 2");
 
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-
-
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 tabLayout.getTabAt(position).select();
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
         });
 
-    }*/
 
+
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+
+    }
 }
