@@ -17,22 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-    }
-}
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "io.realm:realm-gradle-plugin:5.9.0"
-    }
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
 }
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -43,6 +34,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+
+    implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
     implementation 'com.github.markushi:circlebutton:1.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -50,10 +48,7 @@ dependencies {
     implementation 'com.android.support:design:+'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.google.code.gson:gson:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+
+    implementation 'org.jetbrains:annotations-java5:15.0'
 
 }

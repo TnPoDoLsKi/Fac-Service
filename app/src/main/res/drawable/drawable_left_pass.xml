@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    // I think it should be more smaller if i set 15sp.
+    <item
+        android:drawable="@drawable/passicon"
+        android:width="15sp"
+        android:height="15sp"
+        />
+
+</layer-list >
