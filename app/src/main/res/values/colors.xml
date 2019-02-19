@@ -6,5 +6,6 @@
     <color name="colorAccent1">#494949</color>
     <color name="colornoir">#000000</color>
     <color name="colorblanc">#FFFFFF</color>
+    <color name="colorgrille">#B4AFAF</color>
 
 </resources>

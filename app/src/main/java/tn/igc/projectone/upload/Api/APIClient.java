@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
     private static Retrofit retrofit = null;
-    private static String API_BASE="https://igc.tn/api/";
+    private static String API_BASE="http://igc.tn:3005/api/";
 
     public static Retrofit getClient() {
         //creat logger

@@ -2,6 +2,10 @@ package tn.igc.projectone.upload.Api;
 
 import android.content.Intent;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.lang.reflect.Array;
 import java.util.HashMap;
 
 import okhttp3.MultipartBody;
@@ -16,6 +20,12 @@ import retrofit2.http.Part;
 
 public interface APIInterface {
     @Multipart
-    @POST("upload/")
-    Call<HashMap> uploadimage(@Part MultipartBody.Part file);
+    @POST("documents/upload/")
+    Call<JsonArray> uploadimage(@Part MultipartBody.Part files);
+
+    @FormUrlEncoded
+    @POST("documents")
+    Call<JsonObject> createdocument(@Field("title")String title, @Field("type")String type, @Field("filePath")String filePath, @Field("user")String user, @Field("major") String major, @Field("subject")String subject, @Field("year")String year, @Field("semestre")String semestre, @Field("profName")String profName, @Field("session")String session, @Field("corrections") Array corrections);
+
+
 }

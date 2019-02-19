@@ -1,6 +1,8 @@
 package tn.igc.projectone.upload.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,16 +14,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.PermUtil;
+import com.google.gson.JsonArray;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import tn.igc.projectone.R;
+import tn.igc.projectone.upload.Api.APIClient;
+import tn.igc.projectone.upload.Api.APIInterface;
 import tn.igc.projectone.upload.adapters.AdapterFile;
 import tn.igc.projectone.upload.other.FileImage;
 
@@ -39,6 +55,12 @@ public class uploadFragment1 extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private ListView listView;
+    private APIInterface apiInterface;
+    private Button btn_valider;
+    private Call<JsonArray> call_create_task;
+    private ArrayList<FileImage> filelist = new ArrayList<>();
+    private ProgressBar progressBarShow;
+    private int sumCliqueBtnUpload=0;
 
     public uploadFragment1() {
         // Required empty public constructor
@@ -69,7 +91,9 @@ public class uploadFragment1 extends Fragment {
         // Inflate the layout for this fragment
        View v= inflater.inflate(R.layout.fragment_upload_fragment1, container, false);
          listView = v.findViewById(R.id.lv4);
+         progressBarShow = v.findViewById(R.id.progressBarshow);
         Button btn_upload = v.findViewById(R.id.button4);
+        btn_valider = v.findViewById(R.id.button5);
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +102,8 @@ public class uploadFragment1 extends Fragment {
 
             }
         });
+
+
 
 /*        FileImage f1 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
         FileImage f2 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
@@ -102,23 +128,81 @@ public class uploadFragment1 extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("hhhh", "requestCode ->  " + requestCode+"  resultCode "+resultCode);
+        Toast.makeText(getContext(),"hhhhhhhhhhhhhhhhhhh ", Toast.LENGTH_LONG).show();
+
         switch (requestCode) {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
+                    progressBarShow.setVisibility(View.VISIBLE);
+
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                    ArrayList<FileImage> filelist = new ArrayList<>();
+
+                    //mettre btn valider visible
+                    btn_valider.setVisibility(View.VISIBLE);
                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
                         FileImage fileImage = new FileImage(s,"","");
                         filelist.add(fileImage);
+                        //upload
+                        File file = new File(s);
+                        Log.e("length", " ->  " + file.length());
+                        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileReqBody);
+                        apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
+
+                        call_create_task = apiInterface.uploadimage(part);
+
+                        btn_valider.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+
+
+                        call_create_task.enqueue(new Callback<JsonArray>() {
+                            @Override
+                            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                                if(response.isSuccessful()){
+                                    //send filePath
+                                    Toast.makeText(getContext(),response.body().getAsJsonArray().get(0).toString(), Toast.LENGTH_LONG).show();
+                                    DocumentFragment documentFragment = new DocumentFragment();
+                                    Bundle args = new Bundle();
+                                    args.putString("filePath", "YourValue");
+                                    documentFragment.setArguments(args);
+                                    //getFragmentManager().beginTransaction().add(R.id.frag, documentFragment).commit();
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.frag, documentFragment);
+                                    fragmentTransaction.commit();
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<JsonArray> call, Throwable t) {
+                                Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
+
+                                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                                alertDialog.setTitle("connexion");
+                                alertDialog.setMessage("Aucune connexion internet");
+
+                                alertDialog.show();
+
+
+
+                            }
+                        });
+                            }
+                        });
                     }
                     AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
                             R.layout.item_file,
                             R.id.tvname,
                             filelist);
-
+                    progressBarShow.setVisibility(View.INVISIBLE);
                     listView.setAdapter(adapterFile);
+
                 }
             }
             break;
@@ -146,8 +230,12 @@ public class uploadFragment1 extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getActivity(), "yezii", Toast.LENGTH_LONG).show();
 
-
+    }
 
     @Override
     public void onDetach() {
