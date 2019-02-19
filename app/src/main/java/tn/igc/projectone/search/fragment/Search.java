@@ -7,7 +7,6 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,46 +20,36 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.APIClient;
-import tn.igc.projectone.APIInterface;
-import tn.igc.projectone.AddFragment;
+import tn.igc.projectone.API.APIClient;
+import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
-import tn.igc.projectone.documentList.classes.CorrectionDoc;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
 import tn.igc.projectone.documentList.classes.User;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
-import static java.nio.file.Paths.get;
 
 public class    Search extends Fragment implements SearchView.OnQueryTextListener, View.OnTouchListener {
     ArrayList<Document> documents;
     RecyclerViewAdapter recyclerViewAdapter;
     ProgressBar progressBar;
     public APIInterface apiInterface;
-    Realm realm;
-    RealmConfiguration configuration;
     RecyclerView recyclerView;
     RadioButton tous;
     RadioButton exams;

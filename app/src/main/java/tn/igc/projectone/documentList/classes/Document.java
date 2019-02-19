@@ -1,23 +1,17 @@
 package tn.igc.projectone.documentList.classes;
 
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 import tn.igc.projectone.R;
 
 
-public class Document extends RealmObject {
+public class Document  {
     private String type;
     private int semestre;
     private Boolean approved;
     private int NBDowloads;
     private boolean verifiedByProf;
     private String session;
-   @PrimaryKey
     private String _id;
     private String title;
     private String filePath;
