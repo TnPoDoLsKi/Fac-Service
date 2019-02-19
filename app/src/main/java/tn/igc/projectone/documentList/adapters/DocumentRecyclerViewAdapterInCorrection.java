@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapte
         final MyViewHolder vHolder = new MyViewHolder(v);
         final String path =lsDocument.get(i).getFilePath();
         final String title =lsDocument.get(i).getTitle();
-        /*vHolder.circleButton.setOnClickListener(new View.OnClickListener() {
+        vHolder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dm = (DownloadManager) v.getContext().getSystemService(DOWNLOAD_SERVICE);
@@ -61,7 +62,7 @@ public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapte
 
 
             }
-        });*/
+        });
 
 
 
@@ -117,8 +118,7 @@ public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public View cardView;
-        public CircleButton circleButton;
-
+        public Button downloadButton;
         private TextView docTitle;
         private ImageView verifiedImage ;
         private TextView userName;
@@ -127,7 +127,7 @@ public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapte
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView =(CardView) itemView.findViewById(R.id.doc_card);
-
+            downloadButton=(Button) itemView.findViewById(R.id.download) ;
             docTitle = (TextView) itemView.findViewById(R.id.docTitle) ;
             verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
             userName = (TextView) itemView.findViewById(R.id.userName) ;

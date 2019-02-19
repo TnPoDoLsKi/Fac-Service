@@ -1,16 +1,13 @@
 package tn.igc.projectone.documentList.classes;
 
-import android.text.SpannableString;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+
 import tn.igc.projectone.R;
 
-public class CorrectionDoc extends RealmObject {
+public class CorrectionDoc  {
  private Boolean approved;
  private Boolean verifiedByProf;
  private int score;
- @PrimaryKey
  private String _id;
  private String title;
  private String filePath;

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
@@ -20,14 +19,8 @@ android {
     productFlavors {
     }
 }
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath "io.realm:realm-gradle-plugin:5.9.0"
-    }
-}
+
+
 
 repositories {
     mavenCentral()

@@ -1,14 +1,12 @@
 package tn.igc.projectone.documentList.classes;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+
 import tn.igc.projectone.R;
 
-public class User extends RealmObject {
+public class User {
 
     private  String type ;
     private  Boolean deleted;
-    @PrimaryKey
     private  String _id;
     private  String email;
     private  String firstName;
