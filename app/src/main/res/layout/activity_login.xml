@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/loginform"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".authentification.LoginActivity"
+    tools:context=".authentification.activities.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <Button
@@ -29,7 +34,7 @@
         android:layout_marginBottom="36dp"
         android:layout_marginEnd="17dp"
         android:layout_marginStart="216dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/buttonshape2"
         android:fontFamily="@font/lato_bold"
         android:text="Continuer"
@@ -37,10 +42,10 @@
         android:textColor="#f0f0f0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/inscrip"
-        app:layout_constraintVertical_bias="0.544" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -91,11 +96,9 @@
         android:drawableLeft="@drawable/drawable_left_pers"
         android:ems="10"
         android:fontFamily="@font/lato"
-        android:hint="  Pseudo"
-        android:inputType="textPersonName"
-        android:text="  "
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -111,7 +114,7 @@
         android:drawableLeft="@drawable/drawable_left_pass"
         android:ems="10"
         android:fontFamily="@font/lato"
-        android:hint="  Mot de passe"
+        android:hint="Mot de passe"
         android:inputType="textPassword"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="@+id/editText"
@@ -162,3 +165,4 @@
         app:layout_constraintStart_toStartOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 </android.support.constraint.ConstraintLayout>
+</ScrollView>

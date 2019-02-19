@@ -1,4 +1,4 @@
-package tn.igc.projectone.authentification;
+package tn.igc.projectone.authentification.activities;
 
 import android.app.Activity;
 import android.content.Intent;
