@@ -2,6 +2,8 @@ package tn.igc.projectone.Home.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -36,11 +38,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final MyViewHolder vHolder = new MyViewHolder(v);
         dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.dialog_choix);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         vHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext,lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
                 dialog.show();
             }
         });
@@ -60,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return lstMatieres.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder  extends RecyclerView.ViewHolder{
         private TextView tv_nom;
         private ImageView img_matr ;
         private CardView cardView;

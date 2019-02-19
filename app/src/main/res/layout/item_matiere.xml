@@ -47,11 +47,11 @@ app:cardElevation="6dp">
         <TextView
             android:id="@+id/nom_matiere_id"
             android:layout_width="290dp"
-            android:layout_height="25dp"
-
+            android:layout_height="37dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
             android:text="Nom Matiere"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
