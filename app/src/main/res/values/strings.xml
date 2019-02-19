@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Project One</string>
-    <string-array name="formation_array">
-        <item>select an item</item>
-        <item>Licence</item>
-        <item>Ingénieur</item>
-        <item>Préparatoire</item>
+    <string name="home">accuei</string>
+    <string name="search">recherche</string>
+    <string name="settings">parametre</string>
+    <string name="add">ajouter</string>
 
-    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
