@@ -61,7 +61,7 @@
             android:layout_width="18.5dp"
             android:layout_height="18.5dp"
             android:layout_marginEnd="8dp"
-
+            app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/downloadImage"
             app:layout_constraintTop_toTopOf="parent"
@@ -74,7 +74,7 @@
             android:layout_height="18.5dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
-
+            app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/userName" />
