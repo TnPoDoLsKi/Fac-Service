@@ -2,7 +2,6 @@ package tn.igc.projectone.upload.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,11 +24,8 @@ import com.google.gson.JsonArray;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -220,8 +216,6 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getActivity(), "yezii", Toast.LENGTH_LONG).show();
-
     }
 
     @Override
