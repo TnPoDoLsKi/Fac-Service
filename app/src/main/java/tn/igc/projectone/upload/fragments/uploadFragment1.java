@@ -44,11 +44,9 @@ import tn.igc.projectone.upload.other.FileImage;
 
 
 public class uploadFragment1 extends Fragment implements AdapterView.OnItemClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -59,12 +57,14 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     private APIInterface apiInterface;
     private Button btn_valider;
     private Call<JsonArray> call_create_task;
-    private ArrayList<FileImage> filelist = new ArrayList<>();
-    private ArrayList<MultipartBody.Part> multipart = new ArrayList<>();
-
     private ProgressBar progressBarShow;
     private int sumCliqueBtnUpload=0;
     private FileImage fileImage;
+    private Button btn_upload;
+
+    private ArrayList<FileImage> filelist = new ArrayList<>();
+    private ArrayList<MultipartBody.Part> multipart = new ArrayList<>();
+
 
     public uploadFragment1() {
         // Required empty public constructor
@@ -92,12 +92,12 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
        View v= inflater.inflate(R.layout.fragment_upload_fragment1, container, false);
-         listView = v.findViewById(R.id.lv4);
-         progressBarShow = v.findViewById(R.id.progressBarshow);
-         Button btn_upload = v.findViewById(R.id.button4);
-         btn_valider = v.findViewById(R.id.button5);
+          listView = v.findViewById(R.id.lv4);
+          progressBarShow = v.findViewById(R.id.progressBarshow);
+          btn_upload = v.findViewById(R.id.button4);
+          btn_valider = v.findViewById(R.id.button5);
 
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,23 +108,19 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
             }
         });
 
-        //**********************************************************************
-        apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
-
-        call_create_task = apiInterface.uploadimage(multipart);
-
         btn_valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-
+                apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
+                call_create_task = apiInterface.uploadimage(multipart);
                 call_create_task.enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                         if(response.isSuccessful()){
-                            //send filePath
                             for(int i=0;i<response.body().size();i++) {
+                                Log.e("image", " ->  " +response.body().getAsJsonArray().get(i).toString() );
+
                                 Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
                             }           /*DocumentFragment documentFragment = new DocumentFragment();
                                         Bundle args = new Bundle();
@@ -148,7 +144,6 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setTitle("connexion");
                         alertDialog.setMessage("Aucune connexion internet");
-
                         alertDialog.show();
 
 
@@ -157,27 +152,24 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                 });
             }
         });
-        //**************************************************************
-
-
        return v;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("hhhh", "requestCode ->  " + requestCode+"  resultCode "+resultCode);
-        Toast.makeText(getContext(),"hhhhhhhhhhhhhhhhhhh ", Toast.LENGTH_LONG).show();
 
         switch (requestCode) {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
+
                     progressBarShow.setVisibility(View.VISIBLE);
 
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
 
                     //mettre btn valider visible
                     btn_valider.setVisibility(View.VISIBLE);
+
                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
@@ -198,9 +190,6 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                     progressBarShow.setVisibility(View.INVISIBLE);
                     listView.setAdapter(adapterFile);
                     listView.setOnItemClickListener(this);
-
-
-
                 }
             }
             break;
@@ -249,6 +238,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                 R.id.tvname,
                 filelist);
         listView.setAdapter(adapterFile);
+        multipart.remove(position);
     }
 
 
