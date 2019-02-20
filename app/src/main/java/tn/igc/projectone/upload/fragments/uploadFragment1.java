@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -42,7 +43,7 @@ import tn.igc.projectone.upload.adapters.AdapterFile;
 import tn.igc.projectone.upload.other.FileImage;
 
 
-public class uploadFragment1 extends Fragment {
+public class uploadFragment1 extends Fragment implements AdapterView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +62,7 @@ public class uploadFragment1 extends Fragment {
     private ArrayList<FileImage> filelist = new ArrayList<>();
     private ProgressBar progressBarShow;
     private int sumCliqueBtnUpload=0;
+    private FileImage fileImage;
 
     public uploadFragment1() {
         // Required empty public constructor
@@ -92,8 +94,9 @@ public class uploadFragment1 extends Fragment {
        View v= inflater.inflate(R.layout.fragment_upload_fragment1, container, false);
          listView = v.findViewById(R.id.lv4);
          progressBarShow = v.findViewById(R.id.progressBarshow);
-        Button btn_upload = v.findViewById(R.id.button4);
-        btn_valider = v.findViewById(R.id.button5);
+         Button btn_upload = v.findViewById(R.id.button4);
+         btn_valider = v.findViewById(R.id.button5);
+
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,24 +106,6 @@ public class uploadFragment1 extends Fragment {
             }
         });
 
-
-
-/*        FileImage f1 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        FileImage f2 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        FileImage f3 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-        FileImage f4 = new FileImage("https://i.imgur.com/tGbaZCY.jpg","smyle","50%");
-
-        ArrayList<FileImage> filelist = new ArrayList<>();
-        filelist.add(f1);
-        filelist.add(f2);
-        filelist.add(f3);
-        filelist.add(f4);
-        AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
-                R.layout.item_file,
-                R.id.tvname,
-                filelist);
-
-        listView.setAdapter(adapterFile);*/
        return v;
     }
 
@@ -142,7 +127,7 @@ public class uploadFragment1 extends Fragment {
                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
-                        FileImage fileImage = new FileImage(s,"","");
+                        fileImage = new FileImage(s,"","");
                         filelist.add(fileImage);
                         //upload
                         File file = new File(s);
@@ -202,6 +187,8 @@ public class uploadFragment1 extends Fragment {
                             filelist);
                     progressBarShow.setVisibility(View.INVISIBLE);
                     listView.setAdapter(adapterFile);
+                    listView.setOnItemClickListener(this);
+
 
                 }
             }
@@ -241,6 +228,16 @@ public class uploadFragment1 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        FileImage item = filelist.remove(position);
+        AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
+                R.layout.item_file,
+                R.id.tvname,
+                filelist);
+        listView.setAdapter(adapterFile);
     }
 
 
