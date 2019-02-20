@@ -17,18 +17,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.Home.Adapters.DRecyclerViewAdapter;
-import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
-import tn.igc.projectone.Home.Classes.APIinterface;
-import tn.igc.projectone.Home.Classes.Client;
-import tn.igc.projectone.Home.Classes.Document;
-import tn.igc.projectone.Home.Classes.Matiere;
-import tn.igc.projectone.Home.Classes.User;
+import tn.igc.projectone.API.APIClient;
+import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
+import tn.igc.projectone.documentList.classes.Document;
+import tn.igc.projectone.documentList.classes.User;
 import tn.igc.projectone.R;
 
 public class DocumentList extends Fragment {
@@ -36,8 +33,8 @@ public class DocumentList extends Fragment {
     //Realm mRealm;
     private RecyclerView mRecyclerView;
     private ArrayList<Document> docList ;
-    public APIinterface apiInterface;
-    DRecyclerViewAdapter recyclerViewAdapter;
+    public APIInterface apiInterface;
+    RecyclerViewAdapter recyclerViewAdapter;
 
 
     public DocumentList() {
@@ -64,7 +61,7 @@ public class DocumentList extends Fragment {
         String id_doc = data.getString("mat_id");
 
 
-        APIinterface apiInterface = Client.getClient().create(APIinterface.class);
+        apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<JsonArray> call_subject_type = apiInterface.getSubject_type(id_doc,type);
         call_subject_type.enqueue(new Callback<JsonArray>() {
             @Override
@@ -86,15 +83,15 @@ public class DocumentList extends Fragment {
                         JsonElement doc_path = doc.get("filePath");
 
 
-                        String d_title = doc_title.toString();
-                        String d_id = doc_id.toString();
+                        String d_title = doc_title.getAsString();
+                        String d_id = doc_id.getAsString();
                         Boolean d_ver = doc_ver.getAsBoolean();
                         String d_path = doc_path.getAsString();
 
                         JsonElement us_fn = doc_user.get("firstName");
                         JsonElement us_ln = doc_user.get("lastName");
-                        String u_fn = us_fn.toString();
-                        String u_ln = us_ln.toString();
+                        String u_fn = us_fn.getAsString();
+                        String u_ln = us_ln.getAsString();
 
                         User u = new User(u_fn, u_ln, R.drawable.index);
 
@@ -105,7 +102,7 @@ public class DocumentList extends Fragment {
                 }
 
 
-                    recyclerViewAdapter = new DRecyclerViewAdapter(getContext(), docList);
+                    recyclerViewAdapter = new RecyclerViewAdapter(getContext(), docList);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mRecyclerView.setAdapter(recyclerViewAdapter);
 

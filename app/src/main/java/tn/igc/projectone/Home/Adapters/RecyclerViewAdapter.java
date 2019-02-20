@@ -22,7 +22,7 @@ import android.widget.Toast;
 import tn.igc.projectone.Home.Classes.Matiere;
 import tn.igc.projectone.Home.Fragments.DocumentList;
 
-import tn.igc.projectone.Home.MainActivity;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 
 import java.util.List;
@@ -77,9 +77,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view) {
 
                 Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
-                mat_id = lstMatieres.get(vHolder.getAdapterPosition()).getId();
-                int j = mat_id.length();
-                id_m = mat_id.substring(1, j - 1);
+                id_m = lstMatieres.get(vHolder.getAdapterPosition()).getId();
+
                 dialog.show();
             }
         });
@@ -170,7 +169,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         fragment.setArguments(data);
         FragmentManager fragmentManager = ((MainActivity)mContext).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null).replace(R.id.fragment_view, fragment);
+        fragmentTransaction.addToBackStack(null).replace(R.id.container, fragment);
         fragmentTransaction.commit();
 
     }

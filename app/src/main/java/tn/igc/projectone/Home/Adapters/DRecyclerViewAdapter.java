@@ -19,11 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import at.markushi.ui.CircleButton;
 
 
-import tn.igc.projectone.Home.Classes.Document;
-import tn.igc.projectone.Home.MainActivity;
+import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.R;
 
 import static android.content.Context.DOWNLOAD_SERVICE;

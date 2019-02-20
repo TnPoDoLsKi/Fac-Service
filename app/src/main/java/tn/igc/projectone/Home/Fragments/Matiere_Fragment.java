@@ -1,7 +1,5 @@
 package tn.igc.projectone.Home.Fragments;
 
-import android.app.ActionBar;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

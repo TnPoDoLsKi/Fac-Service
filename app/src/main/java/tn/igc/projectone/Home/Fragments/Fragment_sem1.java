@@ -20,8 +20,8 @@ import com.google.gson.JsonObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.Home.Classes.APIinterface;
-import tn.igc.projectone.Home.Classes.Client;
+import tn.igc.projectone.API.APIClient;
+import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.Home.Classes.Matiere;
 import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
 import tn.igc.projectone.R;
@@ -35,7 +35,7 @@ public class Fragment_sem1 extends Fragment {
     //Realm mRealm;
     private RecyclerView mRecyclerView;
     private List<Matiere> matiereList ;
-    public APIinterface apiInterface;
+    public APIInterface apiInterface;
     ProgressBar progressBar;
     RecyclerViewAdapter recyclerViewAdapter;
 
@@ -81,7 +81,7 @@ public class Fragment_sem1 extends Fragment {
         matiereList = new ArrayList<>();
         //mRealm = Realm.getDefaultInstance();
         final String Mid = "5c64773e38e7f64f8d07dc1b";
-        APIinterface apiInterface = Client.getClient().create(APIinterface.class);
+        apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<JsonObject> call_one_maj = apiInterface.getMajor(Mid);
         call_one_maj.enqueue(new Callback<JsonObject>() {
             @Override
@@ -103,10 +103,9 @@ public class Fragment_sem1 extends Fragment {
                     if (sub_sem.getAsString().equals("1")) {
                         JsonElement sub_name = sub.get("name");
                         JsonElement sub_id = sub.get("_id");
-                        String namee = sub_name.toString();
-                        final String id = sub_id.toString();
-                        int j = namee.length();
-                        final String name = namee.substring(1, j - 1);
+                        String name = sub_name.getAsString();
+                        final String id = sub_id.getAsString();
+
                         m = new Matiere(id, name, R.mipmap.ic_soc);
                         matiereList.add(m);
 
