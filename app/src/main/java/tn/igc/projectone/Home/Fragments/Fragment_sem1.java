@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -35,6 +36,7 @@ public class Fragment_sem1 extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Matiere> matiereList ;
     public APIinterface apiInterface;
+    ProgressBar progressBar;
     RecyclerViewAdapter recyclerViewAdapter;
 
 
@@ -45,15 +47,37 @@ public class Fragment_sem1 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.sem1_fragment,container,false);
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem1_recyclerView);
+       /* mRecyclerView = (RecyclerView)v.findViewById(R.id.sem1_recyclerView);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS1);
+        progressBar.setVisibility(View.VISIBLE);*/
 
 
         return v ;
     }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem1_recyclerView);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS1);
+        progressBar.setVisibility(View.VISIBLE);
+
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        apiMatieresS1();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        apiMatieresS1();
+    }
+
+    public void apiMatieresS1(){
         matiereList = new ArrayList<>();
         //mRealm = Realm.getDefaultInstance();
         final String Mid = "5c64773e38e7f64f8d07dc1b";
@@ -62,8 +86,12 @@ public class Fragment_sem1 extends Fragment {
         call_one_maj.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Matiere m;
                 //Realm realm = null;
+                if(matiereList!=null){
+                    matiereList.clear();
+                }
 
                 JsonArray subs_array = response.body().getAsJsonArray("subjects");
                 for (int i = 0; i < subs_array.size(); i++)
@@ -138,10 +166,9 @@ public class Fragment_sem1 extends Fragment {
 
             }
         });
-
     }
 
- /*  matiereList.add(new Matiere("1", "Algorithme et Structure des Données", R.mipmap.ic_code));
+    /*  matiereList.add(new Matiere("1", "Algorithme et Structure des Données", R.mipmap.ic_code));
                 matiereList.add(new Matiere("2", "Mathématiques Discrétes", R.mipmap.ic_math));
                 matiereList.add(new Matiere("3", "Français 1", R.mipmap.ic_iffel));
                 matiereList.add(new Matiere("4", "Culture d'Entreprise 1", R.mipmap.ic_soc));

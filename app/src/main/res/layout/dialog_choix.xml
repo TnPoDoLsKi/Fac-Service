@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:background="@color/colorWhite"
+                android:id="@+id/btn_c"
                 android:paddingLeft="30dp"
                 android:text="Cours"
                 android:textAlignment="textStart" />
@@ -51,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:id="@+id/btn_td"
                 android:background="@color/colorWhite"
                 android:paddingLeft="30dp"
                 android:text="TD"
@@ -61,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:id="@+id/btn_ds"
                 android:background="@color/colorWhite"
                 android:paddingLeft="30dp"
                 android:text="DS"
@@ -70,8 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:id="@+id/btn_ex"
                 android:background="@color/colorWhite"
                 android:paddingLeft="30dp"
+
                 android:text="Examens"
                 android:textAlignment="textStart" />
 
@@ -79,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:id="@+id/btn_tp"
                 android:background="@color/colorWhite"
                 android:paddingLeft="30dp"
                 android:text="TP"

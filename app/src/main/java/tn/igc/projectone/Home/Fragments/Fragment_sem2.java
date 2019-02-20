@@ -28,6 +28,7 @@ import tn.igc.projectone.Home.Classes.Matiere;
 import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
 import tn.igc.projectone.R;
 
+import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class Fragment_sem2 extends Fragment {
     private List<Matiere> matiereList ;
     RecyclerViewAdapter recyclerViewAdapter;
     public APIinterface apiInterfaceToken;
+    ProgressBar progressBar;
 
     public Fragment_sem2() {
     }
@@ -48,17 +50,36 @@ public class Fragment_sem2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.sem2_fragment,container,false);
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem2_recyclerView);
+       /* mRecyclerView = (RecyclerView)v.findViewById(R.id.sem2_recyclerView);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS2);*/
+
 
 
         return v ;
+    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem2_recyclerView);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS2);
+        progressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        matiereList = new ArrayList<>();
 
+        apiMatieresS2();
+    }
+    public void onResume() {
+        super.onResume();
+
+        apiMatieresS2();
+
+    }
+
+    public void apiMatieresS2(){
+        matiereList = new ArrayList<>();
         final String Mid = "5c64773e38e7f64f8d07dc1b";
         //mRealm = Realm.getDefaultInstance();
 
@@ -67,8 +88,12 @@ public class Fragment_sem2 extends Fragment {
         call_one_maj.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Matiere m;
                 //Realm realm = null;
+                if(matiereList!=null){
+                    matiereList.clear();
+                }
 
                 JsonArray subs_array = response.body().getAsJsonArray("subjects");
                 for (int i = 0; i < subs_array.size(); i++)
@@ -142,6 +167,7 @@ public class Fragment_sem2 extends Fragment {
 
             }
         });
+
 
     }
 
