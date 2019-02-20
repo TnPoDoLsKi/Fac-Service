@@ -60,6 +60,8 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     private Button btn_valider;
     private Call<JsonArray> call_create_task;
     private ArrayList<FileImage> filelist = new ArrayList<>();
+    private ArrayList<MultipartBody.Part> multipart = new ArrayList<>();
+
     private ProgressBar progressBarShow;
     private int sumCliqueBtnUpload=0;
     private FileImage fileImage;
@@ -106,6 +108,58 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
             }
         });
 
+        //**********************************************************************
+        apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
+
+        call_create_task = apiInterface.uploadimage(multipart);
+
+        btn_valider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                call_create_task.enqueue(new Callback<JsonArray>() {
+                    @Override
+                    public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                        if(response.isSuccessful()){
+                            //send filePath
+                            for(int i=0;i<response.body().size();i++) {
+                                Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
+                            }           /*DocumentFragment documentFragment = new DocumentFragment();
+                                        Bundle args = new Bundle();
+                                        args.putString("filePath", "YourValue");
+                                        documentFragment.setArguments(args);*/
+                            //getFragmentManager().beginTransaction().add(R.id.frag, documentFragment).commit();
+
+                                        /*FragmentManager fragmentManager = getFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.frag, documentFragment);
+                                        fragmentTransaction.commit();*/
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonArray> call, Throwable t) {
+                        Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                        alertDialog.setTitle("connexion");
+                        alertDialog.setMessage("Aucune connexion internet");
+
+                        alertDialog.show();
+
+
+
+                    }
+                });
+            }
+        });
+        //**************************************************************
+
+
        return v;
     }
 
@@ -134,52 +188,8 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                         Log.e("length", " ->  " + file.length());
                         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
                         MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileReqBody);
-                        apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
+                        multipart.add(part);
 
-                        call_create_task = apiInterface.uploadimage(part);
-
-                        btn_valider.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-
-
-                        call_create_task.enqueue(new Callback<JsonArray>() {
-                            @Override
-                            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                                if(response.isSuccessful()){
-                                    //send filePath
-                                    Toast.makeText(getContext(),response.body().getAsJsonArray().get(0).toString(), Toast.LENGTH_LONG).show();
-                                    DocumentFragment documentFragment = new DocumentFragment();
-                                    Bundle args = new Bundle();
-                                    args.putString("filePath", "YourValue");
-                                    documentFragment.setArguments(args);
-                                    //getFragmentManager().beginTransaction().add(R.id.frag, documentFragment).commit();
-                                    FragmentManager fragmentManager = getFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.frag, documentFragment);
-                                    fragmentTransaction.commit();
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<JsonArray> call, Throwable t) {
-                                Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
-
-                                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                                alertDialog.setTitle("connexion");
-                                alertDialog.setMessage("Aucune connexion internet");
-
-                                alertDialog.show();
-
-
-
-                            }
-                        });
-                            }
-                        });
                     }
                     AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
                             R.layout.item_file,
@@ -188,6 +198,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                     progressBarShow.setVisibility(View.INVISIBLE);
                     listView.setAdapter(adapterFile);
                     listView.setOnItemClickListener(this);
+
 
 
                 }

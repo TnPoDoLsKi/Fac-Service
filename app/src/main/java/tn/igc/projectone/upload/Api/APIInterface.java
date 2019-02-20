@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import okhttp3.MultipartBody;
@@ -21,7 +22,7 @@ import retrofit2.http.Part;
 public interface APIInterface {
     @Multipart
     @POST("documents/upload/")
-    Call<JsonArray> uploadimage(@Part MultipartBody.Part files);
+    Call<JsonArray> uploadimage(@Part ArrayList<MultipartBody.Part> files);
 
     @FormUrlEncoded
     @POST("documents")
