@@ -59,9 +59,9 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     private Button btn_valider;
     private Call<JsonArray> call_create_task;
     private ProgressBar progressBarShow;
-    private int sumCliqueBtnUpload=0;
     private FileImage fileImage;
     private Button btn_upload;
+    private int conteur_nbre_file_upload=1;
 
     private ArrayList<FileImage> filelist = new ArrayList<>();
     private ArrayList<MultipartBody.Part> multipart = new ArrayList<>();
@@ -117,7 +117,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
             @Override
             public void onClick(View v) {
 
-                apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
+                apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwOTE5Mjk2LCJleHAiOjE1NTE1MjQwOTZ9.YaR2mQB7NYyj_v6y8BvRIyYvZmssfEzwwvkKs_2cmZw").create(APIInterface.class);
                 call_create_task = apiInterface.uploadimage(multipart);
                 Toast.makeText(getContext(), "hii", Toast.LENGTH_LONG).show();
 
@@ -129,7 +129,9 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                                 Log.e("image", " ->  " +response.body().getAsJsonArray().get(i).toString() );
 
                                 Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
-                            }           /*DocumentFragment documentFragment = new DocumentFragment();
+                            }
+                            dialog.dismiss();
+                            /*DocumentFragment documentFragment = new DocumentFragment();
                                         Bundle args = new Bundle();
                                         args.putString("filePath", "YourValue");
                                         documentFragment.setArguments(args);*/
@@ -204,42 +206,6 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                         MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileBody);
                         multipart.add(part);
                         Log.e("part", " ->  " +part.toString() );
-
-                        //****************************************************************
-                        apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwOTE5Mjk2LCJleHAiOjE1NTE1MjQwOTZ9.YaR2mQB7NYyj_v6y8BvRIyYvZmssfEzwwvkKs_2cmZw").create(APIInterface.class);
-                        call_create_task = apiInterface.uploadimage1(part);
-                        Toast.makeText(getContext(), "hii", Toast.LENGTH_LONG).show();
-
-                        call_create_task.enqueue(new Callback<JsonArray>() {
-                            @Override
-                            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                                Log.e("progress", " ->  " +response.code() );
-
-                                if(response.isSuccessful()){
-                                    for(int i=0;i<response.body().size();i++) {
-                                        Log.e("image", " ->  " +response.body().getAsJsonArray().get(i).toString() );
-
-                                        Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
-                                    }
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<JsonArray> call, Throwable t) {
-                                Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
-
-                                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                                alertDialog.setTitle("connexion");
-                                alertDialog.setMessage("Aucune connexion internet");
-                                alertDialog.show();
-
-
-
-                            }
-                        });
-                        //****************************************************************
 
 
                     }
@@ -319,9 +285,8 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onFinish() {
         Toast.makeText(getContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show();
-        dialog.dismiss();
 
-
+        dialog.setMessage("Its loading "+conteur_nbre_file_upload+"/"+multipart.size());
 
     }
 
@@ -345,7 +310,9 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
         // dialog.setMax(100);
         //dialog.setTitle("Upload Progress");
         //dialog.setMessage("" + mFileName + "\nis uploading to \nhttp://requestb.in/r2k92yr2");
-        dialog.setMessage("Its loading....");
+
+        dialog.setMessage("Its loading "+conteur_nbre_file_upload+"/"+multipart.size());
+        conteur_nbre_file_upload++;
         //dialog.setCancelable(false);
 
         dialog.setProgress(0);
