@@ -2,8 +2,10 @@ package tn.igc.projectone.upload.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,9 +25,11 @@ import com.fxn.utility.PermUtil;
 import com.google.gson.JsonArray;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -37,9 +41,10 @@ import tn.igc.projectone.upload.Api.APIClient;
 import tn.igc.projectone.upload.Api.APIInterface;
 import tn.igc.projectone.upload.adapters.AdapterFile;
 import tn.igc.projectone.upload.other.FileImage;
+import tn.igc.projectone.upload.other.ProgressRequestBody;
 
 
-public class uploadFragment1 extends Fragment implements AdapterView.OnItemClickListener {
+public class uploadFragment1 extends Fragment implements AdapterView.OnItemClickListener, ProgressRequestBody.UploadCallbacks {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -60,6 +65,9 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
 
     private ArrayList<FileImage> filelist = new ArrayList<>();
     private ArrayList<MultipartBody.Part> multipart = new ArrayList<>();
+
+    private String mFileName;
+    private ProgressDialog mProgressDialog;
 
 
     public uploadFragment1() {
@@ -110,6 +118,8 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
 
                 apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwMTg5MTU3LCJleHAiOjE1NTA3OTM5NTd9.JDrrQzILE8zs1EB-b0byxYaxO2G7odXcj3_LdCOpcRo").create(APIInterface.class);
                 call_create_task = apiInterface.uploadimage(multipart);
+                Toast.makeText(getContext(), "hii", Toast.LENGTH_LONG).show();
+
                 call_create_task.enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -173,10 +183,63 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                         filelist.add(fileImage);
                         //upload
                         File file = new File(s);
+                        //comress file
+                        File compressedImage=file;
+                        try {
+                             compressedImage = new Compressor(getContext())
+                                     .setQuality(100)
+                                     .setCompressFormat(Bitmap.CompressFormat.PNG)
+
+                                    .compressToFile(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                         Log.e("length", " ->  " + file.length());
                         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
-                        MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileReqBody);
+
+                        ProgressRequestBody fileBody = new ProgressRequestBody(MediaType.parse("image/*"),compressedImage, this);
+
+                        MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileBody);
                         multipart.add(part);
+                        Log.e("part", " ->  " +part.toString() );
+
+                        //****************************************************************
+                        apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwOTE5Mjk2LCJleHAiOjE1NTE1MjQwOTZ9.YaR2mQB7NYyj_v6y8BvRIyYvZmssfEzwwvkKs_2cmZw").create(APIInterface.class);
+                        call_create_task = apiInterface.uploadimage1(part);
+                        Toast.makeText(getContext(), "hii", Toast.LENGTH_LONG).show();
+
+                        call_create_task.enqueue(new Callback<JsonArray>() {
+                            @Override
+                            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                                Log.e("progress", " ->  " +response.code() );
+
+                                if(response.isSuccessful()){
+                                    for(int i=0;i<response.body().size();i++) {
+                                        Log.e("image", " ->  " +response.body().getAsJsonArray().get(i).toString() );
+
+                                        Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
+                                    }
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<JsonArray> call, Throwable t) {
+                                Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
+
+                                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                                alertDialog.setTitle("connexion");
+                                alertDialog.setMessage("Aucune connexion internet");
+                                alertDialog.show();
+
+
+
+                            }
+                        });
+                        //****************************************************************
+
 
                     }
                     AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
@@ -233,11 +296,73 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                 filelist);
         listView.setAdapter(adapterFile);
         multipart.remove(position);
+        if(filelist.size()==0){
+            btn_valider.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onProgressUpdate(int percentage, long uploaded, long total) {
+        Toast.makeText(getContext(), percentage + "%", Toast.LENGTH_LONG).show();
+        updateProgressView(percentage, uploaded, total);
+
+
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(getContext(), "Uploaded Failed!", Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onFinish() {
+        Toast.makeText(getContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show();
+
+
+    }
+
+    @Override
+    public void uploadStart() {
+        Toast.makeText(getContext(), "Uploaded started", Toast.LENGTH_LONG).show();
+
+
     }
 
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    //**************************
+
+
+    private ProgressDialog createProgressDialog() {
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMax(100);
+        // dialog.setTitle("Upload Progress");
+       // dialog.setMessage("" + mFileName + "\nis uploading to \nhttp://requestb.in/r2k92yr2");
+        dialog.setMessage("Its loading....");
+        dialog.setCancelable(false);
+
+        dialog.setProgress(0);
+        dialog.setProgressNumberFormat("");
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        return dialog;
+    }
+
+    private void updateProgressView(int percentage, long uploaded, long total) {
+        if (mProgressDialog == null) {
+            mProgressDialog = createProgressDialog();
+        }
+        if (!mProgressDialog.isShowing()) {
+            createProgressDialog().show();
+        }
+
+       // double mbUploaded = uploaded*1.0f/(1024*1024);
+       // double mbLength = total*1.0f/(1024*1024);
+
+        mProgressDialog.setProgress(percentage);
+      //  mProgressDialog.setProgressNumberFormat(String.format("%.2f MB / %.2f MB", mbUploaded, mbLength));
     }
 }

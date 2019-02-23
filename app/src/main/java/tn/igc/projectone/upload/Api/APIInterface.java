@@ -24,6 +24,10 @@ public interface APIInterface {
     @POST("documents/upload/")
     Call<JsonArray> uploadimage(@Part ArrayList<MultipartBody.Part> files);
 
+    @Multipart
+    @POST("documents/upload/")
+    Call<JsonArray> uploadimage1(@Part MultipartBody.Part files);
+
     @FormUrlEncoded
     @POST("documents")
     Call<JsonObject> createdocument(@Field("title")String title, @Field("type")String type, @Field("filePath")String filePath, @Field("user")String user, @Field("major") String major, @Field("subject")String subject, @Field("year")String year, @Field("semestre")String semestre, @Field("profName")String profName, @Field("session")String session, @Field("corrections") Array corrections);

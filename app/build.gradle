@@ -50,5 +50,7 @@ dependencies {
 
     implementation 'com.hudomju:swipe-to-dismiss-undo:1.0'
 
+    implementation 'id.zelory:compressor:2.1.0'
+
 
 }
