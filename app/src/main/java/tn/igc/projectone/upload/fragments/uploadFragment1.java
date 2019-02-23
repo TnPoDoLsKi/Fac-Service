@@ -68,6 +68,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
 
     private String mFileName;
     private ProgressDialog mProgressDialog;
+    private ProgressDialog dialog;
 
 
     public uploadFragment1() {
@@ -303,7 +304,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onProgressUpdate(int percentage, long uploaded, long total) {
-        Toast.makeText(getContext(), percentage + "%", Toast.LENGTH_LONG).show();
+       // Toast.makeText(getContext(), percentage + "%", Toast.LENGTH_LONG).show();
         updateProgressView(percentage, uploaded, total);
 
 
@@ -318,6 +319,8 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onFinish() {
         Toast.makeText(getContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show();
+        dialog.dismiss();
+
 
 
     }
@@ -338,12 +341,12 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
 
 
     private ProgressDialog createProgressDialog() {
-        ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setMax(100);
-        // dialog.setTitle("Upload Progress");
-       // dialog.setMessage("" + mFileName + "\nis uploading to \nhttp://requestb.in/r2k92yr2");
+       dialog = new ProgressDialog(getContext());
+        // dialog.setMax(100);
+        //dialog.setTitle("Upload Progress");
+        //dialog.setMessage("" + mFileName + "\nis uploading to \nhttp://requestb.in/r2k92yr2");
         dialog.setMessage("Its loading....");
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
 
         dialog.setProgress(0);
         dialog.setProgressNumberFormat("");
@@ -356,7 +359,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
             mProgressDialog = createProgressDialog();
         }
         if (!mProgressDialog.isShowing()) {
-            createProgressDialog().show();
+            mProgressDialog.show();
         }
 
        // double mbUploaded = uploaded*1.0f/(1024*1024);
