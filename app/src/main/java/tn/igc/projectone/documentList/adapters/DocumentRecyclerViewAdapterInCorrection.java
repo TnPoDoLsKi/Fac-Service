@@ -72,6 +72,8 @@ public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapte
 
 
                 String b_filePath=lsDocument.get(vHolder.getAdapterPosition()).getFilePath();
+                String b_title=lsDocument.get(vHolder.getAdapterPosition()).getTitle();
+
 
 
 
@@ -81,6 +83,7 @@ public class DocumentRecyclerViewAdapterInCorrection extends RecyclerView.Adapte
                 Bundle bundle = new Bundle();
 
                 bundle.putString("b_filePath",b_filePath);
+                bundle.putString("b_title",b_title);
 
 
 
