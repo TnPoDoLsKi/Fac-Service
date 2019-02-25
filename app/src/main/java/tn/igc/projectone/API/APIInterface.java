@@ -30,15 +30,11 @@ public interface APIInterface {
     @GET("search")
     Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("major") String major,@Query("name") String name);
 
-    @GET("tasks")
-    Call<JSONObject> getAllTasks();
-    //---------------------------------------------------------------------------------------------------------------
+
     @GET("documents")
     Call<JsonArray> getAllDocs();
-
     @GET("documents/corrections/{id}")
     Call<JsonArray> getOneCorr(@Path("id") String id);
-
     @GET("corrections")
     Call<JsonArray> getAllCorrections();
 
@@ -51,5 +47,12 @@ public interface APIInterface {
     Call<HashMap>basicsignup(@Field("email") String email,@Field("password") String password,@Field("type") String type,@Field("firstName")String firstName,@Field("lastName")String lastName,@Field("major")String major);
     @GET("majors")
     Call<JsonArray> getAllMajors();
+
+
+
+    @GET("documents/subject/{id}")
+    Call<JsonArray> getSubject_type (@Path("id") String id,@Query("type") String type);
+    @GET("majors/{id}")
+    Call<JsonObject> getMajor(@Path("id") String id);
 
 }

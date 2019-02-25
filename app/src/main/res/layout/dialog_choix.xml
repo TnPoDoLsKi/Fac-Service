@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/layout_dialog_bg"
+    android:orientation="vertical"
+
+    android:layout_gravity="center">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorWhite"
+                android:text="Veuillez choisir le type de document"
+
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:id="@+id/lvv"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@color/colorWhite"
+                android:id="@+id/btn_c"
+                android:paddingLeft="30dp"
+                android:text="Cours"
+                android:textAlignment="textStart" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:id="@+id/btn_td"
+                android:background="@color/colorWhite"
+                android:paddingLeft="30dp"
+                android:text="TD"
+                android:textAlignment="textStart" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:id="@+id/btn_ds"
+                android:background="@color/colorWhite"
+                android:paddingLeft="30dp"
+                android:text="DS"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:id="@+id/btn_ex"
+                android:background="@color/colorWhite"
+                android:paddingLeft="30dp"
+
+                android:text="Examens"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:id="@+id/btn_tp"
+                android:background="@color/colorWhite"
+                android:paddingLeft="30dp"
+                android:text="TP"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+
+</LinearLayout>
