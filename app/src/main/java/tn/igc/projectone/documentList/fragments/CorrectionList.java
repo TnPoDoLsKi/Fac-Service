@@ -3,6 +3,7 @@ package tn.igc.projectone.documentList.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +39,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 public class CorrectionList extends Fragment {
 
     ProgressBar progressBar;
+    BottomNavigationView bottomNavigationView;
 
     View v;
 
@@ -73,10 +75,22 @@ public class CorrectionList extends Fragment {
         super.onCreate(savedInstanceState);
      //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
 
 
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.search_button);
+        }
+        getActivity().setTitle("Correction List");
+
+    }
+
 
     @Nullable
     @Override

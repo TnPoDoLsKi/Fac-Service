@@ -5,6 +5,8 @@ import android.app.DownloadManager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -29,6 +31,16 @@ public class PdfViewer extends Fragment {
 
     PDFView pdfView;
     TextView textView;
+    BottomNavigationView bottomNavigationView;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,5 +106,13 @@ textView=(TextView) view.findViewById(R.id.TextviewPdf) ;
                 pdfView.fromStream(inputStream).load();
             }
         }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.search_button);
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ package tn.igc.projectone.Home.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class DocumentList extends Fragment {
     private ArrayList<Document> docList ;
     public APIInterface apiInterface;
     RecyclerViewAdapter recyclerViewAdapter;
+    BottomNavigationView bottomNavigationView;
 
 
     public DocumentList() {
@@ -54,10 +56,15 @@ public class DocumentList extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         docList = new ArrayList<>();
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+
         //mRealm = Realm.getDefaultInstance();
         //final String Mid = "5c64773e38e7f64f8d07dc1b";
+
         Bundle data = getArguments();
+
         String type = data.getString("type");
+
         String id_doc = data.getString("mat_id");
 
 
@@ -137,5 +144,13 @@ public class DocumentList extends Fragment {
         });
 
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bottomNavigationView.getSelectedItemId()!=R.id.home_button)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.home_button);
+        }
     }
 }

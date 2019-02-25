@@ -75,13 +75,14 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
+
         bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
 
         SharedPreferences settings = getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("query", "");
-
         editor.apply();
     }
 
@@ -247,6 +248,8 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         recyclerView = (RecyclerView) getView().findViewById(R.id.search_list);
         recyclerView.setOnTouchListener(this);
         LinearLayout linearLayout=(LinearLayout) getView().findViewById(R.id.search_layout);
@@ -256,6 +259,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         progressBar = (ProgressBar) getView().findViewById(R.id.progressBarSearch);
         textView = (TextView) getView().findViewById(R.id.Textview);
         textView.setText("Aucun document ");
+
 
 
     }
