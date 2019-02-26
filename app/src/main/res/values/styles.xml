@@ -9,5 +9,8 @@
         <item name="android:itemBackground">#000000</item>
 
     </style>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
 
 </resources>

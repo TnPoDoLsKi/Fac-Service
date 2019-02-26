@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".authentification.activities.Splash" android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait">
+        <activity android:name=".authentification.activities.Splash" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,18 +21,18 @@
         </activity>
 
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            >
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<action android:name="android.intent.action.SEARCH"/>-->
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
         </activity>
 
-        <activity android:name=".authentification.activities.LoginActivity" android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait">
+        <activity android:name=".authentification.activities.LoginActivity" android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
-        <activity android:name=".authentification.activities.SignUpActivity" android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".authentification.activities.SignUpActivity" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

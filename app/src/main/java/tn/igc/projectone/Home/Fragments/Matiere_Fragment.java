@@ -3,6 +3,7 @@ package tn.igc.projectone.Home.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -21,6 +22,8 @@ public class Matiere_Fragment extends Fragment {
     private LinearLayout ll;
     View v;
 
+    BottomNavigationView bottomNavigationView;
+
     public Matiere_Fragment() {
     }
 
@@ -35,6 +38,14 @@ public class Matiere_Fragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
         return v;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bottomNavigationView.getSelectedItemId()!=R.id.home_button)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.home_button);
+        }
     }
 
     public void setupViewPager(ViewPager viewPager) {
@@ -73,6 +84,7 @@ public class Matiere_Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
 
 
     }
