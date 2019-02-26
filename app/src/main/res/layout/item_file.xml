@@ -25,13 +25,12 @@
             android:id="@+id/tvname"
             android:layout_weight="1"
             android:textColor="@color/colorAccent1"/>
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/deleteimage2"/>
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:id="@+id/Tvpourcent"
-            android:textColor="@color/colorAccent1"/>
     </LinearLayout>
 </LinearLayout>
 

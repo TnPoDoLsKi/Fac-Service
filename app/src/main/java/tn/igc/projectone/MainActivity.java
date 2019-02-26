@@ -8,14 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.fxn.pix.Pix;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import tn.igc.projectone.upload.fragments.DocumentFragment;
 import tn.igc.projectone.upload.fragments.uploadFragment1;
-import tn.igc.projectone.upload.fragments.uploadFragment2;
 
 // Hello from the other side
 

@@ -1,15 +1,26 @@
 package tn.igc.projectone.upload.other;
 
+import okhttp3.MultipartBody;
+
 public class FileImage {
     String image;
     String name;
-    String percentage;
+    MultipartBody.Part part;
 
 
-    public FileImage(String image, String name, String percentage) {
+    public MultipartBody.Part getPart() {
+        return part;
+    }
+
+    public FileImage(String image, String name, MultipartBody.Part part) {
         this.image = image;
         this.name = name;
-        this.percentage = percentage;
+        this.part = part;
+
+    }
+
+    public void setPart(MultipartBody.Part part) {
+        this.part = part;
     }
 
     public String getImage() {
@@ -20,9 +31,6 @@ public class FileImage {
         return name;
     }
 
-    public String getPercentage() {
-        return percentage;
-    }
 
     public void setImage(String image) {
         this.image = image;
@@ -32,16 +40,12 @@ public class FileImage {
         this.name = name;
     }
 
-    public void setPercentage(String percentage) {
-        this.percentage = percentage;
-    }
-
     @Override
     public String toString() {
         return "FileImage{" +
                 "image='" + image + '\'' +
                 ", name='" + name + '\'' +
-                ", percentage='" + percentage + '\'' +
+                ", part=" + part +
                 '}';
     }
 }

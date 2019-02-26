@@ -44,7 +44,7 @@ import tn.igc.projectone.upload.other.FileImage;
 import tn.igc.projectone.upload.other.ProgressRequestBody;
 
 
-public class uploadFragment1 extends Fragment implements AdapterView.OnItemClickListener, ProgressRequestBody.UploadCallbacks {
+public class uploadFragment1 extends Fragment implements  ProgressRequestBody.UploadCallbacks {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -61,10 +61,10 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     private ProgressBar progressBarShow;
     private FileImage fileImage;
     private Button btn_upload;
-    private int conteur_nbre_file_upload=1;
+    private static int conteur_nbre_file_upload=1;
 
     private ArrayList<FileImage> filelist = new ArrayList<>();
-    private ArrayList<MultipartBody.Part> multipart = new ArrayList<>();
+    private ArrayList<MultipartBody.Part> multipart ;
 
     private String mFileName;
     private ProgressDialog mProgressDialog;
@@ -112,14 +112,22 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
 
             }
         });
+        if(filelist.size()==0)
+        {btn_valider.setVisibility(View.INVISIBLE);}
 
         btn_valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                multipart = new ArrayList<>();
+
+                for(int i=0;i<filelist.size();i++){
+                    multipart.add(filelist.get(i).getPart());
+                }
+                Log.e("multipartsize", " ->  " + multipart.size());
                 apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWUiLCJmaXJzdE5hbWUiOiJDaGFkeSIsImxhc3ROYW1lIjoiTXJhZCIsImVtYWlsIjoiY2hhZHlAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwibWFqb3IiOiI1YzY0NzczZTM4ZTdmNjRmOGQwN2RjMWMiLCJhdmF0YXIiOiIvdXBsb2Fkcy9hdmF0YXIuanBnIiwiaWF0IjoxNTUwOTE5Mjk2LCJleHAiOjE1NTE1MjQwOTZ9.YaR2mQB7NYyj_v6y8BvRIyYvZmssfEzwwvkKs_2cmZw").create(APIInterface.class);
                 call_create_task = apiInterface.uploadimage(multipart);
-                Toast.makeText(getContext(), "hii", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), multipart.size()+"", Toast.LENGTH_LONG).show();
 
                 call_create_task.enqueue(new Callback<JsonArray>() {
                     @Override
@@ -182,8 +190,6 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
-                        fileImage = new FileImage(s,"","");
-                        filelist.add(fileImage);
                         //upload
                         File file = new File(s);
                         //comress file
@@ -204,8 +210,10 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                         ProgressRequestBody fileBody = new ProgressRequestBody(MediaType.parse("image/*"),compressedImage, this);
 
                         MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileBody);
-                        multipart.add(part);
+                        //multipart.add(part);
                         Log.e("part", " ->  " +part.toString() );
+                        fileImage = new FileImage(s,"",part);
+                        filelist.add(fileImage);
 
 
                     }
@@ -215,7 +223,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
                             filelist);
                     progressBarShow.setVisibility(View.INVISIBLE);
                     listView.setAdapter(adapterFile);
-                    listView.setOnItemClickListener(this);
+                  //  listView.setOnItemClickListener(this);
                 }
             }
             break;
@@ -254,7 +262,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
         mListener = null;
     }
 
-    @Override
+   /* @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         FileImage item = filelist.remove(position);
         AdapterFile adapterFile = new AdapterFile(getActivity().getApplicationContext(),
@@ -266,7 +274,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
         if(filelist.size()==0){
             btn_valider.setVisibility(View.INVISIBLE);
         }
-    }
+    }*/
 
     @Override
     public void onProgressUpdate(int percentage, long uploaded, long total) {
@@ -285,8 +293,8 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onFinish() {
         Toast.makeText(getContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show();
-
-        dialog.setMessage("Its loading "+conteur_nbre_file_upload+"/"+multipart.size());
+        conteur_nbre_file_upload++;
+       // dialog.setMessage("Its loading "+conteur_nbre_file_upload+"/"+multipart.size());
 
     }
 
@@ -311,8 +319,7 @@ public class uploadFragment1 extends Fragment implements AdapterView.OnItemClick
         //dialog.setTitle("Upload Progress");
         //dialog.setMessage("" + mFileName + "\nis uploading to \nhttp://requestb.in/r2k92yr2");
 
-        dialog.setMessage("Its loading "+conteur_nbre_file_upload+"/"+multipart.size());
-        conteur_nbre_file_upload++;
+        dialog.setMessage("télechargement en cours  "+conteur_nbre_file_upload+"/"+multipart.size());
         //dialog.setCancelable(false);
 
         dialog.setProgress(0);
