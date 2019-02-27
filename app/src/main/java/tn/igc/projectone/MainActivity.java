@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import tn.igc.projectone.upload.fragments.NewFragment;
 import tn.igc.projectone.upload.fragments.uploadFragment1;
 
 // Hello from the other side
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new uploadFragment1();
+                Fragment fragment = new NewFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frag, fragment);

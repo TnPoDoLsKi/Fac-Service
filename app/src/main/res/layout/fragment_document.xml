@@ -38,7 +38,6 @@
                 android:shadowColor="#35B0DE"
                 android:textColor="@color/colornoir"
 
-
                 android:textColorHighlight="#35B0DE"
                 android:textColorHint="#35B0DE"
                 android:textColorLink="#35B0DE"

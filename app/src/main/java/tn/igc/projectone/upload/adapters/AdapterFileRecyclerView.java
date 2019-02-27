@@ -23,8 +23,8 @@ import tn.igc.projectone.upload.other.FileImage;
 
 public class AdapterFileRecyclerView extends RecyclerView.Adapter<AdapterFileRecyclerView.MyViewHolder> {
 
-    Context mContext ;
-    public ArrayList<FileImage> listfile;
+    private Context mContext ;
+    private ArrayList<FileImage> listfile = new ArrayList<>();
 
 
     public AdapterFileRecyclerView(Context context, ArrayList<FileImage> listfile) {
@@ -80,11 +80,11 @@ public class AdapterFileRecyclerView extends RecyclerView.Adapter<AdapterFileRec
 
         }
     }
-    public void updateList(ArrayList<FileImage> newList){
+ /*   public void updateList(ArrayList<FileImage> newList){
         listfile =new ArrayList<>();
         listfile.addAll(newList);
         notifyDataSetChanged();
-    }
+    }*/
 
 
 }
