@@ -167,7 +167,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         //Log.e("val", "requestCode ->  " + requestCode+"  resultCode "+resultCode);
         switch (requestCode) {
             case (100): {

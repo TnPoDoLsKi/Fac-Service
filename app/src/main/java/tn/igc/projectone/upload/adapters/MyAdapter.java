@@ -3,12 +3,14 @@ package tn.igc.projectone.upload.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -31,19 +33,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.list.addAll(list);
         notifyDataSetChanged();
     }
-    private ArrayList<FileImage> removerItem(int position,ArrayList<FileImage> l) {
-
-        l.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, l.size());
-    return l;
-
-    }
-    public ArrayList<FileImage> getList() {
-
-
-        return this.list;
-
+    public void removeImage(int position) {
+       // this.list.clear();
+        this.list.remove(position);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,6 +44,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View v = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.image, parent, false);
         Holder vholder = new Holder(v);
+        Log.e("onCreateViewHolder", " 2  " );
+
+        /*vholder.btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              removeImage(list,viewType);
+
+            }
+        });*/
 
         return vholder ;
     }
@@ -67,13 +69,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         ((Holder) holder).txt_name.setText(f.getName());
         // ((Holder) holder).iv.setImageURI(imageUri);
+        Log.e("onBindViewHolder", " 1  " );
         ((Holder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               list= removerItem(position,list);
+                removeImage(position);
 
             }
         });
+
     }
 
     @Override
@@ -94,11 +98,4 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             btn_delete = itemView.findViewById(R.id.btn_delete);
         }
     }
-    public void updateList(ArrayList<FileImage> newList){
-        list =new ArrayList<>();
-        list.addAll(newList);
-        notifyDataSetChanged();
-    }
-
-
 }
