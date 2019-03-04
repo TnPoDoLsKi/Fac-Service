@@ -18,47 +18,48 @@ import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 import tn.igc.projectone.R;
+import tn.igc.projectone.upload.Interface.RecyclerViewClickListener;
 import tn.igc.projectone.upload.other.FileImage;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<FileImage> list = new ArrayList<>();
+    public ArrayList<FileImage> list = new ArrayList<>();
     private Context context;
+    private RecyclerViewClickListener mListener;
 
-    public MyAdapter(Context context) {
+
+    public MyAdapter(Context context,RecyclerViewClickListener listener) {
+
         this.context = context;
+        mListener = listener;
     }
 
     public void addImage(ArrayList<FileImage> list) {
         this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
+
     }
     public void removeImage(int position) {
-       // this.list.clear();
-        this.list.remove(position);
-        notifyDataSetChanged();
+        this.list.remove(position);  // remove the item from list
+        notifyItemRemoved(position);
+    }
+    public ArrayList<FileImage> getList(){
+        return this.list;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         View v = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.image, parent, false);
-        Holder vholder = new Holder(v);
+        Holder vholder = new Holder(v,mListener);
         Log.e("onCreateViewHolder", " 2  " );
-
-        /*vholder.btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              removeImage(list,viewType);
-
-            }
-        });*/
 
         return vholder ;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        //cette méthode est appelée chaque fois que vous faites défiler le contenu du viewholder
         //Uri imageUri = Uri.fromFile(new File(list.get(position)));// For files on device
         //Log.e("hello", "- " + imageUri.toString());
         File f = new File(list.get(position).getImage());
@@ -70,13 +71,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((Holder) holder).txt_name.setText(f.getName());
         // ((Holder) holder).iv.setImageURI(imageUri);
         Log.e("onBindViewHolder", " 1  " );
-        ((Holder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
+      /*  ((Holder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 removeImage(position);
-
             }
-        });
+        });*/
 
     }
 
@@ -85,17 +85,25 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return list.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView iv;
         public TextView txt_name;
         public Button btn_delete;
 
 
-        public Holder(View itemView) {
+        public Holder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
             iv = itemView.findViewById(R.id.iv);
             txt_name = itemView.findViewById(R.id.tvname);
             btn_delete = itemView.findViewById(R.id.btn_delete);
+            mListener = listener;
+            btn_delete.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onClick(v,getAdapterPosition());
+
         }
     }
 }

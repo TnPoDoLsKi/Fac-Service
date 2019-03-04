@@ -36,6 +36,7 @@ import retrofit2.Response;
 import tn.igc.projectone.R;
 import tn.igc.projectone.upload.Api.APIClient;
 import tn.igc.projectone.upload.Api.APIInterface;
+import tn.igc.projectone.upload.Interface.RecyclerViewClickListener;
 import tn.igc.projectone.upload.adapters.MyAdapter;
 import tn.igc.projectone.upload.other.FileImage;
 import tn.igc.projectone.upload.other.ProgressRequestBody;
@@ -98,14 +99,21 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter = new MyAdapter(getContext());
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                filelist.remove(position);
+                myAdapter.addImage(filelist);
+                Toast.makeText(NewFragment.this.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+            }
+        };
+        myAdapter = new MyAdapter(getContext(),listener);
         recyclerView.setAdapter(myAdapter);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(2).setFrontfacing(true));
-
             }
         });
 
@@ -182,6 +190,8 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                         filelist.add(fileImage);
                     }
                     myAdapter.addImage(filelist);
+                    Toast.makeText(getActivity(), filelist.size()+"", Toast.LENGTH_LONG).show();
+
                 }
             }
             break;
