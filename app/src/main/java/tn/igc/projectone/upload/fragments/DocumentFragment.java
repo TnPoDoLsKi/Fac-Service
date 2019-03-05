@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -37,6 +39,8 @@ public class DocumentFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private APIInterface apiInterface;
+
+    private ArrayList<String> pathlist ;
 
     public DocumentFragment() {
         // Required empty public constructor
@@ -65,9 +69,16 @@ public class DocumentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_document, container, false);
+        EditText et_annee = (EditText) view.findViewById(R.id.et_anne) ;
+        EditText et_desc = (EditText) view.findViewById(R.id.et_desc) ;
+
+        String annee = et_annee.getText().toString();
+        String desc =  et_desc.getText().toString();
+
+
         //Retrieve the filePath
-        String filePath = getArguments().getString("filePath");
-        Toast.makeText(getContext(),filePath, Toast.LENGTH_LONG).show();
+        pathlist = getArguments().getStringArrayList("pathlist");
+       // Toast.makeText(getContext(),pathlist.get(0).toString(), Toast.LENGTH_LONG).show();
 
 
         Button btn_ajouter = view.findViewById(R.id.btn_ajouter);

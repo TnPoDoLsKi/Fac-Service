@@ -28,19 +28,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/et_anne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="2dp"
-                android:ems="5"
+                android:ems="4"
                 android:inputType="number"
-                android:shadowColor="#35B0DE"
                 android:textColor="@color/colornoir"
-
+                android:maxLength="4"
                 android:textColorHighlight="#35B0DE"
-                android:textColorHint="#35B0DE"
-                android:textColorLink="#35B0DE"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -55,10 +52,10 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                app:layout_constraintTop_toBottomOf="@+id/et_anne" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/et_desc"
                 android:layout_width="340dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -90,7 +87,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText4"
+                app:layout_constraintTop_toBottomOf="@+id/et_desc"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
