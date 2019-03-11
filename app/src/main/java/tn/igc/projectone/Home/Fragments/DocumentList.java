@@ -2,32 +2,32 @@ package tn.igc.projectone.Home.Fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
+import tn.igc.projectone.Home.Adapters.DRecyclerViewAdapter;
+import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
-import tn.igc.projectone.R;
 
 public class DocumentList extends Fragment {
     View v;
@@ -35,7 +35,7 @@ public class DocumentList extends Fragment {
     private RecyclerView mRecyclerView;
     private ArrayList<Document> docList ;
     public APIInterface apiInterface;
-    RecyclerViewAdapter recyclerViewAdapter;
+    DRecyclerViewAdapter recyclerViewAdapter;
     BottomNavigationView bottomNavigationView;
 
 
@@ -109,7 +109,7 @@ public class DocumentList extends Fragment {
                 }
 
 
-                    recyclerViewAdapter = new RecyclerViewAdapter(getContext(), docList);
+                    recyclerViewAdapter = new DRecyclerViewAdapter(getContext(), docList);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mRecyclerView.setAdapter(recyclerViewAdapter);
 

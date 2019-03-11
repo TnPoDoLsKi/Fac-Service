@@ -3,13 +3,6 @@ package tn.igc.projectone.Home.Adapters;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +13,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
-import tn.igc.projectone.documentList.classes.Document;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import tn.igc.projectone.R;
+import tn.igc.projectone.documentList.classes.Document;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 

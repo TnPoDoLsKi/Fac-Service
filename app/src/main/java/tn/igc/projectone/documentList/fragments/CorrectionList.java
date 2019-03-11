@@ -1,26 +1,25 @@
 package tn.igc.projectone.documentList.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,12 +28,9 @@ import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.adapters.CorrectionRecyclerViewAdapter;
 import tn.igc.projectone.documentList.adapters.DocumentRecyclerViewAdapterInCorrection;
-import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
 import tn.igc.projectone.documentList.classes.CorrectionDoc;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class CorrectionList extends Fragment {
 
