@@ -21,8 +21,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.R;
-import tn.igc.projectone.upload.Api.APIClient;
-import tn.igc.projectone.upload.Api.APIInterface;
+import tn.igc.projectone.API.APIClient;
+import tn.igc.projectone.API.APIInterface;
 
 
 public class DocumentFragment extends Fragment {

@@ -1,17 +1,12 @@
-package tn.igc.projectone.upload.Api;
-
-import android.content.Intent;
+package tn.igc.projectone.API;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
