@@ -1,6 +1,6 @@
 package tn.igc.projectone.upload.fragments;
 
-import android.content.Context;
+
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

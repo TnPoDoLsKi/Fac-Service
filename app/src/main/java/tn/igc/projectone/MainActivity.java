@@ -7,33 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import tn.igc.projectone.upload.fragments.NewFragment;
 
-// Hello from the other side
-
-
-// From Wael
-
-
-
-// From Achouri
-
-//From Mariam
-//from masmoudi
-
-
-
-
-
-
-
-
-
-//from chaima
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -51,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.frag, fragment);
                 fragmentTransaction.commit();
 
-
-//hhhhhhhhhhhhhhhhhhhhhhhhhhhh
 
 
             }

@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,17 +68,21 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Bitmap d = new BitmapDrawable(context.getResources(), f.getAbsolutePath()).getBitmap();
         //Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExifCorrectedBitmap(f));
         Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, d);
-        ((Holder) holder).iv.setImageBitmap(scaled);
+
+        OutputStream imagefile = null;
+        try {
+            imagefile = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        d.compress(Bitmap.CompressFormat.JPEG, 70, imagefile);
+
+
+        ((Holder) holder).iv.setImageBitmap(d);
 
         ((Holder) holder).txt_name.setText(f.getName());
-        // ((Holder) holder).iv.setImageURI(imageUri);
         Log.e("onBindViewHolder", " 1  " );
-      /*  ((Holder) holder).btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeImage(position);
-            }
-        });*/
+
 
     }
 

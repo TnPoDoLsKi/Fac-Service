@@ -3,8 +3,6 @@ package tn.igc.projectone.upload.other;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
