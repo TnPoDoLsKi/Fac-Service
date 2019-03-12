@@ -14,12 +14,12 @@ public class APIClient {
     private static Retrofit retrofit = null;
     private static String API_BASE="http://igc.tn:3005/api/";
 
-    public static Retrofit getClient() {
-        //creat logger
+  public static Retrofit getClient() {
+      //creat logger
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        //create okhttp client
-        //addinterceptor pour enregistrer l'intercepteur
+      //create okhttp client
+      //addinterceptor pour enregistrer l'intercepteur
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         return getRetrofit(client);
@@ -43,7 +43,7 @@ public class APIClient {
     }
 
     private static Retrofit getRetrofit(OkHttpClient client) {
-        //creat logger
+      //creat logger
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         retrofit = new Retrofit.Builder()
