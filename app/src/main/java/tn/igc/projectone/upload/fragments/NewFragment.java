@@ -36,9 +36,10 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.R;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.R;
+
 import tn.igc.projectone.upload.Interface.RecyclerViewClickListener;
 import tn.igc.projectone.upload.adapters.MyAdapter;
 import tn.igc.projectone.upload.other.FileImage;
@@ -46,7 +47,6 @@ import tn.igc.projectone.upload.other.ProgressRequestBody;
 
 
 public class NewFragment extends Fragment implements ProgressRequestBody.UploadCallbacks {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -62,7 +62,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
 
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -76,7 +75,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static NewFragment newInstance(String param1, String param2) {
         NewFragment fragment = new NewFragment();
         Bundle args = new Bundle();
@@ -171,7 +169,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
                                         FragmentManager fragmentManager = getFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        fragmentTransaction.replace(R.id.frag, documentFragment);
+                                        fragmentTransaction.replace(R.id.container, documentFragment);
                                         fragmentTransaction.commit();
 
                     }
@@ -196,7 +194,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -316,7 +313,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

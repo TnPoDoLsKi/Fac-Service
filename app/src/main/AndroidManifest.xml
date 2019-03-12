@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
 
+
     package="tn.igc.projectone">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
         android:fullBackupContent="true"
@@ -18,9 +20,10 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".MainActivity">
+        <activity android:name=".authentification.activities.Splash" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,11 +33,7 @@
 
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
-            >
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<action android:name="android.intent.action.SEARCH"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".authentification.activities.LoginActivity" android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -46,5 +45,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 
 </manifest>

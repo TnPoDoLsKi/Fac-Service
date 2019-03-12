@@ -1,7 +1,6 @@
 package tn.igc.projectone;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.multidex.MultiDex;
 import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.search.fragment.Search;
 import tn.igc.projectone.upload.fragments.NewFragment;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     };
+
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -67,5 +68,6 @@ public class MainActivity extends AppCompatActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 //
 }
