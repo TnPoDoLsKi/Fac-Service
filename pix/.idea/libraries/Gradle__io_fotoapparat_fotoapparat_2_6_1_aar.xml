@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.fotoapparat:fotoapparat:2.6.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/fotoapparat-2.6.1.aar/ca9446d678ed30744a939b8ef7e739e4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/fotoapparat-2.6.1.aar/ca9446d678ed30744a939b8ef7e739e4/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.fotoapparat/fotoapparat/2.6.1/e2a1f460aa9d2f1d79b409d07eff0ad92d7ea2d8/fotoapparat-2.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
