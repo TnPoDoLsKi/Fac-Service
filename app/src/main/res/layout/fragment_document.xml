@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".upload.fragments.DocumentFragment"
-    android:background="@color/colorAccent">
+    android:background="@color/colorbackground">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:text="Année de document"
-                android:textColor="@color/colorgrille"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

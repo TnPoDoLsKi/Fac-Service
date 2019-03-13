@@ -38,7 +38,6 @@ public class LoginActivity extends Activity {
     private static String token;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private ConstraintLayout loginForm;
-
     public final boolean validateEmail(String target) {
         if (target !=null && target.length() > 1) {
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -58,6 +57,15 @@ public class LoginActivity extends Activity {
         inscrip=(Button)findViewById(R.id.inscrip);
         loginForm = (ConstraintLayout) findViewById(R.id.loginform);
 
+        Button btn_continue =(Button) findViewById(R.id.button3);
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
