@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import at.markushi.ui.CircleButton;
@@ -110,7 +112,7 @@ public class CorrectionRecyclerViewAdapter extends RecyclerView.Adapter<Correcti
             myViewHolder.userName.setTextColor(Color.parseColor("#008000"));
         }
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
-        myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
+        Picasso.get().load(lsDocument.get(i).getUser().getAvatar()).placeholder(R.drawable.index).into(myViewHolder.avatar);
 
 
     }

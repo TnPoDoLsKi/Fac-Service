@@ -27,13 +27,13 @@ public interface APIInterface {
     Call<JsonArray> getFilterType(@Query("type") String type,@Query("name") String name);
     @GET("search")
     Call<JsonArray> getFilterMajor(@Query("major") String type,@Query("name") String name);
-    @GET("search")
+    @GET("documents/search")
     Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("major") String major,@Query("name") String name);
 
 
     @GET("documents")
     Call<JsonArray> getAllDocs();
-    @GET("documents/corrections/{id}")
+    @GET("corrections/byDocument/{id}")
     Call<JsonArray> getOneCorr(@Path("id") String id);
     @GET("corrections")
     Call<JsonArray> getAllCorrections();

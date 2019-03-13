@@ -49,7 +49,7 @@ dependencies {
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'org.jetbrains:annotations-java5:15.0'
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.markushi:circlebutton:1.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 

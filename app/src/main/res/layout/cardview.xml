@@ -21,27 +21,32 @@
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="225dp"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/sofiaproregular"
             android:gravity="center_vertical"
             android:textSize="12.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/majorName"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/docTitle"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/docTitle"
-            android:layout_width="250dp"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/sofiaproregular "
             android:textColor="#000000"
             android:textSize="17sp"
+            app:layout_constraintEnd_toStartOf="@+id/verifiedImage"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,8 +69,9 @@
             app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/downloadImage"
+            app:layout_constraintStart_toEndOf="@+id/docTitle"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.464" />
+            app:layout_constraintVertical_bias="0.25" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -76,6 +82,8 @@
             android:layout_marginBottom="8dp"
             app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/userName"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/userName" />
 
@@ -90,17 +98,32 @@
             app:cb_pressedRingWidth="8dip"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
 
         <Button
             android:id="@+id/download"
             android:layout_width="45dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:alpha="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/verifiedImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/majorName"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="8dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@+id/download" />
 
 
     </android.support.constraint.ConstraintLayout>

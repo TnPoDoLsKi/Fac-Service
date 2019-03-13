@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -111,7 +113,7 @@ public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdap
         myViewHolder.docTitle.setText(lsDocument.get(i).getTitle());
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
-        myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
+        Picasso.get().load(lsDocument.get(i).getUser().getAvatar()).placeholder(R.drawable.index).into(myViewHolder.avatar);
 
     }
 

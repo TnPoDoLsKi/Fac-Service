@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,7 +32,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -444,17 +449,14 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                                  updatedAt = obj.get("updatedAt").getAsString();
 
                             }
-                            if (approved==true) {
                                 JsonObject oUser = obj.get("user").getAsJsonObject();
-                                String uType = oUser.get("type").getAsString();
+                                String avatar=oUser.get("avatar").getAsString();
 
-                                String u_id = oUser.get("_id").getAsString();
-                                String email = oUser.get("email").getAsString();
                                 String firstName = oUser.get("firstName").getAsString();
                                 String lastName = oUser.get("lastName").getAsString();
 
-                                documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User(uType, false, u_id, email, firstName, lastName, 0), majorApi, subject, year, profName, description, createdAt, updatedAt));
-                            }
+                                documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
+
                     }
 
 

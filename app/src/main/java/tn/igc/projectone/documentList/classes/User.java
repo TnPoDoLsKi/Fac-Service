@@ -11,27 +11,24 @@ public class User {
     private  String email;
     private  String firstName;
     private  String lastName;
-    private  int avatar;
+    private  String avatar;
     public User(){}
-    public User(String firstName,String lastName,int avatar){
+    public User(String firstName,String lastName,String avatar){
         this.firstName=firstName;
         this.lastName=lastName;
         this.avatar=avatar;
     }
 
-    public User(String type, Boolean deleted, String _id, String email, String firstName, String lastName, int avatar) {
+    public User(String type, Boolean deleted, String _id, String email, String firstName, String lastName, String avatar) {
         this.type = type;
         this.deleted = deleted;
         this._id = _id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        if (avatar==0){
-            this.avatar= R.drawable.index;
-        }
-        else {
+
             this.avatar = avatar;
-        }
+
 
     }
     public String getName(){
@@ -87,11 +84,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(int avatar) {
-        this.avatar= avatar;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

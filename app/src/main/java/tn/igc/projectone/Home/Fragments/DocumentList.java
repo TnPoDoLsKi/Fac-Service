@@ -100,7 +100,7 @@ public class DocumentList extends Fragment {
                         String u_fn = us_fn.getAsString();
                         String u_ln = us_ln.getAsString();
 
-                        User u = new User(u_fn, u_ln, R.drawable.index);
+                        User u = new User(u_fn, u_ln,"");
 
 
                         d = new Document(d_id, d_ver, d_title, u, d_path);

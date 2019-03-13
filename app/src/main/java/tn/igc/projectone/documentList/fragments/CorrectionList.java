@@ -123,7 +123,7 @@ public class CorrectionList extends Fragment {
 
         String _id = bundle.getString("b_id");
 
-        int b_avatar = bundle.getInt("b_avatar");
+        String b_avatar = bundle.getString("b_avatar");
 
         final boolean b_verifiedByProf = bundle.getBoolean("b_verifiedByProf");
 
@@ -239,27 +239,18 @@ public class CorrectionList extends Fragment {
 
                     }
                     //user init
-                    String uType=oUser.get("type").getAsString();
+                    String avatar=oUser.get("avatar").getAsString();
 
-
-
-                    Boolean deleted =oUser.get("deleted").getAsBoolean();
-                    String u_id=oUser.get("_id").getAsString();
-                    String email=oUser.get("email").getAsString();
                     String firstName=oUser.get("firstName").getAsString();
                     String lastName=oUser.get("lastName").getAsString();
 
-                    if (uType.equals("Prof"))
-                    {
-
-                        CorList.add(new CorrectionDoc(approved,verifiedByProf,score,_id,title,filePath,new User(uType,deleted,u_id,email,"Corrige de l'enseignant","",R.drawable.ic_check_circle_24px),document,createdAt,updatedAt));
-
-                    }
-else {
 
 
-                        CorList.add(new CorrectionDoc(approved, verifiedByProf, score, _id, title, filePath, new User(uType, deleted, u_id, email, firstName, lastName, 0), document, createdAt, updatedAt));
-                    }
+                        CorList.add(new CorrectionDoc(approved,verifiedByProf,score,_id,title,filePath,new User(firstName,lastName,avatar),document,createdAt,updatedAt));
+
+
+
+
 }
 
 
