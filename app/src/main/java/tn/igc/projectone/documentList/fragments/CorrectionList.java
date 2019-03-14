@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.adapters.CorrectionRecyclerViewAdapter;
 import tn.igc.projectone.documentList.adapters.DocumentRecyclerViewAdapterInCorrection;
@@ -72,7 +73,7 @@ public class CorrectionList extends Fragment {
      //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
-
+        ((MainActivity) getActivity()).setActionBarTitle("Détailles");
 
 
     }
@@ -83,7 +84,6 @@ public class CorrectionList extends Fragment {
         {
             bottomNavigationView.setSelectedItemId(R.id.search_button);
         }
-        getActivity().setTitle("Correction List");
 
     }
 

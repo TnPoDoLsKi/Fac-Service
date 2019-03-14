@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import tn.igc.projectone.Home.Adapters.ViewPagerAdapter;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 
 public class Matiere_Fragment extends Fragment {
@@ -44,6 +45,7 @@ public class Matiere_Fragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle("Matières");
         if (bottomNavigationView.getSelectedItemId()!=R.id.home_button)
         {
             bottomNavigationView.setSelectedItemId(R.id.home_button);

@@ -59,10 +59,9 @@ public interface APIInterface {
     Call<JsonArray> getAllMajors();
 
 
-
-    @GET("documents/subject/{id}")
-    Call<JsonArray> getSubject_type (@Path("id") String id,@Query("type") String type);
-    @GET("majors/{id}")
-    Call<JsonObject> getMajor(@Path("id") String id);
+    @GET("documents/bySubject/{subjectId}/byType/{type}")
+    Call<JsonArray> getSubject_type (@Path("subjectId") String subjectId,@Path("type") String type);
+    @GET("subjects/byMajor/{major}")
+    Call<JsonArray> getMajorSujects(@Path("major") String major);
 
 }

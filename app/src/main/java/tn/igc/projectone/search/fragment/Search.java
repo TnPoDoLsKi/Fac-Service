@@ -320,74 +320,74 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
 
                     for (int i = 0; i < resArr.size(); i++) {
                         JsonObject obj = resArr.get(i).getAsJsonObject();
-                           Boolean approved ;
+                        Boolean approved ;
                         if (obj.get("approved")==null) {
                             approved = false;                        }
                         else{
                             approved = obj.get("approved").getAsBoolean();                        }
 //document attributs init
-                            String type;
-                            if (obj.get("type")==null) {
-                                type = "";
-                            }
-                            else{
-                                type = obj.get("type").getAsString();
-                            }
+                        String type;
+                        if (obj.get("type")==null) {
+                            type = "";
+                        }
+                        else{
+                            type = obj.get("type").getAsString();
+                        }
 
-                            int semestre ;
-                            if (obj.get("semestre")==null) {
-                                semestre =0;                            }
-                            else{
-                                semestre = obj.get("semestre").getAsInt();                           }
+                        int semestre ;
+                        if (obj.get("semestre")==null) {
+                            semestre =0;                            }
+                        else{
+                            semestre = obj.get("semestre").getAsInt();                           }
 
-                            int NBDownloads ;
+                        int NBDownloads ;
 
-                            if (obj.get("NBDowloads")==null) {
-                                NBDownloads = 0;
-                            }
-                            else{
-                                NBDownloads = obj.get("NBDowloads").getAsInt();                            }
-
-
-                            Boolean verifiedByProf ;
-                            if (obj.get("verifiedByProf")==null) {
-                                verifiedByProf = false;
-                            }
-                            else{
-                                verifiedByProf = obj.get("verifiedByProf").getAsBoolean();                            }
+                        if (obj.get("NBDowloads")==null) {
+                            NBDownloads = 0;
+                        }
+                        else{
+                            NBDownloads = obj.get("NBDowloads").getAsInt();                            }
 
 
-                            String session ;
-                            if (obj.get("session")==null) {
-                                session = "";
-                            }
-                            else{
-                                session = obj.get("session").getAsString();                            }
+                        Boolean verifiedByProf ;
+                        if (obj.get("verifiedByProf")==null) {
+                            verifiedByProf = false;
+                        }
+                        else{
+                            verifiedByProf = obj.get("verifiedByProf").getAsBoolean();                            }
 
-                            String _id ;
-                            if (obj.get("_id")==null) {
-                                _id = "";                            }
-                            else{
-                                _id = obj.get("_id").getAsString();
-                            }
 
-                            String title ;
-                            if (obj.get("title")==null) {
-                                title = "";
-                            }
-                                else{
-                                    title = obj.get("title").getAsString();
-                                }
+                        String session ;
+                        if (obj.get("session")==null) {
+                            session = "";
+                        }
+                        else{
+                            session = obj.get("session").getAsString();                            }
 
-                                String filePath ;
+                        String _id ;
+                        if (obj.get("_id")==null) {
+                            _id = "";                            }
+                        else{
+                            _id = obj.get("_id").getAsString();
+                        }
 
-                            if (obj.get("filePath")==null){
-                                filePath = "";
-                            }
-                            else {
-                                filePath = obj.get("filePath").getAsString();
-                            }
-                            String subject ="" ;
+                        String title ;
+                        if (obj.get("title")==null) {
+                            title = "";
+                        }
+                        else{
+                            title = obj.get("title").getAsString();
+                        }
+
+                        String filePath ;
+
+                        if (obj.get("filePath")==null){
+                            filePath = "";
+                        }
+                        else {
+                            filePath = obj.get("filePath").getAsString();
+                        }
+                        String subject ="" ;
 
                          /*   if (obj.get("subject")==null){
                                  subject = "";
@@ -396,7 +396,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                                  subject = obj.get("subject").getAsString();
 
                             }*/
-                            String majorApi="";
+                        String majorApi="";
 /*                            if (obj.get("major")==null){
                                  majorApi ="";
                             }
@@ -404,63 +404,62 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                                  majorApi = obj.get("major").getAsString();
 
                             }*/
-                            int year = 0;
+                        int year = 0;
 
-                            if (obj.get("year")==null){
-                                year = 0;
-                            }
-                            else{
-                                year = obj.get("year").getAsInt();
+                        if (obj.get("year")==null){
+                            year = 0;
+                        }
+                        else{
+                            year = obj.get("year").getAsInt();
 
-                            }
-                            String profName ;
+                        }
+                        String profName ;
 
-                            if (obj.get("profName")==null){
-                                 profName = "";
-                            }
-                            else{
-                                 profName = obj.get("profName").getAsString();
+                        if (obj.get("profName")==null){
+                            profName = "";
+                        }
+                        else{
+                            profName = obj.get("profName").getAsString();
 
-                            }
-                            String description ;
+                        }
+                        String description ;
 
 
-                            if (obj.get("description")==null){
-                                 description = "";
-                            }
-                            else{
-                                 description = obj.get("description").getAsString();
+                        if (obj.get("description")==null){
+                            description = "";
+                        }
+                        else{
+                            description = obj.get("description").getAsString();
 
-                            }
-                            String createdAt;
+                        }
+                        String createdAt;
 
-                            if (obj.get("createdAt")==null){
-                                createdAt="";
-                            }
-                            else{
-                                createdAt = obj.get("createdAt").getAsString();
+                        if (obj.get("createdAt")==null){
+                            createdAt="";
+                        }
+                        else{
+                            createdAt = obj.get("createdAt").getAsString();
 
-                            }
-                            String updatedAt;
-                            if (obj.get("updatedAt")==null){
-                                 updatedAt = "";
-                            }
-                            else{
-                                 updatedAt = obj.get("updatedAt").getAsString();
+                        }
+                        String updatedAt;
+                        if (obj.get("updatedAt")==null){
+                            updatedAt = "";
+                        }
+                        else{
+                            updatedAt = obj.get("updatedAt").getAsString();
 
-                            }
-                            if (approved==true) {
-                                JsonObject oUser = obj.get("user").getAsJsonObject();
-                                String uType = oUser.get("type").getAsString();
+                        }
+                        JsonObject oUser = obj.get("user").getAsJsonObject();
+                        String avatar=oUser.get("avatar").getAsString();
 
-                                String u_id = oUser.get("_id").getAsString();
-                                String email = oUser.get("email").getAsString();
-                                String firstName = oUser.get("firstName").getAsString();
-                                String lastName = oUser.get("lastName").getAsString();
+                        String firstName = oUser.get("firstName").getAsString();
+                        String lastName = oUser.get("lastName").getAsString();
 
-                                documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User(uType, false, u_id, email, firstName, lastName, 0), majorApi, subject, year, profName, description, createdAt, updatedAt));
-                            }
+                        documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
+
                     }
+
+
 
 
                     if (documents.size()==0){

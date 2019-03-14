@@ -77,6 +77,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
                 id_m = lstMatieres.get(vHolder.getAdapterPosition()).getId();
+                btc.setText("COURS("+lstMatieres.get(vHolder.getAdapterPosition()).getCour_c()+")");
+                bttd.setText("TD("+lstMatieres.get(vHolder.getAdapterPosition()).getTD_c()+")");
+                bttp.setText("TP("+lstMatieres.get(vHolder.getAdapterPosition()).getTP_c()+")");
+                btds.setText("DS("+lstMatieres.get(vHolder.getAdapterPosition()).getDS_c()+")");
+                btex.setText("EX("+lstMatieres.get(vHolder.getAdapterPosition()).getEX_c()+")");
+
 
                 dialog.show();
             }

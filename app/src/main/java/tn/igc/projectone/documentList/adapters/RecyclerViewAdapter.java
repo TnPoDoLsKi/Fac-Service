@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -69,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 String b_id = lsDocument.get(vHolder.getAdapterPosition()).get_id();
-                int b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
+                String b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
                 Boolean b_verifiedByProf= lsDocument.get(vHolder.getAdapterPosition()).getVerifiedByProf();
                 String b_title = lsDocument.get(vHolder.getAdapterPosition()).getTitle();
                 String b_firstName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getFirstName();
@@ -84,7 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Bundle bundle = new Bundle();
                 bundle.putString("b_id",b_id);
-                bundle.putInt("b_avatar",b_avatar);
+                bundle.putString("b_avatar",b_avatar);
                 bundle.putBoolean("b_verifiedByProf",b_verifiedByProf);
                 bundle.putString("b_title",b_title);
                 bundle.putString("b_firstName",b_firstName);
@@ -115,8 +117,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myViewHolder.docTitle.setText(lsDocument.get(i).getTitle());
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
-        myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
-
+        Picasso.get().load(lsDocument.get(i).getUser().getAvatar()).placeholder(R.drawable.index).into(myViewHolder.avatar);
 
 
     }
