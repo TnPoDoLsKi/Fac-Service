@@ -32,6 +32,14 @@ public class Document  {
         this.filePath=filePath;
 
     }
+    public Document(String _id,String title,User user,String filePath){
+        this._id=_id;
+        this.title=title;
+        this.user=user;
+        this.filePath=filePath;
+
+    }
+
 
     public Document(String type, int semestre, Boolean approved, int NBDowloads, boolean verifiedByProf, String session, String _id, String title, String filePath, User user, String major, String subject, int year, String profName, String description, String createdAt, String updatedAt) {
         this.type = type;

@@ -27,13 +27,15 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
 import tn.igc.projectone.Home.Classes.Matiere;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
+import tn.igc.projectone.authentification.util.SaveSharedPreference;
 
 public class Fragment_sem2 extends Fragment {
 
     View v;
     //Realm mRealm;
-
+     String Mid;
     private RecyclerView mRecyclerView;
     private List<Matiere> matiereList ;
     RecyclerViewAdapter recyclerViewAdapter;
@@ -65,6 +67,7 @@ public class Fragment_sem2 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         Mid = SaveSharedPreference.getMajor(getContext());
 
         apiMatieresS2();
     }
@@ -77,22 +80,22 @@ public class Fragment_sem2 extends Fragment {
 
     public void apiMatieresS2(){
         matiereList = new ArrayList<>();
-        final String Mid = "5c64773e38e7f64f8d07dc1b";
         //mRealm = Realm.getDefaultInstance();
 
         APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<JsonObject> call_one_maj = apiInterface.getMajor(Mid);
-        call_one_maj.enqueue(new Callback<JsonObject>() {
+        Call<JsonArray> call_one_maj = apiInterface.getMajorSujects(Mid);
+        call_one_maj.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                progressBar.setVisibility(View.INVISIBLE);
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                ((MainActivity) getActivity()).setInvisibleProgressBar();
+
                 Matiere m;
                 //Realm realm = null;
                 if(matiereList!=null){
                     matiereList.clear();
                 }
 
-                JsonArray subs_array = response.body().getAsJsonArray("subjects");
+                JsonArray subs_array = response.body().getAsJsonArray();
                 for (int i = 0; i < subs_array.size(); i++)
 
                 {
@@ -103,9 +106,16 @@ public class Fragment_sem2 extends Fragment {
                         JsonElement sub_name = sub.get("name");
                         JsonElement sub_id = sub.get("_id");
                         String name = sub_name.getAsString();
+                        JsonObject doc_count = sub.getAsJsonObject("documentsCount");
+
+                        int ds_c = doc_count.get("DS").getAsInt();
+                        int ex_c =  doc_count.get("EX").getAsInt();
+                        int tp_c = doc_count.get("C").getAsInt();
+                        int c_c = doc_count.get("TD").getAsInt();
+                        int td_c = doc_count.get("TP").getAsInt();
                         final String id = sub_id.getAsString();
 
-                        m = new Matiere(id, name, R.mipmap.ic_soc);
+                        m = new Matiere(id, name, R.mipmap.ic_soc,c_c,td_c,ds_c,ex_c,tp_c);
                         matiereList.add(m);
                         /*realm = Realm.getDefaultInstance();
                         realm.executeTransaction(new Realm.Transaction() {
@@ -139,7 +149,7 @@ public class Fragment_sem2 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 Toast.makeText(getContext(),"Offline Use ",Toast.LENGTH_LONG).show();
 
                 /*mRealm.executeTransaction(new Realm.Transaction() {

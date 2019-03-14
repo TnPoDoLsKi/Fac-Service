@@ -37,13 +37,13 @@ public interface APIInterface {
     Call<JsonArray> getFilterType(@Query("type") String type,@Query("name") String name);
     @GET("search")
     Call<JsonArray> getFilterMajor(@Query("major") String type,@Query("name") String name);
-    @GET("search")
+    @GET("documents/search")
     Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("major") String major,@Query("name") String name);
 
 
     @GET("documents")
     Call<JsonArray> getAllDocs();
-    @GET("documents/corrections/{id}")
+    @GET("corrections/byDocument/{id}")
     Call<JsonArray> getOneCorr(@Path("id") String id);
     @GET("corrections")
     Call<JsonArray> getAllCorrections();
@@ -59,10 +59,9 @@ public interface APIInterface {
     Call<JsonArray> getAllMajors();
 
 
-
-    @GET("documents/subject/{id}")
-    Call<JsonArray> getSubject_type (@Path("id") String id,@Query("type") String type);
-    @GET("majors/{id}")
-    Call<JsonObject> getMajor(@Path("id") String id);
+    @GET("documents/bySubject/{subjectId}/byType/{type}")
+    Call<JsonArray> getSubject_type (@Path("subjectId") String subjectId,@Path("type") String type);
+    @GET("subjects/byMajor/{major}")
+    Call<JsonArray> getMajorSujects(@Path("major") String major);
 
 }

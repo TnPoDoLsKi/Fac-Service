@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -69,13 +71,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 String b_id = lsDocument.get(vHolder.getAdapterPosition()).get_id();
-                int b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
+                String b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
                 Boolean b_verifiedByProf= lsDocument.get(vHolder.getAdapterPosition()).getVerifiedByProf();
                 String b_title = lsDocument.get(vHolder.getAdapterPosition()).getTitle();
                 String b_firstName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getFirstName();
                 String b_lastName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getLastName();
                 String b_filePath=lsDocument.get(vHolder.getAdapterPosition()).getFilePath();
                 String b_description=lsDocument.get(vHolder.getAdapterPosition()).getDescription();
+                String b_major=lsDocument.get(vHolder.getAdapterPosition()).getMajor();
+
 
 
 
@@ -84,13 +88,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Bundle bundle = new Bundle();
                 bundle.putString("b_id",b_id);
-                bundle.putInt("b_avatar",b_avatar);
+                bundle.putString("b_avatar",b_avatar);
                 bundle.putBoolean("b_verifiedByProf",b_verifiedByProf);
                 bundle.putString("b_title",b_title);
                 bundle.putString("b_firstName",b_firstName);
                 bundle.putString("b_lastName",b_lastName);
                 bundle.putString("b_filePath",b_filePath);
                 bundle.putString("b_description",b_description);
+                bundle.putString("b_major",b_major);
+
 
 
 
@@ -115,9 +121,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myViewHolder.docTitle.setText(lsDocument.get(i).getTitle());
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
-        myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
-
-
+        Picasso.get().load(lsDocument.get(i).getUser().getAvatar()).placeholder(R.drawable.index).into(myViewHolder.avatar);
+        myViewHolder.major.setText(lsDocument.get(i).getMajor());
 
     }
 
@@ -134,6 +139,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private ImageView verifiedImage ;
         private TextView userName;
         private ImageView avatar ;
+        private TextView major;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -143,6 +149,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
             userName = (TextView) itemView.findViewById(R.id.userName) ;
             avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            major=(TextView) itemView.findViewById(R.id.majorName);
         }
     }
     public void updateList(ArrayList<Document> newList){

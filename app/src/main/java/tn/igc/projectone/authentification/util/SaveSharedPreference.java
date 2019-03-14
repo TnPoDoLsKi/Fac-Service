@@ -27,4 +27,14 @@ public class SaveSharedPreference {
     public static String getToken(Context context) {
         return getPreferences(context).getString("token","");
     }
+    public static String getMajorName(Context context) {
+        return getPreferences(context).getString("majorName","");
+    }
+    public static void setMajorName(Context context, String major) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putString("majorName",major);
+        editor.apply();
+    }
+
+
 }
