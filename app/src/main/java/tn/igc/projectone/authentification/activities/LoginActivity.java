@@ -154,10 +154,12 @@ public class LoginActivity extends Activity {
                         if (response.isSuccessful()){
                            //new activity+realm
                             String token=response.body().get("token").getAsString();
-                            String major=response.body().getAsJsonObject("user").get("major").getAsString();
+                            String major=response.body().getAsJsonObject().get("major").getAsString();
+                            String majorName=response.body().getAsJsonObject().get("majorName").getAsString();
                             Toast.makeText(LoginActivity.this,token,Toast.LENGTH_LONG).show();
                             SaveSharedPreference.setMajor(getApplicationContext(), major);
                             SaveSharedPreference.setToken(getApplicationContext(),token);
+                            SaveSharedPreference.setMajorName(getApplicationContext(), majorName);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
 

@@ -70,6 +70,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
     String major ;
     RadioButton fil;
     RadioButton Tousfil;
+    RadioButton myMajor;
     String T;
     String searchText;
     TextView textView;
@@ -153,8 +154,9 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         exams = (RadioButton) v.findViewById(R.id.Exams);
         radioGroup1 = (RadioGroup) v.findViewById(R.id.rg1);
         radioGroup2 = (RadioGroup) v.findViewById(R.id.rg2);
+        myMajor=(RadioButton) v.findViewById(R.id.Major);
         major=SaveSharedPreference.getMajor(getContext());
-
+        myMajor.setText(SaveSharedPreference.getMajorName(getContext()));
 
         FIL.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
