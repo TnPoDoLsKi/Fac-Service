@@ -78,6 +78,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 String b_lastName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getLastName();
                 String b_filePath=lsDocument.get(vHolder.getAdapterPosition()).getFilePath();
                 String b_description=lsDocument.get(vHolder.getAdapterPosition()).getDescription();
+                String b_major=lsDocument.get(vHolder.getAdapterPosition()).getMajor();
+
 
 
 
@@ -93,6 +95,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 bundle.putString("b_lastName",b_lastName);
                 bundle.putString("b_filePath",b_filePath);
                 bundle.putString("b_description",b_description);
+                bundle.putString("b_major",b_major);
+
 
 
 
@@ -118,7 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
         Picasso.get().load(lsDocument.get(i).getUser().getAvatar()).placeholder(R.drawable.index).into(myViewHolder.avatar);
-
+        myViewHolder.major.setText(lsDocument.get(i).getMajor());
 
     }
 
@@ -135,6 +139,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private ImageView verifiedImage ;
         private TextView userName;
         private ImageView avatar ;
+        private TextView major;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -144,6 +149,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
             userName = (TextView) itemView.findViewById(R.id.userName) ;
             avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            major=(TextView) itemView.findViewById(R.id.majorName);
         }
     }
     public void updateList(ArrayList<Document> newList){

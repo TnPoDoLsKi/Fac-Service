@@ -300,7 +300,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
     }
 
 
-    public void apiTypeMajor(String name,String type,String major) {
+    public void apiTypeMajor(final String name, String type, String major) {
         documents = new ArrayList<>();
         apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<JsonArray> call_search = apiInterface.getFilterTypeMajor(type,major,name);
@@ -398,14 +398,21 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                                  subject = obj.get("subject").getAsString();
 
                             }*/
-                        String majorApi="";
-/*                            if (obj.get("major")==null){
-                                 majorApi ="";
+                        JsonArray majorApi=null;
+                        if (obj.get("major")==null){
+                                 majorApi =null;
                             }
                             else{
-                                 majorApi = obj.get("major").getAsString();
+                                 majorApi = obj.get("major").getAsJsonArray();
 
-                            }*/
+                            }
+                        String majors="";
+                            for (int j=0;j<majorApi.size();j++){
+                             JsonObject majorbe =majorApi.get(j).getAsJsonObject();
+                             majors=majors+","+majorbe.get("name").getAsString();
+
+                            }
+
                         int year = 0;
 
                         if (obj.get("year")==null){
@@ -457,7 +464,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                         String firstName = oUser.get("firstName").getAsString();
                         String lastName = oUser.get("lastName").getAsString();
 
-                        documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
+                        documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majors, subject, year, profName, description, createdAt, updatedAt));
 
                     }
 
