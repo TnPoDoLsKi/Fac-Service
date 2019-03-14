@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     private MyAdapter myAdapter;
     private Button btn_valider;
     private TextView tv_aucuneImage;
+    private LinearLayout layout;
 
     public NewFragment() {
         // Required empty public constructor
@@ -102,6 +104,8 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         Button btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
+        layout = v.findViewById(R.id.linearLayout);
+
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -123,6 +127,10 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewGroup.LayoutParams params = layout.getLayoutParams();
+                params.height = 0;
+                params.width = 0;
+                layout.setLayoutParams(params);
                 Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(2).setFrontfacing(true));
             }
         });
@@ -137,7 +145,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                     multipart.add(filelist.get(i).getPart());
                 }
                 Log.e("multipartsize", " ->  " + multipart.size());
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjN2ViODFkM2UwZDEzN2RmMTFlYzY0NSIsImlhdCI6MTU1MTgwODU0MSwiZXhwIjoxNTUyNDEzMzQxfQ.5DEz9Jrina0_5xagRa7LTdYLL4thUHdq_cd1oRDXakE").create(APIInterface.class);
+                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
                 Call<JsonArray> call_create_task = apiInterface.uploadimage(multipart);
                 Toast.makeText(getContext(), multipart.size()+"", Toast.LENGTH_LONG).show();
 
@@ -158,19 +166,20 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                                // Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
                             }
                             //dialog.dismiss();
+                            dialog.dismiss();
+                            DocumentFragmentSubject documentFragment = new DocumentFragmentSubject();
+                            Bundle args = new Bundle();
+                            args.putStringArrayList("pathlist",pathlist);
+                            documentFragment.setArguments(args);
+                            //getFragmentManager().beginTransaction().add(R.id.frag, documentFragment).commit();
+
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.container, documentFragment);
+                            fragmentTransaction.commit();
 
                         }
-                        dialog.dismiss();
-                            DocumentFragment documentFragment = new DocumentFragment();
-                                        Bundle args = new Bundle();
-                                        args.putStringArrayList("pathlist",pathlist);
-                                        documentFragment.setArguments(args);
-            //getFragmentManager().beginTransaction().add(R.id.frag, documentFragment).commit();
 
-                                        FragmentManager fragmentManager = getFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        fragmentTransaction.replace(R.id.container, documentFragment);
-                                        fragmentTransaction.commit();
 
                     }
 

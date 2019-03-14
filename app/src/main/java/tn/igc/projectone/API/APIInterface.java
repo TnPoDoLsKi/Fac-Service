@@ -29,7 +29,11 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("documents")
-    Call<JsonObject> createdocument(@Field("title")String title, @Field("type")String type, @Field("filePath")String filePath, @Field("user")String user, @Field("major") String major, @Field("subject")String subject, @Field("year")String year, @Field("semestre")String semestre, @Field("profName")String profName, @Field("session")String session, @Field("corrections") Array corrections);
+    Call<JsonObject> createdocument(@Field("type")String type, @Field("filesStaging")ArrayList<String> filesStaging, @Field("subject")String subject,@Field("year")String year, @Field("description")String description, @Field("session") String session);
+
+    @FormUrlEncoded
+    @POST("corrections")
+    Call<JsonObject> createcorrection(@Field("filesStaging")ArrayList<String> filesStaging,@Field("document")String document);
 
     @GET("search")
     Call<JsonArray> getFiltre(@Query("name") String name);

@@ -15,7 +15,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
-            android:background="@color/colorAccent"
+            android:background="#F0F0F0"
             android:minHeight="200dp"
             android:scaleType="fitCenter" />
 
