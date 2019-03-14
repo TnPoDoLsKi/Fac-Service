@@ -4,12 +4,6 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
-import at.markushi.ui.CircleButton;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.classes.Document;
@@ -73,7 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                 String b_id = lsDocument.get(vHolder.getAdapterPosition()).get_id();
-                String b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
+                int b_avatar = lsDocument.get(vHolder.getAdapterPosition()).getUser().getAvatar();
                 Boolean b_verifiedByProf= lsDocument.get(vHolder.getAdapterPosition()).getVerifiedByProf();
                 String b_title = lsDocument.get(vHolder.getAdapterPosition()).getTitle();
                 String b_firstName = lsDocument.get(vHolder.getAdapterPosition()).getUser().getFirstName();
@@ -88,7 +84,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Bundle bundle = new Bundle();
                 bundle.putString("b_id",b_id);
-                bundle.putString("b_avatar",b_avatar);
+                bundle.putInt("b_avatar",b_avatar);
                 bundle.putBoolean("b_verifiedByProf",b_verifiedByProf);
                 bundle.putString("b_title",b_title);
                 bundle.putString("b_firstName",b_firstName);
@@ -119,8 +115,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myViewHolder.docTitle.setText(lsDocument.get(i).getTitle());
         myViewHolder.userName.setText(lsDocument.get(i).getUser().getName());
         myViewHolder.verifiedImage.setImageResource(lsDocument.get(i).isVerifiedByProf());
+        myViewHolder.avatar.setImageResource(lsDocument.get(i).getUser().getAvatar());
 
-        Picasso.get().load(lsDocument.get(i).getUser().getAvatar()).placeholder(R.drawable.index).into(myViewHolder.avatar);
 
 
     }

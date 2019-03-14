@@ -1,18 +1,10 @@
 package tn.igc.projectone.search.fragment;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,14 +22,21 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,9 +44,10 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
 import tn.igc.projectone.authentification.util.SaveSharedPreference;
-import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
+import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
@@ -449,14 +449,17 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                                  updatedAt = obj.get("updatedAt").getAsString();
 
                             }
+                            if (approved==true) {
                                 JsonObject oUser = obj.get("user").getAsJsonObject();
-                                String avatar=oUser.get("avatar").getAsString();
+                                String uType = oUser.get("type").getAsString();
 
+                                String u_id = oUser.get("_id").getAsString();
+                                String email = oUser.get("email").getAsString();
                                 String firstName = oUser.get("firstName").getAsString();
                                 String lastName = oUser.get("lastName").getAsString();
 
-                                documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
-
+                                documents.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User(uType, false, u_id, email, firstName, lastName, 0), majorApi, subject, year, profName, description, createdAt, updatedAt));
+                            }
                     }
 
 

@@ -1,20 +1,15 @@
 package tn.igc.projectone.documentList.fragments;
 
 
-import android.app.DownloadManager;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -22,7 +17,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import tn.igc.projectone.R;
 
 

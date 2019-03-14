@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,13 +19,15 @@ import com.google.gson.JsonObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.MainActivity;
-import tn.igc.projectone.R;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.MainActivity;
+import tn.igc.projectone.R;
 import tn.igc.projectone.authentification.util.SaveSharedPreference;
 
 public class LoginActivity extends Activity {
@@ -38,7 +38,6 @@ public class LoginActivity extends Activity {
     private static String token;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private ConstraintLayout loginForm;
-
     public final boolean validateEmail(String target) {
         if (target !=null && target.length() > 1) {
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -58,6 +57,15 @@ public class LoginActivity extends Activity {
         inscrip=(Button)findViewById(R.id.inscrip);
         loginForm = (ConstraintLayout) findViewById(R.id.loginform);
 
+        Button btn_continue =(Button) findViewById(R.id.button3);
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

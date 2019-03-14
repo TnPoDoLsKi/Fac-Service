@@ -12,12 +12,12 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sem2_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
     <ProgressBar
         android:id="@+id/progressBarS2"
