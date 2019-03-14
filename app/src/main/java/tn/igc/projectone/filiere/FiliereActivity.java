@@ -1,10 +1,10 @@
 package tn.igc.projectone.filiere;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import tn.igc.projectone.R;
 import tn.igc.projectone.filiere.Utils.Utils;
 

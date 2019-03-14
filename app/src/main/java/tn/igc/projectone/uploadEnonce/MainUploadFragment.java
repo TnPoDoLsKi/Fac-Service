@@ -2,51 +2,60 @@ package tn.igc.projectone.uploadEnonce;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tn.igc.projectone.API.APIClient;
+import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
-import tn.igc.projectone.filiere.API.APIClient;
-import tn.igc.projectone.filiere.API.APIInterface;
+import tn.igc.projectone.SaveSharedPreference;
+import tn.igc.projectone.filiere.Utils.Data;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainUploadFragment extends Fragment {
     public static APIInterface apiInterface;
-    public static APIInterface apiInterfaceToken;
 
 
     // used to store the list of selected tags (liste de filiere)
-    private ArrayList<String> filiereList;
-    private LinearLayout filiereListLayout;
-    private boolean multipleTags = false;
+//    private ArrayList<String> selectedMajors;
+    private ArrayList<Data> selectedMajorsData;
+    private ArrayList<Data> majors;
+    private ArrayList<Data> subjectsSem;
 
+
+    private LinearLayout filiereListLayout;
+    private LinearLayout sessionLayout;
+    private boolean multipleTags = false;
     private Spinner spinnerFil;
-    private Spinner spinnerMat;
-    private ArrayList<String> majors;
-    private ArrayList<String> subjectsSem1;
-    private ArrayList<String> subjectsSem2;
+    private Spinner spinnerMat, spinnerType, spinnerSession;
     private int semesterNbr = 1;
-    private String subject;
+    private ImageView plusImg;
+    private TextView plusTxt;
+    private ProgressBar load;
 
     public MainUploadFragment() {
         // Required empty public constructor
@@ -54,8 +63,10 @@ public class MainUploadFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        getActivity().setTitle("Upload");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_upload, container, false);
 
@@ -66,27 +77,37 @@ public class MainUploadFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        filiereList = new ArrayList<>();
+        //todo remove this
+        SaveSharedPreference.setToken(getContext(), "Bearer 70534cf480e57f69465d2ebabe3a8e35138d437df3dc9b658258c1bb4c1d8bf9");
+
+
+//        selectedMajors = new ArrayList<>();
+        selectedMajorsData = new ArrayList<>();
 
         filiereListLayout = view.findViewById(R.id.filiere_list);
+        plusImg = view.findViewById(R.id.plusImg);
+        plusTxt = view.findViewById(R.id.plusTxt);
+        load = view.findViewById(R.id.load);
 
-        String semArr[] = {"Semestre 1", "Semester 2"};
-        final String typeArr[] = {"Examen", "DS", "Cours", "TD", "TP"};
-        final String sessionArr[] = {"Principale", "Contrôle"};
+        //arrays used for static values
+        String semArr[] = {"Semestre 1", "Semestre 2"};
+        final String[] typeArr = {"Examen", "DS", "Cours", "TD", "TP"};
+        final String[] sessionArr = {"Principale", "Contrôle"};
 
         spinnerMat = view.findViewById(R.id.spinner_matiere);
         spinnerFil = view.findViewById(R.id.spinner_filier);
-        final Spinner spinnerType = view.findViewById(R.id.spinner_type);
+
+        spinnerType = view.findViewById(R.id.spinner_type);
         final Spinner spinnerSem = view.findViewById(R.id.spinner_semester);
 // session section
-        final Spinner spinnerSession = view.findViewById(R.id.spinner_session);
-        final LinearLayout sessionLayout = view.findViewById(R.id.session_section);
+        spinnerSession = view.findViewById(R.id.spinner_session);
+        sessionLayout = view.findViewById(R.id.session_section);
 
         majorsList();
 
 // Create an ArrayAdapter using the string array and a default spinner layout
 
-        ArrayAdapter<String> adapterSem = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, semArr);
+        ArrayAdapter<String> adapterSem = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.support_simple_spinner_dropdown_item, semArr);
         ArrayAdapter<String> adapterType = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, typeArr);
 
 // Apply the adapter to the spinner
@@ -98,22 +119,43 @@ public class MainUploadFragment extends Fragment {
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if ((parent == spinnerFil) || (parent == spinnerSem))
-                    subjectsList();
-                Log.d("SHIT", "onItemSelected: ");
+
                 //majors Spinner
                 if (parent == spinnerFil) {
                     String tagString = spinnerFil.getSelectedItem().toString();
-                    if (!filiereList.contains(tagString)) {
-                        if (multipleTags) {
-                            filiereList.add(tagString);
-                            filiereListLayout.addView(addTag(tagString));
+
+                    //no item is selected
+                    if (tagString.equals(majors.get(0).getName()))
+                        return;
+
+                        //an item is selected
+                    else {
+                        if (!Data.contains(tagString, selectedMajorsData)) {
+                            if (multipleTags) {
+                                //multiple selection
+//                                selectedMajors.add(tagString);
+                                String tempId = Data.getIdFromName(tagString, majors);
+                                selectedMajorsData.add(new Data(tempId, tagString));
+
+                                filiereListLayout.addView(addTag(tagString));
+                                //return to default selection
+                                spinnerFil.setSelection(0);
+                            } else {
+                                //single selection
+                                if (selectedMajorsData.size() > 0) {
+//                                    selectedMajors.clear();
+                                    selectedMajorsData.clear();
+                                }
+//                                selectedMajors.add(tagString);
+                                String tempId = Data.getIdFromName(tagString, majors);
+                                selectedMajorsData.add(new Data(tempId, tagString));
+                            }
                         } else {
-                            if (filiereList.size() > 0)
-                                filiereList.clear();
-                            filiereList.add(tagString);
+                            //return to default selection
+                            spinnerFil.setSelection(0);
                         }
                     }
+
                 }
                 //semester Spinner
                 if (parent == spinnerSem) {
@@ -127,8 +169,8 @@ public class MainUploadFragment extends Fragment {
                 //type spinner
                 if (parent == spinnerType) {
                     String typeString = parent.getSelectedItem().toString();
-                    if (typeString == typeArr[0] || typeString == typeArr[1]) {
-                        ArrayAdapter<String> adapterSession = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, sessionArr);
+                    if (typeString.equals(typeArr[0])) {
+                        ArrayAdapter<String> adapterSession = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.support_simple_spinner_dropdown_item, sessionArr);
                         spinnerSession.setAdapter(adapterSession);
                         sessionLayout.setVisibility(View.VISIBLE);
                     } else {
@@ -136,11 +178,13 @@ public class MainUploadFragment extends Fragment {
                     }
 
                 }
+
+                if ((parent == spinnerFil) || (parent == spinnerSem))
+                    subjectsList();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         };
 
@@ -154,9 +198,16 @@ public class MainUploadFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!multipleTags) {
-                    multipleTags = true;
-                    ((ViewGroup) v).removeAllViews();
-                    ((ViewGroup) v).addView(addTag(spinnerFil.getSelectedItem().toString()));
+                    String selection = spinnerFil.getSelectedItem().toString();
+                    if (!selection.equals(majors.get(0).getName())) {
+                        multipleTags = true;
+                        ((ViewGroup) v).removeAllViews();
+                        ((ViewGroup) v).addView(addTag(selection));
+                        //return to default
+                        spinnerFil.setSelection(0);
+                    } else
+                        Toast.makeText(getContext(), "Choisir une filiere", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -183,11 +234,22 @@ public class MainUploadFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (filiereList.size() > 1) {
-                    filiereList.remove(tag);
+                if (selectedMajorsData.size() > 1) {
+//                    selectedMajors.remove(tag);
+                    Data.remove(tag, selectedMajorsData);
                     ((ViewGroup) v.getParent()).removeView(v);
-                    subjectsList();
+                } else {
+                    //final tag to remove
+                    ((ViewGroup) v.getParent()).removeView(v);
+//                    selectedMajors.remove(tag);
+                    Data.remove(tag, selectedMajorsData);
+
+                    filiereListLayout.addView(plusImg);
+                    filiereListLayout.addView(plusTxt);
+                    multipleTags = false;
                 }
+                subjectsList();
+
 
             }
         });
@@ -199,60 +261,43 @@ public class MainUploadFragment extends Fragment {
      * methods used to update the interface after user selection
      */
     private void subjectsList() {
+
+        load.setVisibility(View.VISIBLE);
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        Call<JsonArray> call_all_majors = apiInterface.getAllMajors();
-        call_all_majors.enqueue(new Callback<JsonArray>() {
+        Log.d("majorsData", "subjectsList: " + selectedMajorsData);
+        Call<JsonArray> call_subjects = apiInterface.getSubjectsByMajor(Data.copyIds(selectedMajorsData));
+        call_subjects.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 JsonArray resArr = response.body().getAsJsonArray();
-                subjectsSem1 = new ArrayList<>();
-                subjectsSem2 = new ArrayList<>();
+                subjectsSem = new ArrayList<>();
 
                 int size = resArr.size();
                 for (int i = 0; i < size; i++) {
-                    JsonObject obj = resArr.get(i).getAsJsonObject();
+                    JsonObject subObj = resArr.get(i).getAsJsonObject();
+                    String subName = subObj.get("name").getAsString();
+                    String subId = subObj.get("_id").getAsString();
+                    int subSemester = subObj.get("semestre").getAsInt();
+                    if (subSemester == semesterNbr)
+                        subjectsSem.add(new Data(subId, subName));
 
-                    String name = obj.get("name").getAsString();
-                    JsonArray subArr = obj.getAsJsonArray("subjects");
-
-                    //adding subjects of the selected subjects
-                    if (filiereList.contains(name)) {
-
-                        for (int j = 0; j < subArr.size(); j++) {
-                            JsonObject subObj = subArr.get(j).getAsJsonObject();
-                            int semester = subObj.get("semestre").getAsInt();
-                            String subName = subObj.get("name").getAsString();
-
-                            //adding subjects to 2 seperate arrays
-                            if (semester == 1) {
-                                subjectsSem1.add(subName);
-                            } else if (semester == 2) {
-                                subjectsSem2.add(subName);
-                            }
-
-                        }
-                    }
 
                 }
 
-                String[] matArr = {};
+                String[] matArr;
+                matArr = Data.copyValues(subjectsSem);
 
-                if (semesterNbr == 1) {
-                    matArr = subjectsSem1.toArray(new String[0]);
-                } else if (semesterNbr == 2) {
-                    matArr = subjectsSem2.toArray(new String[0]);
-                }
-                ArrayAdapter<String> adapterMat = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, matArr);
+                ArrayAdapter<String> adapterMat = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.support_simple_spinner_dropdown_item, matArr);
 
                 spinnerMat.setAdapter(adapterMat);
 
-
+                load.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Log.d("SHIT", "onFailure: " + t.fillInStackTrace());
+                Log.d("oops", "onFailure: " + t.fillInStackTrace());
 
             }
 
@@ -260,9 +305,15 @@ public class MainUploadFragment extends Fragment {
         });
     }
 
+
+    /**
+     * updates the spinner controlling the major list
+     */
     public void majorsList() {
         apiInterface = APIClient.getClient().create(APIInterface.class);
-        majors = new ArrayList<String>();
+        majors = new ArrayList<>();
+        //premier element
+        majors.add(new Data("0", "Choisir une filiere"));
 
         Call<JsonArray> call_all_majors = apiInterface.getAllMajors();
         call_all_majors.enqueue(new Callback<JsonArray>() {
@@ -276,26 +327,49 @@ public class MainUploadFragment extends Fragment {
                     JsonObject obj = resArr.get(i).getAsJsonObject();
                     //getting all majors names
                     String name = obj.get("name").getAsString();
-                    majors.add(name);
+                    String id = obj.get("_id").getAsString();
+                    majors.add(new Data(id, name));
 
 
                 }
 
-                final String filArr[] = (String[]) majors.toArray(new String[0]);
-                ArrayAdapter<String> adapterFil = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, filArr);
-                spinnerFil.setAdapter(adapterFil);
+                final String filArr[] = Data.copyValues(majors);
+                try {
+
+                    ArrayAdapter<String> adapterFil = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.support_simple_spinner_dropdown_item, filArr);
+                    spinnerFil.setAdapter(adapterFil);
+                } catch (NullPointerException ignored) {
+
+                }
+
+                load.setVisibility(View.GONE);
+
 
             }
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Log.d("SHIT", "onFailure: " + t.fillInStackTrace());
+                Log.d("oops", "onFailure: " + t.fillInStackTrace());
 
             }
 
 
         });
 
+
+    }
+
+    /**
+     * pass the required data for the upload
+     */
+    public void upload() {
+        String type, session = null, subId = spinnerMat.getSelectedItem().toString();
+        subId = Data.getIdFromName(subId, subjectsSem);
+        type = spinnerType.getSelectedItem().toString();
+        if (sessionLayout.getVisibility() == View.VISIBLE)
+            session = spinnerSession.getSelectedItem().toString();
+
+        //todo : send data
 
     }
 

@@ -1,11 +1,14 @@
 package tn.igc.projectone.filiere.Utils;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import tn.igc.projectone.R;
 import tn.igc.projectone.filiere.Fragments.Process1Fragment;
 import tn.igc.projectone.filiere.Fragments.Process2Fragment;
@@ -15,8 +18,8 @@ import tn.igc.projectone.filiere.Fragments.Process3Fragment;
 public class Utils {
 
     public static int processProgress = 0;
-    public static String[] filere;
-
+    //    public static String[] selectedMajor;
+    public static ArrayList<Data> selectedMajor;
 	/**
 	 * @param fragmentManager : a Fragment Manager
 	 * @param bar             : a reference to the progressBar
@@ -26,15 +29,23 @@ public class Utils {
     //	this method calls the next fragment (process)
 	// this version is only called the first time
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
-		filere = new String[3];
+//		selectedMajor = new String[3];
+        selectedMajor = new ArrayList<>();
+
 		nextProcess(fragmentManager, bar, null);
 	}
 
 	//	Overload
-    public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, String toSend) {
-		if (toSend != null) filere[processProgress - 1] = toSend;
+    public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, Data toSend) {
+        if (toSend != null) {
+//            selectedMajor[processProgress - 1] = toSend;
+            selectedMajor.add(processProgress - 1, toSend);
+            Log.d("oops", "nextProcess: " + toSend);
+        }
+
+
 		if (fragmentManager == null) {
-			Log.d("CLICK", filere[0] + "|" + filere[1] + "|" + filere[2] + "|");
+            Log.d("Oops", selectedMajor.get(0).getName() + "|" + selectedMajor.get(2).getName() + "|" + selectedMajor.get(3).getName() + "|");
 			// here pass to next activity
 			return;
 		}

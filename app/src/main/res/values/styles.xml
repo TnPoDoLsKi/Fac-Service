@@ -5,8 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/darkBlue</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:itemBackground">#000000</item>
+        <item name="colorAccent">@color/lightBlue</item>
+        <item name="android:itemBackground">#fff</item>
 
         <item name="android:fontFamily">@font/lato</item>
     </style>
