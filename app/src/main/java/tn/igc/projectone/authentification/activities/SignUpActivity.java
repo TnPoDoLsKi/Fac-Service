@@ -1,9 +1,12 @@
 package tn.igc.projectone.authentification.activities;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import tn.igc.projectone.R;
+
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,29 +22,31 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.R;
 
 public class SignUpActivity extends AppCompatActivity {
     Spinner formation;
+    Map<String,String> majorvsid;
     String text;
     Button cnxlogin,cnxsignup;
     EditText nom,prenom,email,pass;
-    Boolean isnomValidated,isPrenomValidated;
+    Boolean isnomValidated,isPrenomValidated,isEmailValidated,isPassValidated;
     ArrayList<String> forma_list=new ArrayList<String>();
     ArrayAdapter<String> forma_adapter;
     private APIInterface apiInterface;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private int idUser;
+    private EditText confirm;
 
 
     public final boolean validateEmail(String target) {
@@ -66,13 +71,12 @@ public class SignUpActivity extends AppCompatActivity {
         pass=(EditText)findViewById(R.id.editText6);
         cnxlogin=(Button)findViewById(R.id.button5);
         formation=(Spinner) findViewById(R.id.spinner);
+        confirm=(EditText)findViewById(R.id.confirm);
         buildMajorsdropdown();
-        //forma_list.add("fia1");
 
         formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(getApplicationContext(),adapterView.getItemIdAtPosition(i), Toast.LENGTH_LONG).show();
                 text=formation.getSelectedItem().toString();
 
             }
@@ -121,7 +125,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String etpasschange=s.toString();
-                Toast.makeText(getApplicationContext(),etpasschange,Toast.LENGTH_SHORT).show();
                 if(etpasschange.length()<8){
                     pass.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     pass.setError("mot de passe courte");
@@ -153,24 +156,73 @@ public class SignUpActivity extends AppCompatActivity {
                         String str_pass=pass.getText().toString().trim();
                         String strlastName = nom.getText().toString().trim();
                         String strfirst= prenom.getText().toString().trim();
-                        Toast.makeText(SignUpActivity.this,text, Toast.LENGTH_LONG).show();
+                        text=formation.getSelectedItem().toString().trim();
+                        String id=majorvsid.get(text);
 
                         apiInterface= APIClient.getClient().create(APIInterface.class);
-                        Call<HashMap> tentative=apiInterface.basicsignup(str_mail,str_pass,"student",strfirst,strlastName,text);
-                        tentative.enqueue(new Callback<HashMap>() {
+                        Call<Void> tentative=apiInterface.basicsignup(str_mail,str_pass,strfirst,strlastName,id);
+                        tentative.enqueue(new Callback<Void>() {
                             @Override
-                            public void onResponse(Call<HashMap> call, Response<HashMap> response) {
-                                //Compte dataResponse= response.body();
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if(response.isSuccessful()) {
+                                        if (response.code() == 208) {
+                                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
+                                            dlgAlert.setMessage("Utilisateur existe déja!");
+                                            dlgAlert.setTitle("Ressayer!");
+                                            dlgAlert.setPositiveButton("OK", null);
+                                            dlgAlert.setCancelable(true);
+                                            dlgAlert.create().show();
+                                            dlgAlert.setPositiveButton("Ok",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
 
-                                    Toast.makeText(SignUpActivity.this, response.code() + "", Toast.LENGTH_LONG).show();
+                                                        }
+                                                    });
+
+
+                                        } else {
+                                            nom.setText("");
+                                            prenom.setText("");
+                                            email.setText("");
+                                            pass.setText("");
+                                            // error response, no access to resource?
+                                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
+                                            dlgAlert.setMessage("Utilisateur crée avec succés");
+                                            dlgAlert.setTitle("Succés!");
+                                            dlgAlert.setPositiveButton("OK", null);
+                                            dlgAlert.setCancelable(true);
+                                            dlgAlert.create().show();
+                                            dlgAlert.setPositiveButton("Ok",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+
+                                                        }
+                                                    });
+                                            Handler mHandler = new Handler();
+                                            mHandler.postDelayed(new Runnable() {
+
+                                                @Override
+                                                public void run() {
+                                                    //start your activity here
+                                                    Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                                                    startActivity(i);
+
+                                                }
+
+                                            }, 1500);
+
+
+                                        }
+                                    }
+
 
 
 
                             }
 
                             @Override
-                            public void onFailure(Call<HashMap> call, Throwable t) {
-                                Toast.makeText(SignUpActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                                 Log.d("Error", t.getMessage());
 
                             }
@@ -178,8 +230,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         if (null == strlastName || strlastName.length() == 0  )
                         {
-                            // showToast("Enter Your Name");
-                            nom.setError( "entrer votre nom" );
+                            nom.setError( "Entrer votre nom" );
                             isnomValidated = false;
                         }
                         else {
@@ -187,12 +238,27 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                         if (null == strfirst || strfirst.length() == 0)
                         {
-                            // showToast("Enter Your Password");
                             isPrenomValidated = false;
-                            prenom.setError( "entrer votre prenom" );
+                            prenom.setError( "Entrer votre prenom" );
                         }
                         else {
                             isPrenomValidated=true;
+                        }
+                        if (null == str_mail || str_mail.length() == 0)
+                        {
+                            isEmailValidated = false;
+                            email.setError( "Entrer votre email" );
+                        }
+                        else {
+                            isEmailValidated=true;
+                        }
+                        if (null == str_pass || str_pass.length() == 0)
+                        {
+                            isPassValidated = false;
+                            pass.setError( "Entrer votre mot de passe" );
+                        }
+                        else {
+                            isPassValidated=true;
                         }
 
                     }
@@ -219,14 +285,14 @@ public class SignUpActivity extends AppCompatActivity {
         tentative.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                //try{JSONArray major = response.body();
                 for(int i=0;i<response.body().size();i++)
                 {
                     JsonObject obj = response.body().get(i).getAsJsonObject();
+                    Toast.makeText(getApplicationContext(),obj.get("id").toString(),Toast.LENGTH_SHORT).show();
+                    //majorvsid.put(obj.get("name").toString(),obj.get("id").toString());
                     forma_list.add((String) obj.get("name").getAsString());
                     Log.d("name major",obj.get("name").toString());
 
-                    Toast.makeText(SignUpActivity.this,obj.get("name").toString(),Toast.LENGTH_LONG).show();
                 }
                 forma_adapter=new ArrayAdapter<String>(SignUpActivity.this,R.layout.formation_spinner_row,forma_list);
                 forma_adapter.setDropDownViewResource(R.layout.spinner_item_dropdown);
@@ -239,6 +305,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                Log.d("Error", t.getMessage());
 
             }
         });
