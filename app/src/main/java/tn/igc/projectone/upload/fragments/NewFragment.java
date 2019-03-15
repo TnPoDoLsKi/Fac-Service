@@ -41,6 +41,7 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
 
+import tn.igc.projectone.authentification.activities.LoginActivity;
 import tn.igc.projectone.upload.Interface.RecyclerViewClickListener;
 import tn.igc.projectone.upload.adapters.MyAdapter;
 import tn.igc.projectone.upload.other.FileImage;
@@ -105,16 +106,14 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
         layout = v.findViewById(R.id.linearLayout);
-
-
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 filelist.remove(position);
                 myAdapter.addImage(filelist);
-                Toast.makeText(NewFragment.this.getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
                 if(filelist.size()==0){
                     btn_valider.setVisibility(View.INVISIBLE);
                     tv_aucuneImage.setVisibility(View.VISIBLE);}
@@ -147,31 +146,26 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                 Log.e("multipartsize", " ->  " + multipart.size());
                 APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
                 Call<JsonArray> call_create_task = apiInterface.uploadimage(multipart);
-                Toast.makeText(getContext(), multipart.size()+"", Toast.LENGTH_LONG).show();
 
                 call_create_task.enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                         if (response.code()==401){
                             Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(getContext(),LoginActivity.class);
+                            startActivity(i);
+
 
                         }
                         else{
                             for(int i=0;i<response.body().size();i++) {
                                 pathlist.add(response.body().getAsJsonArray().get(i).getAsString());
-                                Toast.makeText(getContext(), "kkkk", Toast.LENGTH_LONG).show();
-
-                                Log.e("image", " ->  " +response.body().getAsJsonArray().get(i).toString() );
-
-                               // Toast.makeText(getContext(), response.body().getAsJsonArray().get(i).toString(), Toast.LENGTH_LONG).show();
                             }
-                            //dialog.dismiss();
                             dialog.dismiss();
                             DocumentFragmentSubject documentFragment = new DocumentFragmentSubject();
                             Bundle args = new Bundle();
                             args.putStringArrayList("pathlist",pathlist);
                             documentFragment.setArguments(args);
-                            //getFragmentManager().beginTransaction().add(R.id.frag, documentFragment).commit();
 
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -227,8 +221,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                         filelist.add(fileImage);
                     }
                     myAdapter.addImage(filelist);
-                    Toast.makeText(getActivity(), filelist.size()+"", Toast.LENGTH_LONG).show();
-
                     if(filelist.size()!=0)
                     {btn_valider.setVisibility(View.VISIBLE);
                     tv_aucuneImage.setVisibility(View.INVISIBLE);}
@@ -248,7 +240,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(1));
                 } else {
-                    Toast.makeText(getActivity(), "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Approuver les autorisations pour ouvrir", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -272,7 +264,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         conteur_nbre_file_upload++;
         if(conteur_nbre_file_upload<=filelist.size()) {
             dialog.setMessage("télechargement en cours  " + conteur_nbre_file_upload + "/" + filelist.size());
-            Toast.makeText(getContext(), "Uploaded Successfully" + conteur_nbre_file_upload++, Toast.LENGTH_LONG).show();
         }else{
             conteur_nbre_file_upload--;
             dialog.setMessage("télechargement en cours  " + conteur_nbre_file_upload + "/" + filelist.size());
@@ -298,7 +289,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     private void updateProgressView(int percentage, long uploaded, long total) {
         if (mProgressDialog == null) {
             mProgressDialog = createProgressDialog();
-            Toast.makeText(getContext(), "createProgressDialog", Toast.LENGTH_LONG).show();
 
         }
         if (!mProgressDialog.isShowing()) {

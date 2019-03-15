@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +33,8 @@ public class DocumentFragmentSubject extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ArrayList<String> pathlist ;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,12 +66,15 @@ public class DocumentFragmentSubject extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_document_fragment_subject, container, false);
         Button btn_ajouter = v.findViewById(R.id.btn_ajouter);
+        pathlist = getArguments().getStringArrayList("pathlist");
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ArrayList<String> arrayList=new ArrayList<>();
+                arrayList.add("hi");
+                arrayList.add("hii");
                 APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
-                Call<JsonObject> call_create_task = apiInterface.createcorrection(null,"5c8930956ffe7e798d20b3e2");
+                Call<JsonObject> call_create_task = apiInterface.createcorrection(pathlist,"5c8930956ffe7e798d20b3e2");
                 Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
 
                 call_create_task.enqueue(new Callback<JsonObject>() {

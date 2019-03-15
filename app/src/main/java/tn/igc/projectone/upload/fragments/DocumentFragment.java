@@ -69,22 +69,25 @@ public class DocumentFragment extends Fragment {
         EditText et_annee = (EditText) view.findViewById(R.id.et_anne) ;
         EditText et_desc = (EditText) view.findViewById(R.id.et_desc) ;
 
-        String annee = et_annee.getText().toString();
-        String desc =  et_desc.getText().toString();
+        final String year = et_annee.getText().toString();
+        final String desc =  et_desc.getText().toString();
 
 
         //Retrieve the filePath
         pathlist = getArguments().getStringArrayList("pathlist");
-       // Toast.makeText(getContext(),pathlist.get(0).toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),pathlist.get(0), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),pathlist.get(1), Toast.LENGTH_LONG).show();
 
 
         Button btn_ajouter = view.findViewById(R.id.btn_ajouter);
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ArrayList<String> arrayList=new ArrayList<>();
+                arrayList.add("hi");
+                arrayList.add("hii");
                 apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
-                Call<JsonObject> call_create_task = apiInterface.createdocument("DS",null,"5c892b3b6ffe7e798d20b3d7","2017","Good","Rattrapage");
+                Call<JsonObject> call_create_task = apiInterface.createdocument("DS",pathlist,"5c892b3b6ffe7e798d20b3d7",year,desc,"Rattrapage");
                 Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
 
                 call_create_task.enqueue(new Callback<JsonObject>() {
