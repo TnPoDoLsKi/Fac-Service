@@ -13,7 +13,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import java.util.HashMap;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -54,7 +53,7 @@ public interface APIInterface {
     Call<JsonObject>basicLogin(@Field("email") String email,@Field("password") String password);
     @FormUrlEncoded
     @POST("auth/signup")
-    Call<HashMap>basicsignup(@Field("email") String email,@Field("password") String password,@Field("type") String type,@Field("firstName")String firstName,@Field("lastName")String lastName,@Field("major")String major);
+    Call<Void> basicsignup(@Field("email") String email, @Field("password") String password, @Field("firstName")String firstName, @Field("lastName")String lastName, @Field("major")String major);
     @GET("majors")
     Call<JsonArray> getAllMajors();
 

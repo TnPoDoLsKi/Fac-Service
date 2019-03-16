@@ -398,18 +398,22 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                                  subject = obj.get("subject").getAsString();
 
                             }*/
-                        JsonArray majorApi=null;
-                        if (obj.get("major")==null){
+                        JsonArray majorApi;
+                        if (obj.get("majors")==null){
                                  majorApi =null;
                             }
                             else{
-                                 majorApi = obj.get("major").getAsJsonArray();
+                                 majorApi = obj.get("majors").getAsJsonArray();
 
                             }
                         String majors="";
                             for (int j=0;j<majorApi.size();j++){
-                             JsonObject majorbe =majorApi.get(j).getAsJsonObject();
-                             majors=majors+","+majorbe.get("name").getAsString();
+                                JsonObject majorbe =majorApi.get(j).getAsJsonObject();
+                                if (j!=majorApi.size()-1)
+                             majors=majors+majorbe.get("name").getAsString()+",";
+                                else
+                                    majors=majors+majorbe.get("name").getAsString();
+
 
                             }
 

@@ -1,15 +1,10 @@
 package tn.igc.projectone;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,14 +13,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.search.fragment.Search;
-import tn.igc.projectone.upload.fragments.NewFragment;
-
 
 public class MainActivity extends AppCompatActivity {
     TextView title ;
     ProgressBar progressBar;
-
-
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setActionBarTitle("Matières");
 
         setVisibleProgressBar();
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomBar);
+        bottomNavigationView = findViewById(R.id.bottomBar);
         Fragment fragment = new Matiere_Fragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -88,5 +80,5 @@ public class MainActivity extends AppCompatActivity {
 
     public void setInvisibleProgressBar(){  progressBar.setVisibility(View.INVISIBLE);}
 
-//
+
 }

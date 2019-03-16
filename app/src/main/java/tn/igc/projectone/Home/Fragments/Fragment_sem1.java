@@ -69,7 +69,8 @@ public class Fragment_sem1 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mid= SaveSharedPreference.getMajor(getContext());
+        Mid= "5c8922066b5a61762e227a99";
+                //SaveSharedPreference.getMajor(getContext());
         apiMatieresS1();
 
     }
