@@ -75,15 +75,14 @@ public class CorrectionList extends Fragment {
         bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
         ((MainActivity) getActivity()).setActionBarTitle("Détailles");
 
-
     }
     @Override
     public void onResume() {
         super.onResume();
-        if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+      /*  if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
         {
             bottomNavigationView.setSelectedItemId(R.id.search_button);
-        }
+        }*/
 
     }
 

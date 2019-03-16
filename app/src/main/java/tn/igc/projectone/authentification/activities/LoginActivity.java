@@ -37,6 +37,7 @@ public class LoginActivity extends Activity {
     boolean isPasswordValidated,isUserValidated;
     private APIInterface apiInterface;
     private static String token;
+    private Button buttonContinue;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private ConstraintLayout loginForm;
 
@@ -58,7 +59,15 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         inscrip=(Button)findViewById(R.id.inscrip);
         loginForm = (ConstraintLayout) findViewById(R.id.loginform);
+        buttonContinue=(Button) findViewById(R.id.button3);
+buttonContinue.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
 
+    }
+});
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

@@ -25,9 +25,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.Home.Adapters.DRecyclerViewAdapter;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
+import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
 
@@ -37,7 +37,7 @@ public class DocumentList extends Fragment {
     private RecyclerView mRecyclerView;
     private ArrayList<Document> docList ;
     public APIInterface apiInterface;
-    DRecyclerViewAdapter recyclerViewAdapter;
+    RecyclerViewAdapter recyclerViewAdapter;
     BottomNavigationView bottomNavigationView;
 
 
@@ -93,7 +93,9 @@ public class DocumentList extends Fragment {
         call_subject_type.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-
+                ((MainActivity) getActivity()).setInvisibleProgressBar();
+                if (docList!=null)
+                    docList.clear();
                 if (response.isSuccessful()) {
                     JsonArray resArr = response.body().getAsJsonArray();
 
@@ -246,7 +248,7 @@ public class DocumentList extends Fragment {
                 }
 
 
-                recyclerViewAdapter = new DRecyclerViewAdapter(getContext(), docList);
+                recyclerViewAdapter = new RecyclerViewAdapter(getContext(), docList);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(recyclerViewAdapter);
 
@@ -283,6 +285,9 @@ public class DocumentList extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) getActivity()).setActionBarTitle(tType);
+        apiDocument();
+
         if (bottomNavigationView.getSelectedItemId()!=R.id.home_button)
         {
             bottomNavigationView.setSelectedItemId(R.id.home_button);
