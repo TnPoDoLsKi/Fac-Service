@@ -92,7 +92,7 @@ public class MainUploadFragment extends Fragment {
         //arrays used for static values
         String semArr[] = {"Semestre 1", "Semestre 2"};
         final String[] typeArr = {"Examen", "DS", "Cours", "TD", "TP"};
-        final String[] sessionArr = {"Principale", "Contrôle"};
+        final String[] sessionArr = {"Principale", "Rattrapage"};
 
         spinnerMat = view.findViewById(R.id.spinner_matiere);
         spinnerFil = view.findViewById(R.id.spinner_filier);
