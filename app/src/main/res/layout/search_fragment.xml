@@ -12,6 +12,8 @@
     >
 
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/filters"
         android:layout_width="match_parent"
@@ -171,7 +173,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <ScrollView
             android:id="@+id/scrollviewSearch"
@@ -207,7 +210,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/scrollviewSearch" />
-
         <TextView
             android:id="@+id/Textview"
             android:layout_width="wrap_content"

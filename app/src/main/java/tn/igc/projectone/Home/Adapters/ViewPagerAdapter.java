@@ -17,25 +17,26 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> lstFragment = new ArrayList<>();
     private final List<String> lstTitles = new ArrayList<>();
-    TabLayout tabLayout;
+    TabLayout tabLayout ;
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
 
+
     @Override
     public Fragment getItem(int i) {
-        switch (i) {
+        switch (i){
 
-            case 0:
+            case 0 :
                 Fragment_sem1 tab1 = new Fragment_sem1();
-                return tab1;
-            case 1:
+                return  tab1;
+            case 1 :
                 Fragment_sem2 tab2 = new Fragment_sem2();
                 return tab2;
             default:
-                return null;
+                return  null;
         }
     }
 
@@ -50,7 +51,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return lstTitles.get(position);
     }
 
-    public void AddFragment(Fragment fragment, String title) {
+    public void AddFragment(Fragment fragment , String title)
+    {
         lstFragment.add(fragment);
         lstTitles.add(title);
 

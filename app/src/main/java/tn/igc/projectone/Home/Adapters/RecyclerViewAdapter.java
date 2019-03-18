@@ -30,9 +30,9 @@ import tn.igc.projectone.R;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> implements View.OnClickListener {
 
 
-    Context mContext;
+    Context mContext ;
     List<Matiere> lstMatieres;
-    Dialog dialog;
+    Dialog dialog ;
     Button btc;
     Button bttd;
     Button bttp;
@@ -40,10 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Button btds;
     String type;
     String mat_id;
-    String id_m;
+     String id_m;
 
 
-    public RecyclerViewAdapter(Context context, List<Matiere> lstMatieres) {
+    public RecyclerViewAdapter(Context context,List<Matiere> lstMatieres) {
         this.mContext = context;
         this.lstMatieres = lstMatieres;
 
@@ -53,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v;
-        v = LayoutInflater.from(mContext).inflate(R.layout.item_matiere, viewGroup, false);
+        v=LayoutInflater.from(mContext).inflate(R.layout.item_matiere,viewGroup,false);
         final MyViewHolder vHolder = new MyViewHolder(v);
         dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.dialog_choix);
@@ -65,17 +65,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         btex = dialog.findViewById(R.id.btn_ex);
 
 
+
+
+
+
+
+
         vHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext, " " + lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
                 id_m = lstMatieres.get(vHolder.getAdapterPosition()).getId();
-                btc.setText("COURS(" + lstMatieres.get(vHolder.getAdapterPosition()).getCour_c() + ")");
-                bttd.setText("TD(" + lstMatieres.get(vHolder.getAdapterPosition()).getTD_c() + ")");
-                bttp.setText("TP(" + lstMatieres.get(vHolder.getAdapterPosition()).getTP_c() + ")");
-                btds.setText("DS(" + lstMatieres.get(vHolder.getAdapterPosition()).getDS_c() + ")");
-                btex.setText("EX(" + lstMatieres.get(vHolder.getAdapterPosition()).getEX_c() + ")");
+                btc.setText("COURS("+lstMatieres.get(vHolder.getAdapterPosition()).getCour_c()+")");
+                bttd.setText("TD("+lstMatieres.get(vHolder.getAdapterPosition()).getTD_c()+")");
+                bttp.setText("TP("+lstMatieres.get(vHolder.getAdapterPosition()).getTP_c()+")");
+                btds.setText("DS("+lstMatieres.get(vHolder.getAdapterPosition()).getDS_c()+")");
+                btex.setText("EX("+lstMatieres.get(vHolder.getAdapterPosition()).getEX_c()+")");
 
 
                 dialog.show();
@@ -144,47 +150,46 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onClick(View v) {
 
-        if (v == btc)
-            type = "C";
-        else if (v == bttd)
-            type = "TD";
-        else if (v == bttp)
-            type = "TP";
-        else if (v == btds)
-            type = "DS";
-        else if (v == btex)
-            type = "EX";
+            if (v==btc)
+                type="C";
+            else if(v==bttd)
+                type="TD";
+            else if(v==bttp)
+                type="TP";
+            else if(v==btds)
+                type="DS";
+            else if(v==btex)
+                type="EX";
 
-        trans();
+            trans();
 
 
     }
-
-    public void trans() {
+    public void trans(){
         Bundle data = new Bundle();
         data.putString("type", type);
         data.putString("mat_id", id_m);
         dialog.dismiss();
         Fragment fragment = new DocumentList();
         fragment.setArguments(data);
-        FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+        FragmentManager fragmentManager = ((MainActivity)mContext).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null).replace(R.id.container, fragment);
         fragmentTransaction.commit();
 
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder  extends RecyclerView.ViewHolder{
         private TextView tv_nom;
-        private ImageView img_matr;
+        private ImageView img_matr ;
         private CardView cardView;
         //        private SmartImageView img_matr ;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            cardView = itemView.findViewById(R.id.item_card);
-            tv_nom = itemView.findViewById(R.id.nom_matiere_id);
-            img_matr = itemView.findViewById(R.id.img_matiere_id);
+            cardView =(CardView) itemView.findViewById(R.id.item_card);
+            tv_nom = (TextView) itemView.findViewById(R.id.nom_matiere_id) ;
+            img_matr = (ImageView) itemView.findViewById(R.id.img_matiere_id);
             //img_matr = (SmartImageView) itemView.findViewById(R.id.img_matiere_id);
         }
 

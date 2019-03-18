@@ -1,22 +1,21 @@
 package tn.igc.projectone.documentList.classes;
 
 
+
 import tn.igc.projectone.R;
 
-public class CorrectionDoc {
-    private Boolean approved;
-    private Boolean verifiedByProf;
-    private int score;
-    private String _id;
-    private String title;
-    private String filePath;
-    private User user;
-    private String document;
-    private String createdAt;
-    private String updatedAt;
-
-    public CorrectionDoc() {
-    }
+public class CorrectionDoc  {
+ private Boolean approved;
+ private Boolean verifiedByProf;
+ private int score;
+ private String _id;
+ private String title;
+ private String filePath;
+ private User user;
+ private String document;
+ private String createdAt;
+ private String updatedAt;
+ public  CorrectionDoc(){}
 
     public CorrectionDoc(Boolean approved, Boolean verifiedByProf, int score, String _id, String title, String filePath, User user, String document, String createdAt, String updatedAt) {
         this.approved = approved;
@@ -31,9 +30,10 @@ public class CorrectionDoc {
         this.updatedAt = updatedAt;
     }
     public int isVerifiedByProf() {
-        if (verifiedByProf) {
+        if (verifiedByProf){
             return R.drawable.ic_check_circle_24px;
-        } else {
+        }
+        else {
             return 0;
         }
     }
@@ -79,9 +79,9 @@ public class CorrectionDoc {
     }
 
     public String getFilePath() {
-        if (filePath.startsWith("/")) {
-            return "http://igc.tn:3005" + filePath;
-        } else {
+        if (filePath.startsWith("/")){
+            return "http://igc.tn:3005"+filePath;
+        }else {
             return filePath;
         }
     }

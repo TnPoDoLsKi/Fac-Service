@@ -1,23 +1,22 @@
 package tn.igc.projectone.documentList.classes;
 
 
+import tn.igc.projectone.R;
+
 public class User {
 
-    private String type;
-    private Boolean deleted;
-    private String _id;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String avatar;
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String avatar) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.avatar = avatar;
+    private  String type ;
+    private  Boolean deleted;
+    private  String _id;
+    private  String email;
+    private  String firstName;
+    private  String lastName;
+    private  String avatar;
+    public User(){}
+    public User(String firstName,String lastName,String avatar){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.avatar=avatar;
     }
 
     public User(String type, Boolean deleted, String _id, String email, String firstName, String lastName, String avatar) {
@@ -28,13 +27,12 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
 
-        this.avatar = avatar;
+            this.avatar = avatar;
 
 
     }
-
-    public String getName() {
-        String name = firstName.concat(" ").concat(lastName);
+    public String getName(){
+        String name =firstName.concat(" ").concat(lastName);
         return name;
     }
 

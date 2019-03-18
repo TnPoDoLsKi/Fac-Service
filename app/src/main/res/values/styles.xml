@@ -14,5 +14,8 @@
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorControlActivated">@android:color/black</item>
     </style>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
 
 </resources>

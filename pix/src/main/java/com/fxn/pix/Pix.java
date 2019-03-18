@@ -158,10 +158,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
                     topbar.setBackgroundColor(Color.parseColor("#ffffff"));
                     Animation anim = new ScaleAnimation(
-                        1f, 0f, // Start and end values for the X axis scaling
-                        1f, 0f, // Start and end values for the Y axis scaling
-                        Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-                        Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            1f, 0f, // Start and end values for the X axis scaling
+                            1f, 0f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(300);
                     anim.setAnimationListener(new Animation.AnimationListener() {
@@ -205,10 +205,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 if ((selectionList.size() == 0) && (mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED)) {
                     sendButton.setVisibility(View.VISIBLE);
                     Animation anim = new ScaleAnimation(
-                        0f, 1f, // Start and end values for the X axis scaling
-                        0f, 1f, // Start and end values for the Y axis scaling
-                        Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-                        Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            0f, 1f, // Start and end values for the X axis scaling
+                            0f, 1f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(300);
                     sendButton.startAnimation(anim);
@@ -301,22 +301,22 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private void hideScrollbar() {
         float transX = getResources().getDimensionPixelSize(R.dimen.fastscroll_scrollbar_padding_end);
         mScrollbarAnimator = mScrollbar.animate().translationX(transX).alpha(0f)
-            .setDuration(Constants.sScrollbarAnimDuration)
-            .setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    mScrollbar.setVisibility(View.GONE);
-                    mScrollbarAnimator = null;
-                }
+                .setDuration(Constants.sScrollbarAnimDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        mScrollbar.setVisibility(View.GONE);
+                        mScrollbarAnimator = null;
+                    }
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    super.onAnimationCancel(animation);
-                    mScrollbar.setVisibility(View.GONE);
-                    mScrollbarAnimator = null;
-                }
-            });
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        super.onAnimationCancel(animation);
+                        mScrollbar.setVisibility(View.GONE);
+                        mScrollbarAnimator = null;
+                    }
+                });
     }
 
     public void returnObjects() {
@@ -372,20 +372,20 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         CameraView mCamera = findViewById(R.id.camera_view);
         fotoapparat = Fotoapparat.with(this).into(mCamera)
-            .previewScaleType(ScaleType.CenterCrop)  // we want the preview to fill the view
-            // .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
-            .lensPosition(LensPositionSelectorsKt.back())      // we want back camera
-            .focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
-                FocusModeSelectorsKt.continuousFocusPicture(),
-                FocusModeSelectorsKt.autoFocus(),    // in case if continuous focus is not available on device, auto focus will be used
-                FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
-            ))
-            //.flash(FlashSelectorsKt.autoRedEye())
-            /*.logger(LoggersKt.loggers(            // (optional) we want to log camera events in 2 places at once
-					LoggersKt.logcat(),           // ... in logcat
-					LoggersKt.fileLogger(this)    // ... and to file
-			))*/
-            .build();
+                .previewScaleType(ScaleType.CenterCrop)  // we want the preview to fill the view
+                // .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
+                .lensPosition(LensPositionSelectorsKt.back())      // we want back camera
+                .focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
+                        FocusModeSelectorsKt.continuousFocusPicture(),
+                        FocusModeSelectorsKt.autoFocus(),    // in case if continuous focus is not available on device, auto focus will be used
+                        FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
+                ))
+                //.flash(FlashSelectorsKt.autoRedEye())
+                /*.logger(LoggersKt.loggers(            // (optional) we want to log camera events in 2 places at once
+                        LoggersKt.logcat(),           // ... in logcat
+                        LoggersKt.fileLogger(this)    // ... and to file
+                ))*/
+                .build();
 
         zoom = 0.0f;
         mCamera.setOnTouchListener(onCameraTouchListner);
@@ -421,12 +421,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         FrameLayout mainFrameLayout = findViewById(R.id.mainFrameLayout);
         BottomBarHeight = Utility.getSoftButtonsBarSizePort(this);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT);
+                FrameLayout.LayoutParams.MATCH_PARENT);
         lp.setMargins(0, 0, 0, BottomBarHeight);
         mainFrameLayout.setLayoutParams(lp);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sendButton.getLayoutParams();
         layoutParams.setMargins(0, 0, (int) (Utility.convertDpToPixel(16, this)),
-            (int) (Utility.convertDpToPixel(174, this)));
+                (int) (Utility.convertDpToPixel(174, this)));
         sendButton.setLayoutParams(layoutParams);
         mainImageAdapter = new MainImageAdapter(this);
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, MainImageAdapter.SPAN_COUNT);
@@ -638,8 +638,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 Utility.manipulateVisibility(Pix.this, slideOffset,
-                    instantRecyclerView, recyclerView, status_bar_bg,
-                    topbar, bottomButtons, sendButton, LongSelection);
+                        instantRecyclerView, recyclerView, status_bar_bg,
+                        topbar, bottomButtons, sendButton, LongSelection);
                 if (slideOffset == 1) {
                     Utility.showScrollbar(mScrollbar, Pix.this);
                     mainImageAdapter.notifyDataSetChanged();
@@ -709,10 +709,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             mBubbleView.setVisibility(View.VISIBLE);
             mBubbleView.setAlpha(0f);
             mBubbleAnimator = mBubbleView.animate().alpha(1f)
-                .setDuration(sBubbleAnimDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                    // adapter required for new alpha value to stick
-                });
+                    .setDuration(sBubbleAnimDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        // adapter required for new alpha value to stick
+                    });
             mBubbleAnimator.start();
         }
     }
@@ -720,23 +720,23 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private void hideBubble() {
         if (Utility.isViewVisible(mBubbleView)) {
             mBubbleAnimator = mBubbleView.animate().alpha(0f)
-                .setDuration(sBubbleAnimDuration)
-                .setListener(new AnimatorListenerAdapter() {
+                    .setDuration(sBubbleAnimDuration)
+                    .setListener(new AnimatorListenerAdapter() {
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        mBubbleView.setVisibility(View.GONE);
-                        mBubbleAnimator = null;
-                    }
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            mBubbleView.setVisibility(View.GONE);
+                            mBubbleAnimator = null;
+                        }
 
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        super.onAnimationCancel(animation);
-                        mBubbleView.setVisibility(View.GONE);
-                        mBubbleAnimator = null;
-                    }
-                });
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+                            super.onAnimationCancel(animation);
+                            mBubbleView.setVisibility(View.GONE);
+                            mBubbleAnimator = null;
+                        }
+                    });
             mBubbleAnimator.start();
         }
     }
@@ -806,10 +806,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
             topbar.setBackgroundColor(Color.parseColor("#ffffff"));
             Animation anim = new ScaleAnimation(
-                1f, 0f, // Start and end values for the X axis scaling
-                1f, 0f, // Start and end values for the Y axis scaling
-                Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-                Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                    1f, 0f, // Start and end values for the X axis scaling
+                    1f, 0f, // Start and end values for the Y axis scaling
+                    Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                    Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
             anim.setFillAfter(true); // Needed to keep the result of the animation
             anim.setDuration(300);
             anim.setAnimationListener(new Animation.AnimationListener() {

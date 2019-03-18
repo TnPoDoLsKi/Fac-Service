@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -34,15 +35,15 @@ public class DocumentList extends Fragment {
     View v;
     //Realm mRealm;
     private RecyclerView mRecyclerView;
-    private ArrayList<Document> docList;
+    private ArrayList<Document> docList ;
     public APIInterface apiInterface;
     RecyclerViewAdapter recyclerViewAdapter;
     BottomNavigationView bottomNavigationView;
 
 
-    TextView abTitle;
-    String tType;
-    String type;
+    TextView abTitle ;
+    String tType ;
+    String type ;
     String id_doc;
     public DocumentList() {
     }
@@ -50,17 +51,17 @@ public class DocumentList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.document_fragment, container, false);
-        mRecyclerView = v.findViewById(R.id.docs_recyclerView);
+        v = inflater.inflate(R.layout.document_fragment,container,false);
+        mRecyclerView = (RecyclerView)v.findViewById(R.id.docs_recyclerView);
         ((MainActivity) getActivity()).setVisibleProgressBar();
 
-        return v;
+        return v ;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bottomNavigationView = getActivity().findViewById(R.id.bottomBar);
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
 
         //mRealm = Realm.getDefaultInstance();
         //final String Mid = "5c64773e38e7f64f8d07dc1b";
@@ -68,102 +69,106 @@ public class DocumentList extends Fragment {
         type = data.getString("type");
         id_doc = data.getString("mat_id");
         tType = type;
-        if (tType == "C")
-            tType = "Cours";
-        else if (tType == "EX")
-            tType = "Examens";
+        if (tType=="C")
+            tType="Cours";
+        else if (tType=="EX")
+            tType="Examens";
 
         ((MainActivity) getActivity()).setActionBarTitle(tType);
 
         apiDocument();
 
 
+
+
+
     }
 
-    public void apiDocument() {
+    public void  apiDocument(){
         docList = new ArrayList<>();
 
 
         apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<JsonArray> call_subject_type = apiInterface.getSubject_type(id_doc, type);
+        Call<JsonArray> call_subject_type = apiInterface.getSubject_type(id_doc,type);
         call_subject_type.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 ((MainActivity) getActivity()).setInvisibleProgressBar();
-                if (docList != null)
+                if (docList!=null)
                     docList.clear();
                 if (response.isSuccessful()) {
                     JsonArray resArr = response.body().getAsJsonArray();
 
                     for (int i = 0; i < resArr.size(); i++) {
                         JsonObject obj = resArr.get(i).getAsJsonObject();
-                        Boolean approved;
-                        if (obj.get("approved") == null) {
-                            approved = false;
-                        } else {
-                            approved = obj.get("approved").getAsBoolean();
-                        }
+                        Boolean approved ;
+                        if (obj.get("approved")==null) {
+                            approved = false;                        }
+                        else{
+                            approved = obj.get("approved").getAsBoolean();                        }
 //document attributs init
                         String type;
-                        if (obj.get("type") == null) {
+                        if (obj.get("type")==null) {
                             type = "";
-                        } else {
+                        }
+                        else{
                             type = obj.get("type").getAsString();
                         }
 
-                        int semestre;
-                        if (obj.get("semestre") == null) {
-                            semestre = 0;
-                        } else {
-                            semestre = obj.get("semestre").getAsInt();
-                        }
+                        int semestre ;
+                        if (obj.get("semestre")==null) {
+                            semestre =0;                            }
+                        else{
+                            semestre = obj.get("semestre").getAsInt();                           }
 
-                        int NBDownloads;
+                        int NBDownloads ;
 
-                        if (obj.get("NBDowloads") == null) {
+                        if (obj.get("NBDowloads")==null) {
                             NBDownloads = 0;
-                        } else {
-                            NBDownloads = obj.get("NBDowloads").getAsInt();
                         }
+                        else{
+                            NBDownloads = obj.get("NBDowloads").getAsInt();                            }
 
 
-                        Boolean verifiedByProf;
-                        if (obj.get("verifiedByProf") == null) {
+                        Boolean verifiedByProf ;
+                        if (obj.get("verifiedByProf")==null) {
                             verifiedByProf = false;
-                        } else {
-                            verifiedByProf = obj.get("verifiedByProf").getAsBoolean();
                         }
+                        else{
+                            verifiedByProf = obj.get("verifiedByProf").getAsBoolean();                            }
 
 
-                        String session;
-                        if (obj.get("session") == null) {
+                        String session ;
+                        if (obj.get("session")==null) {
                             session = "";
-                        } else {
-                            session = obj.get("session").getAsString();
                         }
+                        else{
+                            session = obj.get("session").getAsString();                            }
 
-                        String _id;
-                        if (obj.get("_id") == null) {
-                            _id = "";
-                        } else {
+                        String _id ;
+                        if (obj.get("_id")==null) {
+                            _id = "";                            }
+                        else{
                             _id = obj.get("_id").getAsString();
                         }
 
-                        String title;
-                        if (obj.get("title") == null) {
+                        String title ;
+                        if (obj.get("title")==null) {
                             title = "";
-                        } else {
+                        }
+                        else{
                             title = obj.get("title").getAsString();
                         }
 
-                        String filePath;
+                        String filePath ;
 
-                        if (obj.get("filePath") == null) {
+                        if (obj.get("filePath")==null){
                             filePath = "";
-                        } else {
+                        }
+                        else {
                             filePath = obj.get("filePath").getAsString();
                         }
-                        String subject = "";
+                        String subject ="" ;
 
                          /*   if (obj.get("subject")==null){
                                  subject = "";
@@ -172,7 +177,7 @@ public class DocumentList extends Fragment {
                                  subject = obj.get("subject").getAsString();
 
                             }*/
-                        String majorApi = "";
+                        String majorApi="";
 /*                            if (obj.get("major")==null){
                                  majorApi ="";
                             }
@@ -182,53 +187,62 @@ public class DocumentList extends Fragment {
                             }*/
                         int year = 0;
 
-                        if (obj.get("year") == null) {
+                        if (obj.get("year")==null){
                             year = 0;
-                        } else {
+                        }
+                        else{
                             year = obj.get("year").getAsInt();
 
                         }
-                        String profName;
+                        String profName ;
 
-                        if (obj.get("profName") == null) {
+                        if (obj.get("profName")==null){
                             profName = "";
-                        } else {
+                        }
+                        else{
                             profName = obj.get("profName").getAsString();
 
                         }
-                        String description;
+                        String description ;
 
 
-                        if (obj.get("description") == null) {
+                        if (obj.get("description")==null){
                             description = "";
-                        } else {
+                        }
+                        else{
                             description = obj.get("description").getAsString();
 
                         }
                         String createdAt;
 
-                        if (obj.get("createdAt") == null) {
-                            createdAt = "";
-                        } else {
+                        if (obj.get("createdAt")==null){
+                            createdAt="";
+                        }
+                        else{
                             createdAt = obj.get("createdAt").getAsString();
 
                         }
                         String updatedAt;
-                        if (obj.get("updatedAt") == null) {
+                        if (obj.get("updatedAt")==null){
                             updatedAt = "";
-                        } else {
+                        }
+                        else{
                             updatedAt = obj.get("updatedAt").getAsString();
 
                         }
                         JsonObject oUser = obj.get("user").getAsJsonObject();
-                        String avatar = oUser.get("avatar").getAsString();
+                        String avatar=oUser.get("avatar").getAsString();
 
                         String firstName = oUser.get("firstName").getAsString();
                         String lastName = oUser.get("lastName").getAsString();
 
-                        docList.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User(firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
+                        docList.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
 
                     }
+
+
+
+
 
 
                 }
@@ -244,7 +258,7 @@ public class DocumentList extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(), "Offline Use ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Offline Use ",Toast.LENGTH_LONG).show();
 
                 /*mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
@@ -263,6 +277,8 @@ public class DocumentList extends Fragment {
                 mRecyclerView.setAdapter(recyclerViewAdapter);*/
 
 
+
+
             }
         });
     }
@@ -272,7 +288,8 @@ public class DocumentList extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle(tType);
         apiDocument();
 
-        if (bottomNavigationView.getSelectedItemId() != R.id.home_button) {
+        if (bottomNavigationView.getSelectedItemId()!=R.id.home_button)
+        {
             bottomNavigationView.setSelectedItemId(R.id.home_button);
         }
     }
