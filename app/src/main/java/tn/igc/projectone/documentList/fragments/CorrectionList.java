@@ -59,10 +59,10 @@ public class CorrectionList extends Fragment {
 
     public CorrectionList() {
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
 
     }
@@ -72,18 +72,17 @@ public class CorrectionList extends Fragment {
         super.onCreate(savedInstanceState);
         //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-        bottomNavigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+        bottomNavigationView = getActivity().findViewById(R.id.bottomBar);
         ((MainActivity) getActivity()).setActionBarTitle("Détailles");
 
-
     }
-
     @Override
     public void onResume() {
         super.onResume();
-        if (bottomNavigationView.getSelectedItemId() != R.id.search_button) {
+      /*  if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+        {
             bottomNavigationView.setSelectedItemId(R.id.search_button);
-        }
+        }*/
 
     }
 
@@ -98,13 +97,13 @@ public class CorrectionList extends Fragment {
 
         v = inflater.inflate(R.layout.correction_fragment, container, false);
 
-        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        progressBar = v.findViewById(R.id.progressBar);
 
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.mtr_list);
+        mRecyclerView = v.findViewById(R.id.mtr_list);
 
-        cRecyclerView = (RecyclerView) v.findViewById(R.id.corr);
+        cRecyclerView = v.findViewById(R.id.corr);
 
-        textView1 = (TextView) v.findViewById(R.id.Textview2);
+        textView1 = v.findViewById(R.id.Textview2);
 
         textView1.setText("No Corrections");
 
@@ -135,7 +134,7 @@ public class CorrectionList extends Fragment {
 
         getActivity().setTitle(b_title);
 
-        final TextView textView = (TextView) v.findViewById(R.id.description);
+        final TextView textView = v.findViewById(R.id.description);
 
         textView.setText(b_description);
 
@@ -271,7 +270,6 @@ public class CorrectionList extends Fragment {
 
         return v;
     }
-
     public boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();
         try {

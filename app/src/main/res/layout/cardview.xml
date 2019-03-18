@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="75dp"
     android:orientation="vertical"
     android:layout_margin="4dp"
     app:cardCornerRadius="2dp"
+    android:id="@+id/doc_card"
+
     app:cardElevation="3dp">
 
 
-    <androidx.constraintlayout.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
 
         <TextView
-            android:fontFamily="@font/sofiaproregular"
-            android:id="@+id/textView1"
-            android:layout_width="200dp"
+            android:id="@+id/userName"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/sofiaproregular"
             android:gravity="center_vertical"
             android:textSize="12.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circularImageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textview"
+            app:layout_constraintEnd_toStartOf="@+id/majorName"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            app:layout_constraintTop_toBottomOf="@+id/docTitle"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:fontFamily="@font/sofiaproregular "
-            android:textColor="#000000"
-            android:id="@+id/textview"
-            android:layout_width="200dp"
+            android:id="@+id/docTitle"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/sofiaproregular "
+            android:textColor="#000000"
             android:textSize="17sp"
+            app:layout_constraintEnd_toStartOf="@+id/verifiedImage"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,42 +60,71 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/circularImageView"
+            android:id="@+id/verifiedImage"
             android:layout_width="18.5dp"
             android:layout_height="18.5dp"
             android:layout_marginEnd="8dp"
             app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/circleButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/downloadImage"
+            app:layout_constraintStart_toEndOf="@+id/docTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/circularImageView2"
+            android:id="@+id/avatar"
             android:layout_width="18.5dp"
             android:layout_height="18.5dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             app:civ_border_width="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/userName"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/textView1" />
+            app:layout_constraintTop_toTopOf="@+id/userName" />
 
 
-        <at.markushi.ui.CircleButton
-            android:id="@+id/circleButton"
-            android:layout_width="22.5dp"
-            android:layout_height="22.5dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/downloadImage"
+            android:layout_width="18.5dp"
+            android:layout_height="18.5dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/download"
             app:cb_color="#99CC00"
             app:cb_pressedRingWidth="8dip"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
+
+        <Button
+            android:id="@+id/download"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/verifiedImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/majorName"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="8dp"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@+id/download" />
 
 
-    </androidx.constraintlayout.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

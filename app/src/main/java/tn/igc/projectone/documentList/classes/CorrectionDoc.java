@@ -30,7 +30,6 @@ public class CorrectionDoc {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
     public int isVerifiedByProf() {
         if (verifiedByProf) {
             return R.drawable.ic_check_circle_24px;

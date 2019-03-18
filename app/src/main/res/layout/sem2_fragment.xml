@@ -18,7 +18,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
-
     <ProgressBar
         android:id="@+id/progressBarS2"
         android:layout_width="wrap_content"

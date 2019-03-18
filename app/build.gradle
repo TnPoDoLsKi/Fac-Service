@@ -4,11 +4,12 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "tn.igc.projectone"
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        minSdkVersion 21
     }
     buildTypes {
         release {
@@ -16,7 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
+}
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url "https://jitpack.io" }
+
     }
 }
 
@@ -24,6 +31,12 @@ repositories {
     mavenCentral()
     mavenLocal()
 }
+
+configurations {
+    cleanedAnnotations
+    compile.exclude group: 'org.jetbrains' , module:'annotations'
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
@@ -34,17 +47,28 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-    implementation 'com.mikhaellopez:circularimageview:3.2.0'
-    implementation 'com.github.markushi:circlebutton:1.1'
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
-    implementation 'com.google.android.material:material:1.0.0-beta01'
-    implementation 'com.google.android.material:material:1.0.0-beta01'
-    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.google.code.gson:gson:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+
+    implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+    implementation 'com.github.markushi:circlebutton:1.1'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.markushi:circlebutton:1.1'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation project(':pix')
+
+
 
 }

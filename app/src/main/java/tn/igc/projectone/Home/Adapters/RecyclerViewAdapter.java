@@ -126,6 +126,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.tv_nom.setText(lstMatieres.get(i).getNom_matr());
@@ -177,14 +178,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_nom;
         private ImageView img_matr;
         private CardView cardView;
-
         //        private SmartImageView img_matr ;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            cardView = (CardView) itemView.findViewById(R.id.item_card);
-            tv_nom = (TextView) itemView.findViewById(R.id.nom_matiere_id);
-            img_matr = (ImageView) itemView.findViewById(R.id.img_matiere_id);
+            cardView = itemView.findViewById(R.id.item_card);
+            tv_nom = itemView.findViewById(R.id.nom_matiere_id);
+            img_matr = itemView.findViewById(R.id.img_matiere_id);
             //img_matr = (SmartImageView) itemView.findViewById(R.id.img_matiere_id);
         }
 

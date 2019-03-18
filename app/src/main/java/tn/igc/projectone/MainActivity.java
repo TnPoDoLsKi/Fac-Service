@@ -1,78 +1,92 @@
 package tn.igc.projectone;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import androidx.core.app.Fragment;
-import androidx.core.app.FragmentManager;
-import androidx.core.app.FragmentTransaction;
-import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.Settings.SettingsFragment;
-import tn.igc.projectone.documentList.fragments.DocumentList;
-import tn.igc.projectone.filiere.FiliereActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.search.fragment.Search;
-import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
-// Hello from the other side
-// From Wael
-// From Achouri
-//From Mariam
-//from masmoudi
-// Hello from wassim ^_^
-// Nouri says Hi
-//from chaima
 public class MainActivity extends AppCompatActivity {
-    public static APIInterface apiInterface;
-
+    TextView title;
+    ProgressBar progressBar;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        title = findViewById(R.id.action_bar_title);
+        progressBar = findViewById(R.id.progressBarS);
+        setActionBarTitle("Matières");
 
-        startActivity(new Intent(MainActivity.this, FiliereActivity.class));
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomBar);
-        Fragment fragment = new DocumentList();
+        setVisibleProgressBar();
+        bottomNavigationView = findViewById(R.id.bottomBar);
+        Fragment fragment = new Matiere_Fragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.commit();
-        bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navigationItemReselectedListener);
-
-
+        fragmentTransaction.addToBackStack(null).replace(R.id.container, fragment).commit();
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
+    BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
         new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment selectedFragment = null;
+                Fragment selectedFragment = new Search();
                 switch (menuItem.getItemId()) {
 
                     case R.id.home_button:
-                        selectedFragment = new AddFragment();
+                        selectedFragment = new Matiere_Fragment();
+                        setActionBarTitle("Matières");
+                        //title.setText("Matières");
                         break;
                     case R.id.add_button:
-                        selectedFragment = new MainUploadFragment();
+                        selectedFragment = new AddFragment();
+                        setActionBarTitle("Ajouter");
+                        //title.setText("Ajouter");
                         break;
                     case R.id.parametre_button:
-                        selectedFragment = new SettingsFragment();
+                        selectedFragment = new AddFragment();
+                        setActionBarTitle("Paramètres");
+                        // title.setText("Paramètres");
                         break;
                     case R.id.search_button:
                         selectedFragment = new Search();
+                        setActionBarTitle("Recherche");
+                        //title.setText("Recherche");
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, selectedFragment).commit();
                 return true;
             }
 
 
         };
+
+    public void setActionBarTitle(String newTitle) {
+        title.setText(newTitle);
+    }
+
+    public void setVisibleProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void setInvisibleProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 
 
 }

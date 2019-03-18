@@ -18,7 +18,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -91,6 +90,7 @@ public class CorrectionRecyclerViewAdapter extends RecyclerView.Adapter<Correcti
     }
 
 
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.docTitle.setText(lsDocument.get(i).getTitle());
@@ -120,12 +120,12 @@ public class CorrectionRecyclerViewAdapter extends RecyclerView.Adapter<Correcti
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.doc_card);
-            downloadButton = (Button) itemView.findViewById(R.id.download);
-            docTitle = (TextView) itemView.findViewById(R.id.docTitle);
-            verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
-            userName = (TextView) itemView.findViewById(R.id.userName);
-            avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            cardView = itemView.findViewById(R.id.doc_card);
+            downloadButton = itemView.findViewById(R.id.download);
+            docTitle = itemView.findViewById(R.id.docTitle);
+            verifiedImage = itemView.findViewById(R.id.verifiedImage);
+            userName = itemView.findViewById(R.id.userName);
+            avatar = itemView.findViewById(R.id.avatar);
 
         }
     }

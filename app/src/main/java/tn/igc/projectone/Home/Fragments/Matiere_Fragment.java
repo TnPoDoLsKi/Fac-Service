@@ -33,15 +33,14 @@ public class Matiere_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.matiere_fragment, container, false);
-        tabLayout = (TabLayout) v.findViewById(R.id.tablayout_id);
-        viewPager = (ViewPager) v.findViewById(R.id.viewPager_id);
+        tabLayout = v.findViewById(R.id.tablayout_id);
+        viewPager = v.findViewById(R.id.viewPager_id);
         setupViewPager(viewPager);
-        ll = (LinearLayout) v.findViewById(R.id.lvv);
+        ll = v.findViewById(R.id.lvv);
         tabLayout.setupWithViewPager(viewPager);
 
         return v;
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -81,13 +80,12 @@ public class Matiere_Fragment extends Fragment {
 
 
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        bottomNavigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+        bottomNavigationView = getActivity().findViewById(R.id.bottomBar);
 
 
     }

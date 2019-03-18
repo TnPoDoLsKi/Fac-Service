@@ -11,4 +11,8 @@
         <item name="android:fontFamily">@font/lato</item>
     </style>
 
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
 </resources>

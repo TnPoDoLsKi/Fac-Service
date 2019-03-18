@@ -20,7 +20,6 @@ import java.util.Locale;
 public class ImageFetcher extends AsyncTask<Cursor, Void, ArrayList<Img>> {
     private ArrayList<Img> LIST = new ArrayList<>();
     private Context context;
-
     public ImageFetcher(Context context) {
         this.context = context;
     }

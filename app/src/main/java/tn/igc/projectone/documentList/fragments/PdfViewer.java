@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import tn.igc.projectone.R;
 
 
+
 public class PdfViewer extends Fragment {
 
     PDFView pdfView;
@@ -33,7 +34,7 @@ public class PdfViewer extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bottomNavigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+        bottomNavigationView = getActivity().findViewById(R.id.bottomBar);
 
     }
 
@@ -50,8 +51,8 @@ public class PdfViewer extends Fragment {
 
         String b_title = bundle.getString("b_title");
 
-        pdfView = (PDFView) view.findViewById(R.id.pdfView1);
-        textView = (TextView) view.findViewById(R.id.TextviewPdf);
+        pdfView = view.findViewById(R.id.pdfView1);
+        textView = view.findViewById(R.id.TextviewPdf);
         new RetreivePDFstream().execute(b_filePath);
         if (isOnline() == false) {
             textView.setText("Aucune connexion trouvee");
@@ -65,7 +66,6 @@ public class PdfViewer extends Fragment {
 
 
     }
-
     public boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();
         try {
@@ -106,13 +106,14 @@ public class PdfViewer extends Fragment {
             pdfView.fromStream(inputStream).load();
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
-        if (bottomNavigationView.getSelectedItemId() != R.id.search_button) {
+       /* if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+        {
             bottomNavigationView.setSelectedItemId(R.id.search_button);
-        }
+        }*/
     }
+
 
 }

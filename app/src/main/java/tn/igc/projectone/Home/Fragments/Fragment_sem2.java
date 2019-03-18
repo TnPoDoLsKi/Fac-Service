@@ -29,7 +29,6 @@ import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
 import tn.igc.projectone.Home.Classes.Matiere;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
-import tn.igc.projectone.authentification.util.SaveSharedPreference;
 
 public class Fragment_sem2 extends Fragment {
 
@@ -55,11 +54,10 @@ public class Fragment_sem2 extends Fragment {
 
         return v;
     }
-
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.sem2_recyclerView);
-        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS2);
+        mRecyclerView = v.findViewById(R.id.sem2_recyclerView);
+        progressBar = getView().findViewById(R.id.progressBarS2);
         progressBar.setVisibility(View.VISIBLE);
 
     }
@@ -67,11 +65,11 @@ public class Fragment_sem2 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mid = SaveSharedPreference.getMajor(getContext());
+        Mid = "5c8922066b5a61762e227a99";
+        //SaveSharedPreference.getMajor(getContext());
 
         apiMatieresS2();
     }
-
     public void onResume() {
         super.onResume();
 

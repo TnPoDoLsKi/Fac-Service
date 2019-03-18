@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.classes.Document;
@@ -113,6 +112,7 @@ public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdap
     }
 
 
+
     @Override
     public int getItemCount() {
 
@@ -130,12 +130,12 @@ public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdap
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.doc_card);
-            downloadButton = (Button) itemView.findViewById(R.id.download);
-            docTitle = (TextView) itemView.findViewById(R.id.docTitle);
-            verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
-            userName = (TextView) itemView.findViewById(R.id.userName);
-            avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            cardView = itemView.findViewById(R.id.doc_card);
+            downloadButton = itemView.findViewById(R.id.download);
+            docTitle = itemView.findViewById(R.id.docTitle);
+            verifiedImage = itemView.findViewById(R.id.verifiedImage);
+            userName = itemView.findViewById(R.id.userName);
+            avatar = itemView.findViewById(R.id.avatar);
         }
     }
 

@@ -40,7 +40,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
 
     }
-
     public void removeImage(int position) {
         this.list.remove(position);  // remove the item from list
         notifyItemRemoved(position);
