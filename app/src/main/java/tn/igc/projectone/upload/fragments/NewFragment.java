@@ -215,8 +215,11 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                     for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
                         File file = new File(s);
+                        Log.e("file name", " ->  " + file.getName());
+                        Log.e("file to string", " ->  " + file.toString());
                         ProgressRequestBody fileBody = new ProgressRequestBody(MediaType.parse("image/*"),file, this);
-                        MultipartBody.Part part = MultipartBody.Part.createFormData("file", ".jpeg", fileBody);
+                        MultipartBody.Part part = MultipartBody.Part.createFormData(file.getName(), file.getName(), fileBody);
+                        Log.e("part to string", " ->  " + part.toString());
                         FileImage fileImage = new FileImage(s,"",part);
                         filelist.add(fileImage);
                     }

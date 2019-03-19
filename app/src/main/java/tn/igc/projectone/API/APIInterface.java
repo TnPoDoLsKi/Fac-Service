@@ -56,11 +56,11 @@ public interface APIInterface {
     @FormUrlEncoded
     @POST("auth/signin")
     Call<JsonObject>basicLogin(@Field("email") String email,@Field("password") String password);
-    @FormUrlEncoded
-    @POST("auth/signup")
-    Call<HashMap>basicsignup(@Field("email") String email,@Field("password") String password,@Field("type") String type,@Field("firstName")String firstName,@Field("lastName")String lastName,@Field("major")String major);
     @GET("majors")
     Call<JsonArray> getAllMajors();
+    @FormUrlEncoded
+    @POST("auth/signup")
+    Call<Void>basicsignup(@Field("email") String email,@Field("password") String password,@Field("firstName")String firstName,@Field("lastName")String lastName,@Field("major")String major);
 
 
 

@@ -91,7 +91,7 @@
         <TextView
             android:id="@+id/tv_choisirImage"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="35dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="140dp"
             android:layout_marginEnd="8dp"

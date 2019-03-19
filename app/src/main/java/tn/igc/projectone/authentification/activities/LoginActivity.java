@@ -1,5 +1,6 @@
 package tn.igc.projectone.authentification.activities;
 
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import tn.igc.projectone.R;
 
 import com.google.gson.JsonObject;
 
@@ -24,20 +25,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.MainActivity;
-import tn.igc.projectone.R;
 import tn.igc.projectone.authentification.util.SaveSharedPreference;
 
 public class LoginActivity extends Activity {
     EditText userName,userPassword;
-    Button connect,mdpforgot,inscrip;
+    Button connect,inscrip;
     boolean isPasswordValidated,isUserValidated;
     private APIInterface apiInterface;
     private static String token;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private ConstraintLayout loginForm;
+
     public final boolean validateEmail(String target) {
         if (target !=null && target.length() > 1) {
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -57,15 +58,6 @@ public class LoginActivity extends Activity {
         inscrip=(Button)findViewById(R.id.inscrip);
         loginForm = (ConstraintLayout) findViewById(R.id.loginform);
 
-        Button btn_continue =(Button) findViewById(R.id.button3);
-        btn_continue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -88,7 +80,6 @@ public class LoginActivity extends Activity {
         userName=(EditText)findViewById(R.id.editText);
         userPassword=(EditText)findViewById(R.id.editText2);
         connect=(Button)findViewById(R.id.button2);
-        mdpforgot=(Button)findViewById(R.id.button);
         userPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -103,7 +94,6 @@ public class LoginActivity extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 String etpasschange=s.toString();
-                Toast.makeText(getApplicationContext(),etpasschange,Toast.LENGTH_SHORT).show();
                 if(etpasschange.length()<8){
                     userPassword.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     userPassword.setError("mot de passe courte");
@@ -139,6 +129,7 @@ public class LoginActivity extends Activity {
 
             }
         });
+
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,36 +143,37 @@ public class LoginActivity extends Activity {
 
 
                         if (response.isSuccessful()){
-                           //new activity+realm
+                            //new activity+realm
                             String token=response.body().get("token").getAsString();
-                            String major=response.body().getAsJsonObject("user").get("major").getAsString();
-                            Toast.makeText(LoginActivity.this,token,Toast.LENGTH_LONG).show();
+                            String major=response.body().get("major").getAsString();
+                            String majorname=response.body().get("majorName").getAsString();
                             SaveSharedPreference.setMajor(getApplicationContext(), major);
                             SaveSharedPreference.setToken(getApplicationContext(),token);
+                            SaveSharedPreference.setMajorName(getApplicationContext(),majorname);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
 
 
 
                         }
-                       else
-                       {
-                           // error response, no access to resource?
-                           AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
+                        else
+                        {
+                            // error response, no access to resource?
+                            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
 
-                           dlgAlert.setMessage("wrong password or Email");
-                           dlgAlert.setTitle("Error Message...");
-                           dlgAlert.setPositiveButton("OK", null);
-                           dlgAlert.setCancelable(true);
-                           dlgAlert.create().show();
+                            dlgAlert.setMessage("wrong password or Email");
+                            dlgAlert.setTitle("Error Message...");
+                            dlgAlert.setPositiveButton("OK", null);
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
 
-                           dlgAlert.setPositiveButton("Ok",
-                                   new DialogInterface.OnClickListener() {
-                                       public void onClick(DialogInterface dialog, int which) {
+                            dlgAlert.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                       }
-                                   });
-                       }
+                                        }
+                                    });
+                        }
 
                     }
 
