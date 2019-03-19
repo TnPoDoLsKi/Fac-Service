@@ -29,28 +29,28 @@ public class APIClient {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         OkHttpClient client = new OkHttpClient.Builder().
                 addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request original = chain.request();
-                        Request request = original.newBuilder()
-                                .header("Authorization", token)
-                                .method(original.method(), original.body())
-                                .build();
-                        return chain.proceed(request);
-                    }
-                }).addInterceptor(interceptor).build();
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
+                    Request request = original.newBuilder()
+                        .header("Authorization", token)
+                        .method(original.method(), original.body())
+                        .build();
+                    return chain.proceed(request);
+                }
+            }).addInterceptor(interceptor).build();
         return getRetrofit(client);
     }
 
     private static Retrofit getRetrofit(OkHttpClient client) {
-      //creat logger
+        //creat logger
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         retrofit = new Retrofit.Builder()
-                .baseUrl(API_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
+            .baseUrl(API_BASE)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build();
         return retrofit;
     }
 }

@@ -14,6 +14,11 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.GET;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -59,8 +64,30 @@ public interface APIInterface {
 
 
     @GET("documents/bySubject/{subjectId}/byType/{type}")
-    Call<JsonArray> getSubject_type (@Path("subjectId") String subjectId,@Path("type") String type);
+    Call<JsonArray> getSubject_type(@Path("subjectId") String subjectId, @Path("type") String type);
+
     @GET("subjects/byMajor/{major}")
     Call<JsonArray> getMajorSujects(@Path("major") String major);
 
+    @GET("formations")
+    Call<JsonArray> getAllFormations();
+
+
+    @GET("levels/byFormation/{formation}")
+    Call<JsonArray> getAllLevels(@Path("formation") String id);
+
+    @GET("majors/byLevel/{level}")
+    Call<JsonArray> getMajor(@Path("level") String fId);
+
+
+    @FormUrlEncoded
+    @PUT("subjects/GetByMajors/")
+    Call<JsonArray> getSubjectsByMajor(@Field("majors") ArrayList<String> majors);
+
+    @FormUrlEncoded
+    @PUT("users")
+    Call<Void> updateUser(@Field("firstName") String fName, @Field("lastName") String lName, @Field("email") String email, @Field("major") String major, @Field("oldPassword") String oldPass, @Field("password") String pass);
+
+    @GET("user")
+    Call<JsonObject> getUserInfo();
 }

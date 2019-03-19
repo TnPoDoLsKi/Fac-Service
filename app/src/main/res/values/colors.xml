@@ -12,5 +12,7 @@
     <color name="colorgrille">#B4AFAF</color>
     <color name="colorbackground">#F0F0F0</color>
 
+    <color name="lightBlue">#35b0de</color>
+    <color name="darkBlue">#2c91b7</color>
 </resources>
 
