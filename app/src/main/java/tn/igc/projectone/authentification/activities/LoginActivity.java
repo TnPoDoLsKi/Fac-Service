@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import tn.igc.projectone.R;
 
 import com.google.gson.JsonObject;
 
@@ -24,25 +25,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.MainActivity;
-import tn.igc.projectone.R;
 import tn.igc.projectone.authentification.util.SaveSharedPreference;
 import tn.igc.projectone.filiere.FiliereActivity;
 
 public class LoginActivity extends Activity {
-    EditText userName, userPassword;
-    Button connect, inscrip;
-    boolean isPasswordValidated, isUserValidated;
+    EditText userName,userPassword;
+    Button connect,inscrip,btn_continue;
+    boolean isPasswordValidated,isUserValidated;
     private APIInterface apiInterface;
     private static String token;
-    private Button buttonContinue;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private ConstraintLayout loginForm;
 
     public final boolean validateEmail(String target) {
-        if (target != null && target.length() > 1) {
+        if (target !=null && target.length() > 1) {
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
             Matcher matcher = pattern.matcher(target);
             return matcher.matches();
@@ -57,39 +56,40 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        inscrip = findViewById(R.id.inscrip);
-        loginForm = findViewById(R.id.loginform);
-        buttonContinue = findViewById(R.id.button3);
-        buttonContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FiliereActivity.class);
-                startActivity(intent);
+        inscrip=(Button)findViewById(R.id.inscrip);
+        loginForm = (ConstraintLayout) findViewById(R.id.loginform);
+        btn_continue = (Button) findViewById(R.id.button3);
 
-            }
-        });
         //session
-        if (!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
+        if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("major", SaveSharedPreference.getMajor(getApplicationContext()));
+            intent.putExtra("major",SaveSharedPreference.getMajor(getApplicationContext()));
             startActivity(intent);
         } else {
             loginForm.setVisibility(View.VISIBLE);
         }
 
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, FiliereActivity.class);
+                startActivity(i);
+            }
+        });
 
-        apiInterface = APIClient.getClient().create(APIInterface.class);
+
+        apiInterface= APIClient.getClient().create(APIInterface.class);
         inscrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent i=new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(i);
                 finish();
             }
         });
-        userName = findViewById(R.id.editText);
-        userPassword = findViewById(R.id.editText2);
-        connect = findViewById(R.id.button2);
+        userName=(EditText)findViewById(R.id.editText);
+        userPassword=(EditText)findViewById(R.id.editText2);
+        connect=(Button)findViewById(R.id.button2);
         userPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -103,12 +103,13 @@ public class LoginActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String etpasschange = s.toString();
-                if (etpasschange.length() < 8) {
+                String etpasschange=s.toString();
+                if(etpasschange.length()<8){
                     userPassword.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     userPassword.setError("mot de passe courte");
 
-                } else {
+                }
+                else{
                     userPassword.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 }
 
@@ -127,41 +128,48 @@ public class LoginActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (validateEmail(userName.getText().toString()) == false) {
+                if (validateEmail(userName.getText().toString())==false){
                     userName.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     userName.setError("E-mail incorrect");
 
-                } else {
+                }
+                else{
                     userName.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 }
 
             }
         });
+
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String strUserName = userName.getText().toString();
                 final String strPassword = userPassword.getText().toString();
 
-                Call<JsonObject> tentative = apiInterface.basicLogin(strUserName, strPassword);
+                Call<JsonObject> tentative=apiInterface.basicLogin(strUserName,strPassword);
                 tentative.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
 
-                        if (response.isSuccessful()) {
+                        if (response.isSuccessful()){
                             //new activity+realm
-                            String token = response.body().get("token").getAsString();
-                            String major = response.body().getAsJsonObject("user").get("major").getAsString();
+                            String token=response.body().get("token").getAsString();
+                            String major=response.body().get("major").getAsString();
+                            String majorname=response.body().get("majorName").getAsString();
                             SaveSharedPreference.setMajor(getApplicationContext(), major);
-                            SaveSharedPreference.setToken(getApplicationContext(), token);
+                            SaveSharedPreference.setToken(getApplicationContext(),token);
+                            SaveSharedPreference.setMajorName(getApplicationContext(),majorname);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
 
 
-                        } else {
+
+                        }
+                        else
+                        {
                             // error response, no access to resource?
-                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(LoginActivity.this);
+                            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
 
                             dlgAlert.setMessage("wrong password or Email");
                             dlgAlert.setTitle("Error Message...");
@@ -170,11 +178,11 @@ public class LoginActivity extends Activity {
                             dlgAlert.create().show();
 
                             dlgAlert.setPositiveButton("Ok",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                    }
-                                });
+                                        }
+                                    });
                         }
 
                     }
