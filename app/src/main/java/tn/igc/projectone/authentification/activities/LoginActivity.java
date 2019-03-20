@@ -29,10 +29,11 @@ import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.authentification.util.SaveSharedPreference;
+import tn.igc.projectone.filiere.FiliereActivity;
 
 public class LoginActivity extends Activity {
     EditText userName,userPassword;
-    Button connect,inscrip;
+    Button connect,inscrip,btn_continue;
     boolean isPasswordValidated,isUserValidated;
     private APIInterface apiInterface;
     private static String token;
@@ -57,6 +58,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         inscrip=(Button)findViewById(R.id.inscrip);
         loginForm = (ConstraintLayout) findViewById(R.id.loginform);
+        btn_continue = (Button) findViewById(R.id.button3);
 
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
@@ -66,6 +68,14 @@ public class LoginActivity extends Activity {
         } else {
             loginForm.setVisibility(View.VISIBLE);
         }
+
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, FiliereActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         apiInterface= APIClient.getClient().create(APIInterface.class);
