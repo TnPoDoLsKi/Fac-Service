@@ -1,6 +1,8 @@
 package tn.igc.projectone.upload.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -22,7 +24,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
+import tn.igc.projectone.authentification.activities.LoginActivity;
 
 public class DocumentFragmentSubject extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -73,7 +77,7 @@ public class DocumentFragmentSubject extends Fragment {
                 ArrayList<String> arrayList=new ArrayList<>();
                 arrayList.add("hi");
                 arrayList.add("hii");
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
+                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"1402961e1a10d96891b60503992cf39e4b7887c48e5244ba8aafa00f8ecc84da").create(APIInterface.class);
                 Call<JsonObject> call_create_task = apiInterface.createcorrection(pathlist,"5c8930956ffe7e798d20b3e2");
                 Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
 
@@ -84,8 +88,11 @@ public class DocumentFragmentSubject extends Fragment {
                             Toast.makeText(getContext(),"400", Toast.LENGTH_LONG).show();
 
                         }
-                        if(response.code()==401){
-                            Toast.makeText(getContext(),"401", Toast.LENGTH_LONG).show();
+                        if (response.code()==401){
+                            Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(getContext(), LoginActivity.class);
+                            startActivity(i);
+
 
                         }
                         if(response.code()==500){
@@ -101,8 +108,16 @@ public class DocumentFragmentSubject extends Fragment {
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
-                        Log.e("failure1", " ->  " + t.toString());
+                        if(ClassisOnline.isOnline()==false){
+                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                            alertDialog.setTitle("connexion");
+                            alertDialog.setMessage("Aucune connexion internet");
+                            alertDialog.show();
+                        }
+                        else{
+                            Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
+
+                        }
 
 
 

@@ -16,6 +16,7 @@ import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.Settings.SettingsFragment;
 import tn.igc.projectone.search.fragment.Search;
 import tn.igc.projectone.upload.fragments.NewFragment;
+import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
 public class MainActivity extends AppCompatActivity {
     TextView title ;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                             //title.setText("Matières");
                             break;
                         case R.id.add_button:
-                            selectedFragment = new NewFragment();
+                            selectedFragment = new MainUploadFragment();
                             setActionBarTitle("Ajouter");
                             //title.setText("Ajouter");
                             break;

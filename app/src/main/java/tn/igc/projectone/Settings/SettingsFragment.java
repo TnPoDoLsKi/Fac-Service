@@ -1,6 +1,7 @@
 package tn.igc.projectone.Settings;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
+import tn.igc.projectone.authentification.activities.LoginActivity;
 import tn.igc.projectone.filiere.Utils.Data;
 
 /**
@@ -136,8 +138,7 @@ public class SettingsFragment extends Fragment {
             retBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    //todo : return to login
+                    startActivity(new Intent(getContext(), LoginActivity.class));
                 }
             });
 
@@ -257,11 +258,10 @@ public class SettingsFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if (response.code() == 400) {
-                    Toast.makeText(getContext(), "Not Authorized" + response.body(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Pas autorisé" + response.body(), Toast.LENGTH_SHORT).show();
                     return;
                 } else if (response.code() == 200)
-                    Toast.makeText(getContext(), "Updated", Toast.LENGTH_LONG).show();
-                Log.d("answer", "onResponse: " + majorId + " " + response.code());
+                    Toast.makeText(getContext(), "Succès", Toast.LENGTH_LONG).show();
                 SaveSharedPreference.setMajor(getContext(), majorId);
             }
 
@@ -286,7 +286,7 @@ public class SettingsFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 SaveSharedPreference.setMajor(getContext(), "");
                 SaveSharedPreference.setToken(getContext(), "");
-                Toast.makeText(getContext(), "Sign Out Done", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Déconnecté", Toast.LENGTH_LONG).show();
                 onResume();
                 return false;
             }

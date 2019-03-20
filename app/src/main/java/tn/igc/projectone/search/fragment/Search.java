@@ -463,7 +463,10 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
 
                         }
                         JsonObject oUser = obj.get("user").getAsJsonObject();
-                        String avatar=oUser.get("avatar").getAsString();
+
+                        String avatar = null;
+                        if (oUser.has("avatar"))
+                            avatar = oUser.get("avatar").getAsString();
 
                         String firstName = oUser.get("firstName").getAsString();
                         String lastName = oUser.get("lastName").getAsString();
