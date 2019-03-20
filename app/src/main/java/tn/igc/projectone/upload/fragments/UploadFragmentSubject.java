@@ -50,7 +50,7 @@ import tn.igc.projectone.upload.other.FileImage;
 import tn.igc.projectone.upload.other.ProgressRequestBody;
 
 
-public class NewFragment extends Fragment implements ProgressRequestBody.UploadCallbacks {
+public class UploadFragmentSubject extends Fragment implements ProgressRequestBody.UploadCallbacks {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -77,7 +77,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     private TextView tv_aucuneImage;
     private LinearLayout layout;
 
-    public NewFragment() {
+    public UploadFragmentSubject() {
         // Required empty public constructor
     }
 
@@ -234,7 +234,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                   // myAdapter.addImage(returnValue);
+                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
                         File file = new File(s);
@@ -249,7 +249,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                     myAdapter.addImage(filelist);
                     if(filelist.size()!=0)
                     {btn_valider.setVisibility(View.VISIBLE);
-                    tv_aucuneImage.setVisibility(View.INVISIBLE);}
+                        tv_aucuneImage.setVisibility(View.INVISIBLE);}
 
 
                 }

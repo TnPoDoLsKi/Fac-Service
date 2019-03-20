@@ -138,6 +138,8 @@ public class SettingsFragment extends Fragment {
             retBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SaveSharedPreference.setToken(getContext(), "");
+                    SaveSharedPreference.setMajor(getContext(), "");
                     startActivity(new Intent(getContext(), LoginActivity.class));
                 }
             });
@@ -279,6 +281,10 @@ public class SettingsFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.settings_bar, menu);
         MenuItem signOutBtn = menu.findItem(R.id.sign_out_btn);
+        if (SaveSharedPreference.getToken(getContext()).equals(""))
+            signOutBtn.setVisible(false);
+        else
+            signOutBtn.setVisible(true);
 
         //Sign out Button
         signOutBtn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -288,6 +294,7 @@ public class SettingsFragment extends Fragment {
                 SaveSharedPreference.setToken(getContext(), "");
                 Toast.makeText(getContext(), "Déconnecté", Toast.LENGTH_LONG).show();
                 onResume();
+                item.setVisible(false);
                 return false;
             }
         });

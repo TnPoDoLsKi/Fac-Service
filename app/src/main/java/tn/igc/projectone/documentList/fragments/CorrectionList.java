@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,6 +56,7 @@ public class CorrectionList extends Fragment {
     CorrectionRecyclerViewAdapter cRecyclerViewAdapter;
 
     TextView textView1;
+    private Button btn_uploadCorrection;
 
 
     public CorrectionList() {
@@ -97,6 +99,8 @@ public class CorrectionList extends Fragment {
 
         v = inflater.inflate(R.layout.correction_fragment, container, false);
 
+        btn_uploadCorrection =(Button) v.findViewById(R.id.Buttonuploadcorrection);
+
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mtr_list);
@@ -138,7 +142,12 @@ public class CorrectionList extends Fragment {
 
         textView.setText(b_description);
 
+        btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
         Document doc = new Document(_id,b_verifiedByProf,b_title,new User(b_firstName,b_lastName,b_avatar),b_filePath);
 

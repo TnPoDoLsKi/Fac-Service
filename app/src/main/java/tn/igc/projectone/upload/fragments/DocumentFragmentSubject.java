@@ -26,6 +26,7 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
+import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
 
 public class DocumentFragmentSubject extends Fragment {
@@ -77,7 +78,7 @@ public class DocumentFragmentSubject extends Fragment {
                 ArrayList<String> arrayList=new ArrayList<>();
                 arrayList.add("hi");
                 arrayList.add("hii");
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"1402961e1a10d96891b60503992cf39e4b7887c48e5244ba8aafa00f8ecc84da").create(APIInterface.class);
+                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
                 Call<JsonObject> call_create_task = apiInterface.createcorrection(pathlist,"5c8930956ffe7e798d20b3e2");
                 Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
 
