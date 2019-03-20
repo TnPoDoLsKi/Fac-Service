@@ -22,7 +22,7 @@ public class SaveSharedPreference {
         editor.apply();
     }
     public static String getMajor(Context context) {
-        return getPreferences(context).getString("major","");
+        return getPreferences(context).getString("major", "");
     }
     public static String getToken(Context context) {
         return getPreferences(context).getString("token","");
@@ -32,7 +32,7 @@ public class SaveSharedPreference {
     }
     public static void setMajorName(Context context, String major) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
-        editor.putString("majorName",major);
+        editor.putString("majorName", major);
         editor.apply();
     }
 

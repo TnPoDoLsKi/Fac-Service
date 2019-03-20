@@ -6,4 +6,13 @@
     <string name="add">ajouter</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!--task : filiere-->
+    <string name="choisir_votre_formation">Veuiller Choisir Votre Formation</string>
+    <string name="choisir_votre_niveau">Veuiller Choisir Votre Niveau</string>
+    <string name="choisir_votre_filiere">Veuiller Choisir Votre Filiere</string>
+    <!--task : uploadEnonce-->
+    <string name="type_de_document">Type de document</string>
+    <string name="ajouter_une_autre_filiere">Ajouter une autre filiére</string>
+
 </resources>

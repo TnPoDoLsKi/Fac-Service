@@ -106,10 +106,11 @@ textView=(TextView) view.findViewById(R.id.TextviewPdf) ;
     @Override
     public void onResume() {
         super.onResume();
-        if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+       /* if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
         {
             bottomNavigationView.setSelectedItemId(R.id.search_button);
-        }
+        }*/
     }
+
 
 }

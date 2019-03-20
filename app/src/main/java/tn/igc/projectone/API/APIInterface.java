@@ -41,13 +41,13 @@ public interface APIInterface {
     Call<JsonArray> getFilterType(@Query("type") String type,@Query("name") String name);
     @GET("search")
     Call<JsonArray> getFilterMajor(@Query("major") String type,@Query("name") String name);
-    @GET("search")
+    @GET("documents/search")
     Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("major") String major,@Query("name") String name);
 
 
     @GET("documents")
     Call<JsonArray> getAllDocs();
-    @GET("documents/corrections/{id}")
+    @GET("corrections/byDocument/{id}")
     Call<JsonArray> getOneCorr(@Path("id") String id);
     @GET("corrections")
     Call<JsonArray> getAllCorrections();
@@ -63,10 +63,31 @@ public interface APIInterface {
     Call<Void>basicsignup(@Field("email") String email,@Field("password") String password,@Field("firstName")String firstName,@Field("lastName")String lastName,@Field("major")String major);
 
 
+    @GET("documents/bySubject/{subjectId}/byType/{type}")
+    Call<JsonArray> getSubject_type(@Path("subjectId") String subjectId, @Path("type") String type);
 
-    @GET("documents/subject/{id}")
-    Call<JsonArray> getSubject_type (@Path("id") String id,@Query("type") String type);
-    @GET("majors/{id}")
-    Call<JsonObject> getMajor(@Path("id") String id);
+    @GET("subjects/byMajor/{major}")
+    Call<JsonArray> getMajorSujects(@Path("major") String major);
 
+    @GET("formations")
+    Call<JsonArray> getAllFormations();
+
+
+    @GET("levels/byFormation/{formation}")
+    Call<JsonArray> getAllLevels(@Path("formation") String id);
+
+    @GET("majors/byLevel/{level}")
+    Call<JsonArray> getMajor(@Path("level") String fId);
+
+
+    @FormUrlEncoded
+    @PUT("subjects/GetByMajors/")
+    Call<JsonArray> getSubjectsByMajor(@Field("majors") ArrayList<String> majors);
+
+    @FormUrlEncoded
+    @PUT("users")
+    Call<Void> updateUser(@Field("firstName") String fName, @Field("lastName") String lName, @Field("email") String email, @Field("major") String major, @Field("oldPassword") String oldPass, @Field("password") String pass);
+
+    @GET("user")
+    Call<JsonObject> getUserInfo();
 }

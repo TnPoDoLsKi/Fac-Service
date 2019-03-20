@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.adapters.CorrectionRecyclerViewAdapter;
 import tn.igc.projectone.documentList.adapters.DocumentRecyclerViewAdapterInCorrection;
@@ -72,18 +73,16 @@ public class CorrectionList extends Fragment {
      //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
-
-
+        ((MainActivity) getActivity()).setActionBarTitle("Détailles");
 
     }
     @Override
     public void onResume() {
         super.onResume();
-        if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
+      /*  if (bottomNavigationView.getSelectedItemId()!=R.id.search_button)
         {
             bottomNavigationView.setSelectedItemId(R.id.search_button);
-        }
-        getActivity().setTitle("Correction List");
+        }*/
 
     }
 
@@ -119,7 +118,7 @@ public class CorrectionList extends Fragment {
 
         String _id = bundle.getString("b_id");
 
-        int b_avatar = bundle.getInt("b_avatar");
+        String b_avatar = bundle.getString("b_avatar");
 
         final boolean b_verifiedByProf = bundle.getBoolean("b_verifiedByProf");
 
@@ -235,27 +234,18 @@ public class CorrectionList extends Fragment {
 
                     }
                     //user init
-                    String uType=oUser.get("type").getAsString();
+                    String avatar=oUser.get("avatar").getAsString();
 
-
-
-                    Boolean deleted =oUser.get("deleted").getAsBoolean();
-                    String u_id=oUser.get("_id").getAsString();
-                    String email=oUser.get("email").getAsString();
                     String firstName=oUser.get("firstName").getAsString();
                     String lastName=oUser.get("lastName").getAsString();
 
-                    if (uType.equals("Prof"))
-                    {
-
-                        CorList.add(new CorrectionDoc(approved,verifiedByProf,score,_id,title,filePath,new User(uType,deleted,u_id,email,"Corrige de l'enseignant","",R.drawable.ic_check_circle_24px),document,createdAt,updatedAt));
-
-                    }
-else {
 
 
-                        CorList.add(new CorrectionDoc(approved, verifiedByProf, score, _id, title, filePath, new User(uType, deleted, u_id, email, firstName, lastName, 0), document, createdAt, updatedAt));
-                    }
+                        CorList.add(new CorrectionDoc(approved,verifiedByProf,score,_id,title,filePath,new User(firstName,lastName,avatar),document,createdAt,updatedAt));
+
+
+
+
 }
 
 
