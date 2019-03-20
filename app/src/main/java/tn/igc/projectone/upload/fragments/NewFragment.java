@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,7 +38,6 @@ import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
-
 import tn.igc.projectone.authentification.activities.LoginActivity;
 import tn.igc.projectone.upload.Interface.RecyclerViewClickListener;
 import tn.igc.projectone.upload.adapters.MyAdapter;
