@@ -37,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 import tn.igc.projectone.authentification.activities.LoginActivity;
 import tn.igc.projectone.upload.Interface.RecyclerViewClickListener;
@@ -49,6 +50,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     private static int conteur_nbre_file_upload=1;
 
@@ -63,6 +65,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
     private String mParam1;
     private String mParam2;
+    private String mParam3;
 
     private OnFragmentInteractionListener mListener;
     private MyAdapter myAdapter;
@@ -75,11 +78,12 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     }
 
 
-    public static NewFragment newInstance(String param1, String param2) {
+    public static NewFragment newInstance(String param1, String param2, String param3) {
         NewFragment fragment = new NewFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -104,6 +108,9 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
         layout = v.findViewById(R.id.linearLayout);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
+
+        Toast.makeText(getActivity(), "params"+ mParam1+" "+mParam2, Toast.LENGTH_LONG).show();
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
@@ -141,12 +148,16 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                     multipart.add(filelist.get(i).getPart());
                 }
                 Log.e("multipartsize", " ->  " + multipart.size());
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
+                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"1402961e1a10d96891b60503992cf39e4b7887c48e5244ba8aafa00f8ecc84da").create(APIInterface.class);
                 Call<JsonArray> call_create_task = apiInterface.uploadimage(multipart);
 
                 call_create_task.enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                        if(response.code()==400){
+                            Toast.makeText(getContext(),"400", Toast.LENGTH_LONG).show();
+
+                        }
                         if (response.code()==401){
                             Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
                             Intent i = new Intent(getContext(),LoginActivity.class);
@@ -154,7 +165,11 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
 
                         }
-                        else{
+                        if(response.code()==500){
+                            Toast.makeText(getContext(),"500", Toast.LENGTH_LONG).show();
+
+                        }
+                        if(response.isSuccessful()){
                             for(int i=0;i<response.body().size();i++) {
                                 pathlist.add(response.body().getAsJsonArray().get(i).getAsString());
                             }
@@ -176,12 +191,15 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
-                        Toast.makeText(getContext(),"non mrighel " + t.toString(), Toast.LENGTH_LONG).show();
-                        if(isOnline()==false){
+                        if(ClassisOnline.isOnline()==false){
                             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                             alertDialog.setTitle("connexion");
                             alertDialog.setMessage("Aucune connexion internet");
                             alertDialog.show();
+                        }
+                        else{
+                            Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
+
                         }
 
                     }
@@ -298,18 +316,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         mProgressDialog.setProgress(percentage);
     }
 
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace();  return false;}
-        catch (InterruptedException e) { e.printStackTrace();  return false;}
-
-
-    }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);

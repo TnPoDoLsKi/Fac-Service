@@ -70,9 +70,9 @@ public class CorrectionList extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+     //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-        bottomNavigationView = getActivity().findViewById(R.id.bottomBar);
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
         ((MainActivity) getActivity()).setActionBarTitle("Détailles");
 
     }
@@ -97,13 +97,13 @@ public class CorrectionList extends Fragment {
 
         v = inflater.inflate(R.layout.correction_fragment, container, false);
 
-        progressBar = v.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
-        mRecyclerView = v.findViewById(R.id.mtr_list);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.mtr_list);
 
-        cRecyclerView = v.findViewById(R.id.corr);
+        cRecyclerView = (RecyclerView) v.findViewById(R.id.corr);
 
-        textView1 = v.findViewById(R.id.Textview2);
+        textView1 =(TextView) v.findViewById(R.id.Textview2);
 
         textView1.setText("No Corrections");
 
@@ -126,20 +126,21 @@ public class CorrectionList extends Fragment {
 
         String b_firstName = bundle.getString("b_firstName");
 
-        String b_lastName = bundle.getString("b_lastName");
+        String b_lastName= bundle.getString("b_lastName");
 
-        String b_filePath = bundle.getString("b_filePath");
+        String b_filePath=bundle.getString("b_filePath");
 
-        String b_description = bundle.getString("b_description");
+        String b_description=bundle.getString("b_description");
 
         getActivity().setTitle(b_title);
 
-        final TextView textView = v.findViewById(R.id.description);
+        final TextView textView= (TextView) v.findViewById(R.id.description);
 
         textView.setText(b_description);
 
 
-        Document doc = new Document(_id, b_verifiedByProf, b_title, new User(b_firstName, b_lastName, b_avatar), b_filePath);
+
+        Document doc = new Document(_id,b_verifiedByProf,b_title,new User(b_firstName,b_lastName,b_avatar),b_filePath);
 
         DocList.add(doc);
 
@@ -151,7 +152,10 @@ public class CorrectionList extends Fragment {
         mRecyclerView.setAdapter(recyclerViewAdapter);
 
 
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+
+
+
+       APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         Call<JsonArray> call_one_corr = apiInterface.getOneCorr(_id);
         call_one_corr.enqueue(new Callback<JsonArray>() {
 
@@ -163,77 +167,88 @@ public class CorrectionList extends Fragment {
                     progressBar.setVisibility(View.INVISIBLE);
                     JsonArray corrs_array = response.body().getAsJsonArray();
 
-                    for (int i = 0; i < corrs_array.size(); i++) {
-                        JsonObject obj = corrs_array.get(i).getAsJsonObject();
-                        JsonObject oUser = obj.get("user").getAsJsonObject();
-                        //Correction init
-                        Boolean approved;
-                        if (obj.get("approved") == null) {
-                            approved = false;
-                        } else {
-                            approved = obj.get("approved").getAsBoolean();
-                        }
+               for (int i = 0; i < corrs_array.size(); i++)
+
+                {
+                    JsonObject obj =  corrs_array.get(i).getAsJsonObject();
+                    JsonObject oUser= obj.get("user").getAsJsonObject();
+                    //Correction init
+                    Boolean approved ;
+                    if (obj.get("approved")==null) {
+                        approved = false;                        }
+                    else{
+                        approved = obj.get("approved").getAsBoolean();                        }
 //document attributs init
-                        Boolean verifiedByProf;
-                        if (obj.get("verifiedByProf") == null) {
-                            verifiedByProf = false;
-                        } else {
-                            verifiedByProf = obj.get("verifiedByProf").getAsBoolean();
-                        }
-                        int score = 0;
-                        String _id;
-                        if (obj.get("_id") == null) {
-                            _id = "";
-                        } else {
-                            _id = obj.get("_id").getAsString();
-                        }
-                        String title;
-                        if (obj.get("title") == null) {
-                            title = "";
-                        } else {
-                            title = obj.get("title").getAsString();
-                        }
-                        String filePath;
+                    Boolean verifiedByProf ;
+                    if (obj.get("verifiedByProf")==null) {
+                        verifiedByProf = false;
+                    }
+                    else{
+                        verifiedByProf = obj.get("verifiedByProf").getAsBoolean();                            }
+                    int score=0;
+                    String _id ;
+                    if (obj.get("_id")==null) {
+                        _id = "";                            }
+                    else{
+                        _id = obj.get("_id").getAsString();
+                    }
+                    String title ;
+                    if (obj.get("title")==null) {
+                        title = "";
+                    }
+                    else{
+                        title = obj.get("title").getAsString();
+                    }
+                    String filePath ;
 
-                        if (obj.get("filePath") == null) {
-                            filePath = "";
-                        } else {
-                            filePath = obj.get("filePath").getAsString();
-                        }
-                        String document;
+                    if (obj.get("filePath")==null){
+                        filePath = "";
+                    }
+                    else {
+                        filePath = obj.get("filePath").getAsString();
+                    }
+                    String document ;
 
-                        if (obj.get("document") == null) {
-                            document = "";
-                        } else {
-                            document = obj.get("document").getAsString();
-                        }
+                    if (obj.get("document")==null){
+                         document ="";
+                    }
+                    else{
+                        document =obj.get("document").getAsString();
+                    }
 
-                        String createdAt;
+                    String createdAt;
 
-                        if (obj.get("createdAt") == null) {
-                            createdAt = "";
-                        } else {
-                            createdAt = obj.get("createdAt").getAsString();
-
-                        }
-                        String updatedAt;
-                        if (obj.get("updatedAt") == null) {
-                            updatedAt = "";
-                        } else {
-                            updatedAt = obj.get("updatedAt").getAsString();
-
-                        }
-                        //user init
-                        String avatar = oUser.get("avatar").getAsString();
-
-                        String firstName = oUser.get("firstName").getAsString();
-                        String lastName = oUser.get("lastName").getAsString();
-
-
-                        CorList.add(new CorrectionDoc(approved, verifiedByProf, score, _id, title, filePath, new User(firstName, lastName, avatar), document, createdAt, updatedAt));
-
+                    if (obj.get("createdAt")==null){
+                        createdAt="";
+                    }
+                    else{
+                        createdAt = obj.get("createdAt").getAsString();
 
                     }
+                    String updatedAt;
+                    if (obj.get("updatedAt")==null){
+                        updatedAt = "";
+                    }
+                    else{
+                        updatedAt = obj.get("updatedAt").getAsString();
+
+                    }
+                    //user init
+                    String avatar = null;
+                    if (oUser.has("avatar"))
+                        avatar = oUser.get("avatar").getAsString();
+
+                    String firstName=oUser.get("firstName").getAsString();
+                    String lastName=oUser.get("lastName").getAsString();
+
+
+
+                        CorList.add(new CorrectionDoc(approved,verifiedByProf,score,_id,title,filePath,new User(firstName,lastName,avatar),document,createdAt,updatedAt));
+
+
+
+
+}
 
 
                     cRecyclerViewAdapter = new CorrectionRecyclerViewAdapter(getContext(), CorList);
@@ -242,7 +257,7 @@ public class CorrectionList extends Fragment {
 
                     cRecyclerView.setAdapter(cRecyclerViewAdapter);
 
-                    if (CorList.size() == 0)
+                    if (CorList.size()==0)
                         textView1.setVisibility(View.VISIBLE);
 
                 }
@@ -253,7 +268,7 @@ public class CorrectionList extends Fragment {
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
 
-                if (isOnline() == false) {
+                if(isOnline()==false){
                     textView1.setText("Aucune connexion trouvée");
                     textView1.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
@@ -262,10 +277,12 @@ public class CorrectionList extends Fragment {
                     cRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
                     cRecyclerView.setAdapter(cRecyclerViewAdapter);
-                } else
+                }
+                else
                     textView1.setText("Aucune correction trouvée");
             }
         });
+
 
 
         return v;
@@ -274,15 +291,11 @@ public class CorrectionList extends Fragment {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int exitValue = ipProcess.waitFor();
+            int     exitValue = ipProcess.waitFor();
             return (exitValue == 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
         }
+        catch (IOException e)          { e.printStackTrace();  return false;}
+        catch (InterruptedException e) { e.printStackTrace();  return false;}
 
 
     }

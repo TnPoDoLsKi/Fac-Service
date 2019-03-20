@@ -24,22 +24,22 @@ public class Utils {
     public static int processProgress = 0;
     //    public static String[] selectedMajor;
     public static ArrayList<Data> selectedMajor;
-	/**
-	 * @param fragmentManager : a Fragment Manager
-	 * @param bar             : a reference to the progressBar
-	 */
+    /**
+     * @param fragmentManager : a Fragment Manager
+     * @param bar             : a reference to the progressBar
+     */
 
 
     //	this method calls the next fragment (process)
-	// this version is only called the first time
+    // this version is only called the first time
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
 //		selectedMajor = new String[3];
         selectedMajor = new ArrayList<>();
 
-		nextProcess(fragmentManager, bar, null);
-	}
+        nextProcess(fragmentManager, bar, null);
+    }
 
-	//	Overload
+    //	Overload
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, Data toSend) {
         if (toSend != null) {
             selectedMajor.add(processProgress - 1, toSend);
@@ -53,23 +53,23 @@ public class Utils {
 //		}
 
 
-		Fragment fragment;
-		switch (++processProgress){
-			case 1: fragment = new Process1Fragment(); break;
-			case 2: fragment = new Process2Fragment(); break;
-			case 3: fragment = new Process3Fragment(); break;
-			default: return;
-		}
+        Fragment fragment;
+        switch (++processProgress){
+            case 1: fragment = new Process1Fragment(); break;
+            case 2: fragment = new Process2Fragment(); break;
+            case 3: fragment = new Process3Fragment(); break;
+            default: return;
+        }
 
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.filiere_frag_container,fragment,"process");
-		// the first fragment is not part of the stack
-		if (!(fragment instanceof Process1Fragment)) {
-			fragmentTransaction.addToBackStack("filiereStack");
-		}
-		fragmentTransaction.commit();
-		bar.setProgress(processProgress*35);
-	}
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.filiere_frag_container,fragment,"process");
+        // the first fragment is not part of the stack
+        if (!(fragment instanceof Process1Fragment)) {
+            fragmentTransaction.addToBackStack("filiereStack");
+        }
+        fragmentTransaction.commit();
+        bar.setProgress(processProgress*35);
+    }
 
 
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar progressBar, Data dataToPass, Context context) {

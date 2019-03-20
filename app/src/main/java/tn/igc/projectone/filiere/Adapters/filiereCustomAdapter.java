@@ -37,20 +37,20 @@ public class filiereCustomAdapter extends ArrayAdapter<String> {
     }
 
     @NonNull
-	@Override
+    @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
-		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-		View filiereView = layoutInflater.inflate(R.layout.button_filiere_process3, parent, false);
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View filiereView = layoutInflater.inflate(R.layout.button_filiere_process3, parent, false);
 
-		Button button = filiereView.findViewById(R.id.filiere_btn);
-		button.setText(getItem(position));
+        Button button = filiereView.findViewById(R.id.filiere_btn);
+        button.setText(getItem(position));
         //listener to pass to the next fragment/activity
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-				String filiere = (((Button) view).getText().toString());
+                String filiere = (((Button) view).getText().toString());
                 Data dataToPass = Data.getDataFromName(filiere, dataArrayList);
                 if (Utils.processProgress < 2) {
                     Utils.nextProcess(fragmentManager, progressBar, dataToPass);
@@ -59,9 +59,9 @@ public class filiereCustomAdapter extends ArrayAdapter<String> {
                 }
                 Log.d("Oops", "onClick: " + dataToPass + "  " + Utils.selectedMajor);
 
-			}
-		});
+            }
+        });
 
-		return filiereView;
-	}
+        return filiereView;
+    }
 }

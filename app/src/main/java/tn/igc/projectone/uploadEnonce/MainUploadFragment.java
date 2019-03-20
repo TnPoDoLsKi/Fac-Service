@@ -384,7 +384,7 @@ public class MainUploadFragment extends Fragment {
         if (sessionLayout.getVisibility() == View.VISIBLE)
             session = spinnerSession.getSelectedItem().toString();
 
-        Fragment fragment = NewFragment.newInstance(subId, type);
+        Fragment fragment = NewFragment.newInstance(subId, type,session);
         getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, fragment).commit();
     }
 
