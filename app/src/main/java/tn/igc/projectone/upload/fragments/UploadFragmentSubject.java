@@ -69,7 +69,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
 
     private String mParam1;
     private String mParam2;
-    private String mParam3;
+
 
     private OnFragmentInteractionListener mListener;
     private MyAdapter myAdapter;
@@ -82,12 +82,11 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
     }
 
 
-    public static NewFragment newInstance(String param1, String param2, String param3) {
-        NewFragment fragment = new NewFragment();
+    public static UploadFragmentSubject newInstance(String param1, String param2) {
+        UploadFragmentSubject fragment = new UploadFragmentSubject();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -110,9 +109,10 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
         Button btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
-        layout = v.findViewById(R.id.linearLayout);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
+        TextView nomMatiere = v.findViewById(R.id.tv_nomMatiere);
 
+       // nomMatiere.setText(mParam2);
         Toast.makeText(getActivity(), "params"+ mParam1+" "+mParam2, Toast.LENGTH_LONG).show();
 
 
@@ -134,10 +134,6 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = layout.getLayoutParams();
-                params.height = 0;
-                params.width = 0;
-                layout.setLayoutParams(params);
                 Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(2).setFrontfacing(true));
             }
         });
@@ -181,9 +177,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
                             DocumentFragment documentFragment = new DocumentFragment();
                             Bundle args = new Bundle();
                             args.putStringArrayList("pathlist",pathlist);
-                            args.putString("subId",mParam1);
-                            args.putString("type",mParam2);
-                            args.putString("session",mParam3);
+                            args.putString("IdDoc",mParam1);
                             documentFragment.setArguments(args);
 
                             FragmentManager fragmentManager = getFragmentManager();

@@ -52,7 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         View v = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.image, parent, false);
+            inflate(R.layout.image, parent, false);
         Holder vholder = new Holder(v,mListener);
         Log.e("onCreateViewHolder", " 2  " );
 

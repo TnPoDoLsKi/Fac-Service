@@ -110,7 +110,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         Button btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
-        layout = v.findViewById(R.id.linearLayout);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
 
         Toast.makeText(getActivity(), "params"+ mParam1+" "+mParam2, Toast.LENGTH_LONG).show();
@@ -134,10 +133,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = layout.getLayoutParams();
-                params.height = 0;
-                params.width = 0;
-                layout.setLayoutParams(params);
                 Pix.start(getActivity(), Options.init().setRequestCode(100).setCount(2).setFrontfacing(true));
             }
         });
@@ -177,6 +172,10 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                             for(int i=0;i<response.body().size();i++) {
                                 pathlist.add(response.body().getAsJsonArray().get(i).getAsString());
                             }
+                            if (mParam2.equals("Examen"))
+                                mParam2="EX";
+                            if (mParam2.equals("Cours"))
+                                mParam2="C";
                             dialog.dismiss();
                             DocumentFragment documentFragment = new DocumentFragment();
                             Bundle args = new Bundle();

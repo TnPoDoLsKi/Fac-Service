@@ -33,6 +33,8 @@ import tn.igc.projectone.documentList.adapters.DocumentRecyclerViewAdapterInCorr
 import tn.igc.projectone.documentList.classes.CorrectionDoc;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
+import tn.igc.projectone.upload.fragments.NewFragment;
+import tn.igc.projectone.upload.fragments.UploadFragmentSubject;
 
 public class CorrectionList extends Fragment {
 
@@ -120,13 +122,13 @@ public class CorrectionList extends Fragment {
 
         Bundle bundle = getArguments();
 
-        String _id = bundle.getString("b_id");
+        final String _id = bundle.getString("b_id");
 
         String b_avatar = bundle.getString("b_avatar");
 
         final boolean b_verifiedByProf = bundle.getBoolean("b_verifiedByProf");
 
-        String b_title = bundle.getString("b_title");
+        final String b_title = bundle.getString("b_title");
 
         String b_firstName = bundle.getString("b_firstName");
 
@@ -145,6 +147,9 @@ public class CorrectionList extends Fragment {
         btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UploadFragmentSubject uploadFragmentSubject = UploadFragmentSubject.newInstance(_id,b_title);
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, uploadFragmentSubject).commit();
+
 
             }
         });
