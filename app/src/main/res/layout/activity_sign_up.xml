@@ -6,28 +6,27 @@
     android:layout_width="match_parent"
     android:fillViewport="true">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/constraint1"
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraint1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:layout_editor_absoluteY="25dp"
-    android:focusableInTouchMode="true">
+        tools:layout_editor_absoluteY="25dp"
+        android:focusableInTouchMode="true">
 
 
-    <ImageView
+        <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="79dp"
-        android:layout_height="71dp"
-        android:layout_marginEnd="147dp"
-        android:layout_marginStart="148dp"
+            android:layout_width="79dp"
+            android:layout_height="71dp"
+            android:layout_marginEnd="147dp"
+            android:layout_marginStart="148dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/newlog"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,19 +90,19 @@
         app:layout_constraintTop_toBottomOf="@+id/confirm" />
 
 
-    <Button
+        <Button
         android:id="@+id/CNX"
         android:layout_width="224dp"
-        android:layout_height="43dp"
+            android:layout_height="43dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+            android:layout_marginTop="8dp"
         android:background="@drawable/buttonshape2"
-        android:text="INSCRIPTION"
+            android:text="INSCRIPTION"
         android:textColor="#37b8e8"
-        app:layout_constraintEnd_toEndOf="@+id/spinner"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintEnd_toEndOf="@+id/spinner"
+            app:layout_constraintStart_toStartOf="@+id/spinner"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <TextView
         android:id="@+id/textView6"
@@ -137,52 +136,52 @@
         app:layout_constraintTop_toBottomOf="@+id/CNX"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="300dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#ffffff"
-        android:drawableLeft="@drawable/drawable_left_pers"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="300dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#ffffff"
+            android:drawableLeft="@drawable/drawable_left_pers"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="@+id/editText4"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText4"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="300dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#ffffff"
-        android:drawableLeft="@drawable/drawable_left_pass"
-        android:ems="10"
-        android:hint="Mot de passe"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editText5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText5"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="300dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#ffffff"
+            android:drawableLeft="@drawable/drawable_left_pass"
+            android:ems="10"
+            android:hint="Mot de passe"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/editText5"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText5"
+            app:layout_constraintTop_toBottomOf="@+id/editText5" />
 
-    <EditText
-        android:id="@+id/confirm"
-        android:layout_width="300dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#ffffff"
-        android:drawableLeft="@drawable/drawable_left_pass"
-        android:ems="10"
-        android:hint="Confirmer mot de passe"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editText6"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/confirm"
+            android:layout_width="300dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#ffffff"
+            android:drawableLeft="@drawable/drawable_left_pass"
+            android:ems="10"
+            android:hint="Confirmer mot de passe"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/editText6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText6"
+            app:layout_constraintTop_toBottomOf="@+id/editText6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

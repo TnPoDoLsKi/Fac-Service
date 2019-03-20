@@ -129,7 +129,7 @@ public class Utility {
 
     public static Cursor getCursor(Context context) {
         return context.getContentResolver().query(Constants.URI, Constants.PROJECTION,
-                null, null, Constants.ORDERBY);
+            null, null, Constants.ORDERBY);
     }
 
     public static boolean isViewVisible(View view) {
@@ -141,10 +141,10 @@ public class Utility {
         mScrollbar.setTranslationX(transX);
         mScrollbar.setVisibility(View.VISIBLE);
         return mScrollbar.animate().translationX(0f).alpha(1f)
-                .setDuration(Constants.sScrollbarAnimDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                    // adapter required for new alpha value to stick
-                });
+            .setDuration(Constants.sScrollbarAnimDuration)
+            .setListener(new AnimatorListenerAdapter() {
+                // adapter required for new alpha value to stick
+            });
     }
 
     public static void cancelAnimation(ViewPropertyAnimator animator) {
@@ -231,7 +231,7 @@ public class Utility {
 
         // "RECREATE" THE NEW BITMAP
         Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
+            bm, 0, 0, width, height, matrix, false);
         return resizedBitmap;
     }
 

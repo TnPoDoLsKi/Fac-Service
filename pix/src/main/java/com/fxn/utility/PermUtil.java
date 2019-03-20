@@ -63,7 +63,7 @@ public abstract class PermUtil {
                 permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
             if (permissionsList.size() > 0) {
                 activity.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
-                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
             } else {
                 workFinish.onWorkFinish(true);
             }
@@ -83,7 +83,7 @@ public abstract class PermUtil {
                 permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
             if (permissionsList.size() > 0) {
                 fragment.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
-                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
             } else {
                 workFinish.onWorkFinish(true);
             }

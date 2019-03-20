@@ -40,9 +40,9 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
 
         View currentHeader = getHeaderViewForItem(topChildPosition, parent);
         currentHeader.setPadding((int) (currentHeader.getPaddingLeft() - Utility.convertPixelsToDp(5, context)),
-                currentHeader.getPaddingTop(),
-                currentHeader.getPaddingRight(),
-                currentHeader.getPaddingBottom());
+            currentHeader.getPaddingTop(),
+            currentHeader.getPaddingRight(),
+            currentHeader.getPaddingBottom());
         fixLayoutSize(parent, currentHeader);
         int contactPoint = currentHeader.getBottom();
         View childInContact = getChildInContact(parent, contactPoint);

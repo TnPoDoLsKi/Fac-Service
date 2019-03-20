@@ -38,15 +38,15 @@ public class Matiere {
         this.img_matr = img_matr;
     }
 
-    public Matiere(String  id_matr , String nom_matr, int img_matr,int c,int td,int ds,int ex,int tp) {
-        this.id_matr = id_matr ;
+    public Matiere(String id_matr, String nom_matr, int img_matr, int c, int td, int ds, int ex, int tp) {
+        this.id_matr = id_matr;
         this.nom_matr = nom_matr;
         this.img_matr = img_matr;
-        this.Cour=c;
-        this.TD=td;
-        this.DS=ds;
-        this.EX=ex;
-        this.TP=tp;
+        this.Cour = c;
+        this.TD = td;
+        this.DS = ds;
+        this.EX = ex;
+        this.TP = tp;
 
     }
 

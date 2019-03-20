@@ -1,10 +1,13 @@
 package tn.igc.projectone;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
+import tn.igc.projectone.Settings.SettingsFragment;
 import tn.igc.projectone.search.fragment.Search;
+import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
 public class MainActivity extends AppCompatActivity {
-    TextView title ;
+    TextView title;
     ProgressBar progressBar;
     BottomNavigationView bottomNavigationView;
 
@@ -25,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
-        title = (TextView) findViewById(R.id.action_bar_title);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarS);
+        title = findViewById(R.id.action_bar_title);
+        progressBar = findViewById(R.id.progressBarS);
         setActionBarTitle("Matières");
 
         setVisibleProgressBar();
@@ -35,50 +40,54 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null).replace(R.id.container, fragment).commit();
-        bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navigationItemReselectedListener);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
     }
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment = new Search() ;
-                    switch (menuItem.getItemId()){
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment selectedFragment = new Search();
+                switch (menuItem.getItemId()) {
 
-                        case R.id.home_button:
-                            selectedFragment = new Matiere_Fragment();
-                            setActionBarTitle("Matières");
-                            //title.setText("Matières");
-                            break;
-                        case R.id.add_button:
-                            selectedFragment = new AddFragment();
-                            setActionBarTitle("Ajouter");
-                            //title.setText("Ajouter");
-                            break;
-                        case R.id.parametre_button:
-                            selectedFragment = new AddFragment();
-                            setActionBarTitle("Paramètres");
-                            // title.setText("Paramètres");
-                            break;
-                        case R.id.search_button:
-                            selectedFragment = new Search();
-                            setActionBarTitle("Recherche");
-                            //title.setText("Recherche");
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container,selectedFragment).commit();
-                    return  true ;
+                    case R.id.home_button:
+                        selectedFragment = new Matiere_Fragment();
+                        setActionBarTitle("Matières");
+                        //title.setText("Matières");
+                        break;
+                    case R.id.add_button:
+                        selectedFragment = new MainUploadFragment();
+                        setActionBarTitle("Ajouter");
+                        //title.setText("Ajouter");
+                        break;
+                    case R.id.parametre_button:
+                        selectedFragment = new SettingsFragment();
+                        setActionBarTitle("Paramètres");
+                        // title.setText("Paramètres");
+                        break;
+                    case R.id.search_button:
+                        selectedFragment = new Search();
+                        setActionBarTitle("Recherche");
+                        //title.setText("Recherche");
+                        break;
                 }
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, selectedFragment).commit();
+                return true;
+            }
 
 
-            };
+        };
 
-    public void setActionBarTitle(String newTitle){
+    public void setActionBarTitle(String newTitle) {
         title.setText(newTitle);
     }
 
-    public void setVisibleProgressBar( ){ progressBar.setVisibility(View.VISIBLE);}
+    public void setVisibleProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
-    public void setInvisibleProgressBar(){  progressBar.setVisibility(View.INVISIBLE);}
+    public void setInvisibleProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 
 
 }

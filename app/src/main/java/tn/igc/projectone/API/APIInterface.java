@@ -10,10 +10,6 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.GET;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -33,16 +29,16 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("documents")
-    Call<JsonObject> createdocument(@Field("title")String title, @Field("type")String type, @Field("filePath")String filePath, @Field("user")String user, @Field("major") String major, @Field("subject")String subject, @Field("year")String year, @Field("semestre")String semestre, @Field("profName")String profName, @Field("session")String session, @Field("corrections") Array corrections);
+    Call<JsonObject> createdocument(@Field("title") String title, @Field("type") String type, @Field("filePath") String filePath, @Field("user") String user, @Field("major") String major, @Field("subject") String subject, @Field("year") String year, @Field("semestre") String semestre, @Field("profName") String profName, @Field("session") String session, @Field("corrections") Array corrections);
 
     @GET("search")
     Call<JsonArray> getFiltre(@Query("name") String name);
     @GET("search")
-    Call<JsonArray> getFilterType(@Query("type") String type,@Query("name") String name);
+    Call<JsonArray> getFilterType(@Query("type") String type, @Query("name") String name);
     @GET("search")
-    Call<JsonArray> getFilterMajor(@Query("major") String type,@Query("name") String name);
+    Call<JsonArray> getFilterMajor(@Query("major") String type, @Query("name") String name);
     @GET("documents/search")
-    Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("major") String major,@Query("name") String name);
+    Call<JsonArray> getFilterTypeMajor(@Query("type") String type, @Query("major") String major, @Query("name") String name);
 
 
     @GET("documents")
@@ -55,10 +51,10 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("auth/signin")
-    Call<JsonObject>basicLogin(@Field("email") String email,@Field("password") String password);
+    Call<JsonObject> basicLogin(@Field("email") String email, @Field("password") String password);
     @FormUrlEncoded
     @POST("auth/signup")
-    Call<Void> basicsignup(@Field("email") String email, @Field("password") String password, @Field("firstName")String firstName, @Field("lastName")String lastName, @Field("major")String major);
+    Call<Void> basicsignup(@Field("email") String email, @Field("password") String password, @Field("firstName") String firstName, @Field("lastName") String lastName, @Field("major") String major);
     @GET("majors")
     Call<JsonArray> getAllMajors();
 

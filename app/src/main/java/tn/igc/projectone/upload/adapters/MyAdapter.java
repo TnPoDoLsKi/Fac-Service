@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private RecyclerViewClickListener mListener;
 
 
-    public MyAdapter(Context context,RecyclerViewClickListener listener) {
+    public MyAdapter(Context context, RecyclerViewClickListener listener) {
 
         this.context = context;
         mListener = listener;
@@ -45,18 +44,19 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.list.remove(position);  // remove the item from list
         notifyItemRemoved(position);
     }
-    public ArrayList<FileImage> getList(){
+
+    public ArrayList<FileImage> getList() {
         return this.list;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         View v = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.image, parent, false);
-        Holder vholder = new Holder(v,mListener);
-        Log.e("onCreateViewHolder", " 2  " );
+            inflate(R.layout.image, parent, false);
+        Holder vholder = new Holder(v, mListener);
+        Log.e("onCreateViewHolder", " 2  ");
 
-        return vholder ;
+        return vholder;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((Holder) holder).iv.setImageBitmap(d);
 
         ((Holder) holder).txt_name.setText(f.getName());
-        Log.e("onBindViewHolder", " 1  " );
+        Log.e("onBindViewHolder", " 1  ");
 
 
     }
@@ -108,7 +108,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            mListener.onClick(v,getAdapterPosition());
+            mListener.onClick(v, getAdapterPosition());
 
         }
     }

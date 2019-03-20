@@ -1,6 +1,8 @@
 package tn.igc.projectone.filiere.Utils;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.ProgressBar;
 
@@ -9,7 +11,9 @@ import java.util.ArrayList;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
+import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.filiere.Fragments.Process1Fragment;
 import tn.igc.projectone.filiere.Fragments.Process2Fragment;
 import tn.igc.projectone.filiere.Fragments.Process3Fragment;
@@ -38,17 +42,15 @@ public class Utils {
 	//	Overload
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar, Data toSend) {
         if (toSend != null) {
-//            selectedMajor[processProgress - 1] = toSend;
             selectedMajor.add(processProgress - 1, toSend);
-            Log.d("oops", "nextProcess: " + toSend);
         }
 
 
-		if (fragmentManager == null) {
-            Log.d("Oops", selectedMajor.get(0).getName() + "|" + selectedMajor.get(2).getName() + "|" + selectedMajor.get(3).getName() + "|");
-			// here pass to next activity
-			return;
-		}
+//		if (fragmentManager == null) {
+//            Log.d("Oops", selectedMajor.get(0).getName() + "|" + selectedMajor.get(2).getName() + "|" + selectedMajor.get(3).getName() + "|");
+//			// here pass to next activity
+//			return;
+//		}
 
 
 		Fragment fragment;
@@ -70,4 +72,10 @@ public class Utils {
 	}
 
 
+    public static void nextProcess(FragmentManager fragmentManager, ProgressBar progressBar, Data dataToPass, Context context) {
+        selectedMajor.add(processProgress - 1, dataToPass);
+        SaveSharedPreference.setMajor(context, dataToPass.getId());
+        Log.d("toPass", "nextProcess: " + dataToPass.getId());
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
 }

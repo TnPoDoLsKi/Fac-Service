@@ -3,6 +3,7 @@ package tn.igc.projectone.upload.other;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class ProgressRequestBody extends RequestBody {
     private static final int DEFAULT_BUFFER_SIZE = 2048;
 
     public interface UploadCallbacks {
-        void onProgressUpdate(int percentage,long uploaded, long total);
+        void onProgressUpdate(int percentage, long uploaded, long total);
 
         void onError();
 
@@ -28,7 +29,7 @@ public class ProgressRequestBody extends RequestBody {
         void uploadStart();
     }
 
-    public ProgressRequestBody(final MediaType contentType,final File file, final UploadCallbacks listener) {
+    public ProgressRequestBody(final MediaType contentType, final File file, final UploadCallbacks listener) {
         mContentType = contentType;
 
         mFile = file;
@@ -43,7 +44,7 @@ public class ProgressRequestBody extends RequestBody {
     }
 
     @Override
-    public long contentLength() throws IOException {
+    public long contentLength() {
         //Returns the number of bytes that will be written to sink in a call to writeTo(okio.BufferedSink), or -1 if that count is unknown.
         return mFile.length();
     }
@@ -90,7 +91,7 @@ public class ProgressRequestBody extends RequestBody {
                     mListener.onFinish();
 
                 else
-                    mListener.onProgressUpdate(progress,mUploaded,mTotal);
+                    mListener.onProgressUpdate(progress, mUploaded, mTotal);
             } catch (ArithmeticException e) {
                 mListener.onError();
                 e.printStackTrace();

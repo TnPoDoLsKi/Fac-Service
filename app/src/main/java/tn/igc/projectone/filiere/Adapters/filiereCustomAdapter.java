@@ -52,7 +52,11 @@ public class filiereCustomAdapter extends ArrayAdapter<String> {
 
 				String filiere = (((Button) view).getText().toString());
                 Data dataToPass = Data.getDataFromName(filiere, dataArrayList);
-                Utils.nextProcess(fragmentManager, progressBar, dataToPass);
+                if (Utils.processProgress < 2) {
+                    Utils.nextProcess(fragmentManager, progressBar, dataToPass);
+                } else {
+                    Utils.nextProcess(fragmentManager, progressBar, dataToPass, getContext());
+                }
                 Log.d("Oops", "onClick: " + dataToPass + "  " + Utils.selectedMajor);
 
 			}

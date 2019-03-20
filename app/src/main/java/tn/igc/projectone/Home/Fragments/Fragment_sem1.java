@@ -29,7 +29,6 @@ import tn.igc.projectone.Home.Adapters.RecyclerViewAdapter;
 import tn.igc.projectone.Home.Classes.Matiere;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
-import tn.igc.projectone.authentification.util.SaveSharedPreference;
 
 public class Fragment_sem1 extends Fragment {
 
@@ -37,7 +36,7 @@ public class Fragment_sem1 extends Fragment {
     String Mid;
     //Realm mRealm;
     private RecyclerView mRecyclerView;
-    private List<Matiere> matiereList ;
+    private List<Matiere> matiereList;
     public APIInterface apiInterface;
     ProgressBar progressBar;
     RecyclerViewAdapter recyclerViewAdapter;
@@ -49,18 +48,18 @@ public class Fragment_sem1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.sem1_fragment,container,false);
+        v = inflater.inflate(R.layout.sem1_fragment, container, false);
        /* mRecyclerView = (RecyclerView)v.findViewById(R.id.sem1_recyclerView);
         progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS1);
         progressBar.setVisibility(View.VISIBLE);*/
 
 
-        return v ;
+        return v;
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView)v.findViewById(R.id.sem1_recyclerView);
-        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarS1);
+        mRecyclerView = v.findViewById(R.id.sem1_recyclerView);
+        progressBar = getView().findViewById(R.id.progressBarS1);
         progressBar.setVisibility(View.VISIBLE);
 
     }
@@ -69,8 +68,8 @@ public class Fragment_sem1 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mid= "5c8922066b5a61762e227a99";
-                //SaveSharedPreference.getMajor(getContext());
+        Mid = "5c8922066b5a61762e227a99";
+        //SaveSharedPreference.getMajor(getContext());
         apiMatieresS1();
 
     }
@@ -82,7 +81,7 @@ public class Fragment_sem1 extends Fragment {
         apiMatieresS1();
     }
 
-    public void apiMatieresS1(){
+    public void apiMatieresS1() {
         matiereList = new ArrayList<>();
         //mRealm = Realm.getDefaultInstance();
         apiInterface = APIClient.getClient().create(APIInterface.class);
@@ -94,14 +93,12 @@ public class Fragment_sem1 extends Fragment {
 
                 Matiere m;
                 //Realm realm = null;
-                if(matiereList!=null){
+                if (matiereList != null) {
                     matiereList.clear();
                 }
 
                 JsonArray subs_array = response.body().getAsJsonArray();
-                for (int i = 0; i < subs_array.size(); i++)
-
-                {
+                for (int i = 0; i < subs_array.size(); i++) {
                     JsonObject sub = (JsonObject) subs_array.get(i);
                     JsonElement sub_sem = sub.get("semestre");
 
@@ -112,13 +109,13 @@ public class Fragment_sem1 extends Fragment {
                         JsonObject doc_count = sub.getAsJsonObject("documentsCount");
 
                         int ds_c = doc_count.get("DS").getAsInt();
-                        int ex_c =  doc_count.get("EX").getAsInt();
+                        int ex_c = doc_count.get("EX").getAsInt();
                         int tp_c = doc_count.get("C").getAsInt();
                         int c_c = doc_count.get("TD").getAsInt();
                         int td_c = doc_count.get("TP").getAsInt();
                         final String id = sub_id.getAsString();
 
-                        m = new Matiere(id, name, R.mipmap.ic_soc,c_c,td_c,ds_c,ex_c,tp_c);
+                        m = new Matiere(id, name, R.mipmap.ic_soc, c_c, td_c, ds_c, ex_c, tp_c);
                         matiereList.add(m);
 
 
@@ -155,7 +152,7 @@ public class Fragment_sem1 extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(),"Offline Use ",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Offline Use ", Toast.LENGTH_LONG).show();
 
                 /*mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
@@ -174,8 +171,6 @@ public class Fragment_sem1 extends Fragment {
                 mRecyclerView.setAdapter(recyclerViewAdapter);*/
 
 
-
-
             }
         });
     }
@@ -189,4 +184,4 @@ public class Fragment_sem1 extends Fragment {
                 matiereList.add(new Matiere("7", "Probabilité et Statistiques", R.mipmap.ic_math));
                 matiereList.add(new Matiere("8", "Mathématiques Discrétes", R.mipmap.ic_math));*/
 
- }
+}

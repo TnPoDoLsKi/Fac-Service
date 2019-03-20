@@ -1,11 +1,10 @@
 package tn.igc.projectone.documentList.classes;
 
 
-
 import tn.igc.projectone.R;
 
 
-public class Document  {
+public class Document {
     private String type;
     private int semestre;
     private Boolean approved;
@@ -23,20 +22,24 @@ public class Document  {
     private String description;
     private String createdAt;
     private String updatedAt;
-    public Document(){};
-    public Document(String _id,boolean verifiedByProf,String title,User user,String filePath){
-        this._id=_id;
-        this.verifiedByProf=verifiedByProf;
-        this.title=title;
-        this.user=user;
-        this.filePath=filePath;
+
+    public Document() {
+    }
+
+    public Document(String _id, boolean verifiedByProf, String title, User user, String filePath) {
+        this._id = _id;
+        this.verifiedByProf = verifiedByProf;
+        this.title = title;
+        this.user = user;
+        this.filePath = filePath;
 
     }
-    public Document(String _id,String title,User user,String filePath){
-        this._id=_id;
-        this.title=title;
-        this.user=user;
-        this.filePath=filePath;
+
+    public Document(String _id, String title, User user, String filePath) {
+        this._id = _id;
+        this.title = title;
+        this.user = user;
+        this.filePath = filePath;
 
     }
 
@@ -93,14 +96,13 @@ public class Document  {
         this.NBDowloads = NBDowloads;
     }
 
-    public Boolean getVerifiedByProf(){
+    public Boolean getVerifiedByProf() {
         return this.verifiedByProf;
     }
     public int isVerifiedByProf() {
-        if (verifiedByProf){
-        return R.drawable.ic_check_circle_24px;
-        }
-        else {
+        if (verifiedByProf) {
+            return R.drawable.ic_check_circle_24px;
+        } else {
             return 0;
         }
     }
@@ -134,9 +136,9 @@ public class Document  {
     }
 
     public String getFilePath() {
-        if (filePath.startsWith("/")){
-            return "http://igc.tn:3005"+filePath;
-        }else {
+        if (filePath.startsWith("/")) {
+            return "http://igc.tn:3005" + filePath;
+        } else {
             return filePath;
         }
     }
