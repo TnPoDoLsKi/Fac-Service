@@ -1,7 +1,6 @@
 package tn.igc.projectone.authentification.activities;
 
 
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,14 +29,14 @@ import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.authentification.util.SaveSharedPreference;
+import tn.igc.projectone.filiere.FiliereActivity;
 
 public class LoginActivity extends Activity {
     EditText userName,userPassword;
-    Button connect,inscrip;
+    Button connect,inscrip,btn_continue;
     boolean isPasswordValidated,isUserValidated;
     private APIInterface apiInterface;
     private static String token;
-    private Button buttonContinue;
     String EMAIL_PATTERN = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
     private ConstraintLayout loginForm;
 
@@ -59,15 +58,8 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         inscrip=(Button)findViewById(R.id.inscrip);
         loginForm = (ConstraintLayout) findViewById(R.id.loginform);
-        buttonContinue=(Button) findViewById(R.id.button3);
-buttonContinue.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        btn_continue = (Button) findViewById(R.id.button3);
 
-    }
-});
         //session
         if(!SaveSharedPreference.getMajor(getApplicationContext()).equals("")) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -76,6 +68,14 @@ buttonContinue.setOnClickListener(new View.OnClickListener() {
         } else {
             loginForm.setVisibility(View.VISIBLE);
         }
+
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, FiliereActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         apiInterface= APIClient.getClient().create(APIInterface.class);
@@ -139,6 +139,7 @@ buttonContinue.setOnClickListener(new View.OnClickListener() {
 
             }
         });
+
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,35 +153,37 @@ buttonContinue.setOnClickListener(new View.OnClickListener() {
 
 
                         if (response.isSuccessful()){
-                           //new activity+realm
+                            //new activity+realm
                             String token=response.body().get("token").getAsString();
-                            String major=response.body().getAsJsonObject("user").get("major").getAsString();
+                            String major=response.body().get("major").getAsString();
+                            String majorname=response.body().get("majorName").getAsString();
                             SaveSharedPreference.setMajor(getApplicationContext(), major);
                             SaveSharedPreference.setToken(getApplicationContext(),token);
+                            SaveSharedPreference.setMajorName(getApplicationContext(),majorname);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
 
 
 
                         }
-                       else
-                       {
-                           // error response, no access to resource?
-                           AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
+                        else
+                        {
+                            // error response, no access to resource?
+                            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
 
-                           dlgAlert.setMessage("wrong password or Email");
-                           dlgAlert.setTitle("Error Message...");
-                           dlgAlert.setPositiveButton("OK", null);
-                           dlgAlert.setCancelable(true);
-                           dlgAlert.create().show();
+                            dlgAlert.setMessage("wrong password or Email");
+                            dlgAlert.setTitle("Error Message...");
+                            dlgAlert.setPositiveButton("OK", null);
+                            dlgAlert.setCancelable(true);
+                            dlgAlert.create().show();
 
-                           dlgAlert.setPositiveButton("Ok",
-                                   new DialogInterface.OnClickListener() {
-                                       public void onClick(DialogInterface dialog, int which) {
+                            dlgAlert.setPositiveButton("Ok",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                       }
-                                   });
-                       }
+                                        }
+                                    });
+                        }
 
                     }
 

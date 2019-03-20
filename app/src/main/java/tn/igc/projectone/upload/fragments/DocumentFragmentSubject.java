@@ -1,6 +1,6 @@
 package tn.igc.projectone.upload.fragments;
 
-
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,40 +11,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.R;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.R;
 
-
-public class DocumentFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBERj
+public class DocumentFragmentSubject extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-    private APIInterface apiInterface;
-
     private ArrayList<String> pathlist ;
 
-    public DocumentFragment() {
+
+    private OnFragmentInteractionListener mListener;
+
+    public DocumentFragmentSubject() {
         // Required empty public constructor
     }
 
-    public static DocumentFragment newInstance(String param1, String param2) {
-        DocumentFragment fragment = new DocumentFragment();
+    public static DocumentFragmentSubject newInstance(String param1, String param2) {
+        DocumentFragmentSubject fragment = new DocumentFragmentSubject();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,29 +64,17 @@ public class DocumentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_document, container, false);
-        EditText et_annee = (EditText) view.findViewById(R.id.et_anne) ;
-        EditText et_desc = (EditText) view.findViewById(R.id.et_desc) ;
-
-        final String year = et_annee.getText().toString();
-        final String desc =  et_desc.getText().toString();
-
-
-        //Retrieve the filePath
+        View v=inflater.inflate(R.layout.fragment_document_fragment_subject, container, false);
+        Button btn_ajouter = v.findViewById(R.id.btn_ajouter);
         pathlist = getArguments().getStringArrayList("pathlist");
-        Toast.makeText(getContext(),pathlist.get(0), Toast.LENGTH_LONG).show();
-        Toast.makeText(getContext(),pathlist.get(1), Toast.LENGTH_LONG).show();
-
-
-        Button btn_ajouter = view.findViewById(R.id.btn_ajouter);
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<String> arrayList=new ArrayList<>();
                 arrayList.add("hi");
                 arrayList.add("hii");
-                apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
-                Call<JsonObject> call_create_task = apiInterface.createdocument("DS",pathlist,"5c892b3b6ffe7e798d20b3d7",year,desc,"Rattrapage");
+                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+"885188feb75030cefdb87bb6e8af0ee7116d20ad27046db6ef84862f260d0459").create(APIInterface.class);
+                Call<JsonObject> call_create_task = apiInterface.createcorrection(pathlist,"5c8930956ffe7e798d20b3e2");
                 Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
 
                 call_create_task.enqueue(new Callback<JsonObject>() {
@@ -126,11 +113,7 @@ public class DocumentFragment extends Fragment {
 
             }
         });
-
-
-
-
-        return view;
+        return v;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -138,7 +121,6 @@ public class DocumentFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
 
     @Override
@@ -149,6 +131,7 @@ public class DocumentFragment extends Fragment {
 
 
     public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

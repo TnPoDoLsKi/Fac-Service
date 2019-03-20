@@ -1,4 +1,5 @@
 package tn.igc.projectone.authentification.activities;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -22,7 +23,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +40,7 @@ import tn.igc.projectone.API.APIInterface;
 
 public class SignUpActivity extends AppCompatActivity {
     Spinner formation;
-    Map<String,String> majorvsid;
+    Map<String,String> majorvsid=new HashMap<>() ;
     String text;
     Button cnxlogin,cnxsignup;
     EditText nom,prenom,email,pass;
@@ -136,6 +140,34 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+        confirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String pass1change = s.toString();
+                String password = pass.getText().toString();
+
+
+                if(!(pass1change.equals(password))){
+                    confirm.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    confirm.setError("mot de passe incorrect");
+
+                }
+                else{
+                    confirm.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                }
+
+            }
+        });
         cnxlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,118 +182,118 @@ public class SignUpActivity extends AppCompatActivity {
         cnxsignup.setOnClickListener(new View.OnClickListener() {
 
 
+            @Override
+            public void onClick(View view) {
+                String str_mail=email.getText().toString().trim();
+                String str_pass=pass.getText().toString().trim();
+                String strlastName = nom.getText().toString().trim();
+                String strfirst= prenom.getText().toString().trim();
+                text=formation.getSelectedItem().toString().trim();
+                String id=majorvsid.get(text);
+
+                apiInterface= APIClient.getClient().create(APIInterface.class);
+                Call<Void> tentative=apiInterface.basicsignup(str_mail,str_pass,strfirst,strlastName,id);
+                tentative.enqueue(new Callback<Void>() {
                     @Override
-                    public void onClick(View view) {
-                        String str_mail=email.getText().toString().trim();
-                        String str_pass=pass.getText().toString().trim();
-                        String strlastName = nom.getText().toString().trim();
-                        String strfirst= prenom.getText().toString().trim();
-                        text=formation.getSelectedItem().toString().trim();
-                        String id=majorvsid.get(text);
+                    public void onResponse(Call<Void> call, Response<Void> response) {
 
-                        apiInterface= APIClient.getClient().create(APIInterface.class);
-                        Call<Void> tentative=apiInterface.basicsignup(str_mail,str_pass,strfirst,strlastName,id);
-                        tentative.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                    if(response.isSuccessful()) {
-                                        if (response.code() == 208) {
-                                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
-                                            dlgAlert.setMessage("Utilisateur existe déja!");
-                                            dlgAlert.setTitle("Ressayer!");
-                                            dlgAlert.setPositiveButton("OK", null);
-                                            dlgAlert.setCancelable(true);
-                                            dlgAlert.create().show();
-                                            dlgAlert.setPositiveButton("Ok",
-                                                    new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialog, int which) {
+                            if (response.isSuccessful()){
+                                nom.setText("");
+                                prenom.setText("");
+                                email.setText("");
+                                pass.setText("");
+                                // error response, no access to resource?
+                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
+                                dlgAlert.setMessage("Utilisateur crée avec succés");
+                                dlgAlert.setTitle("Succés!");
+                                dlgAlert.setPositiveButton("OK", null);
+                                dlgAlert.setCancelable(true);
+                                dlgAlert.create().show();
+                                dlgAlert.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
 
-                                                        }
-                                                    });
+                                            }
+                                        });
+                                Handler mHandler = new Handler();
+                                mHandler.postDelayed(new Runnable() {
 
+                                    @Override
+                                    public void run() {
+                                        //start your activity here
+                                        Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                                        startActivity(i);
 
-                                        } else {
-                                            nom.setText("");
-                                            prenom.setText("");
-                                            email.setText("");
-                                            pass.setText("");
-                                            // error response, no access to resource?
-                                            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
-                                            dlgAlert.setMessage("Utilisateur crée avec succés");
-                                            dlgAlert.setTitle("Succés!");
-                                            dlgAlert.setPositiveButton("OK", null);
-                                            dlgAlert.setCancelable(true);
-                                            dlgAlert.create().show();
-                                            dlgAlert.setPositiveButton("Ok",
-                                                    new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialog, int which) {
-
-                                                        }
-                                                    });
-                                            Handler mHandler = new Handler();
-                                            mHandler.postDelayed(new Runnable() {
-
-                                                @Override
-                                                public void run() {
-                                                    //start your activity here
-                                                    Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
-                                                    startActivity(i);
-
-                                                }
-
-                                            }, 1500);
-
-
-                                        }
                                     }
 
+                                }, 1500);
 
+
+                            }else {
+                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
+                                dlgAlert.setMessage("Utilisateur existe déja!");
+                                dlgAlert.setTitle("Ressayer!");
+                                dlgAlert.setPositiveButton("OK", null);
+                                dlgAlert.setCancelable(true);
+                                dlgAlert.create().show();
+                                dlgAlert.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
 
 
                             }
 
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
-                                Log.d("Error", t.getMessage());
 
-                            }
-                        });
 
-                        if (null == strlastName || strlastName.length() == 0  )
-                        {
-                            nom.setError( "Entrer votre nom" );
-                            isnomValidated = false;
-                        }
-                        else {
-                            isnomValidated=true;
-                        }
-                        if (null == strfirst || strfirst.length() == 0)
-                        {
-                            isPrenomValidated = false;
-                            prenom.setError( "Entrer votre prenom" );
-                        }
-                        else {
-                            isPrenomValidated=true;
-                        }
-                        if (null == str_mail || str_mail.length() == 0)
-                        {
-                            isEmailValidated = false;
-                            email.setError( "Entrer votre email" );
-                        }
-                        else {
-                            isEmailValidated=true;
-                        }
-                        if (null == str_pass || str_pass.length() == 0)
-                        {
-                            isPassValidated = false;
-                            pass.setError( "Entrer votre mot de passe" );
-                        }
-                        else {
-                            isPassValidated=true;
-                        }
+
 
                     }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                        Log.d("Error", t.getMessage());
+
+                    }
+                });
+
+                if (null == strlastName || strlastName.length() == 0  )
+                {
+                    nom.setError( "Entrer votre nom" );
+                    isnomValidated = false;
+                }
+                else {
+                    isnomValidated=true;
+                }
+                if (null == strfirst || strfirst.length() == 0)
+                {
+                    isPrenomValidated = false;
+                    prenom.setError( "Entrer votre prenom" );
+                }
+                else {
+                    isPrenomValidated=true;
+                }
+                if (null == str_mail || str_mail.length() == 0)
+                {
+                    isEmailValidated = false;
+                    email.setError( "Entrer votre email" );
+                }
+                else {
+                    isEmailValidated=true;
+                }
+                if (null == str_pass || str_pass.length() == 0)
+                {
+                    isPassValidated = false;
+                    pass.setError( "Entrer votre mot de passe" );
+                }
+                else {
+                    isPassValidated=true;
+                }
+
+            }
 
 
 
@@ -288,8 +320,7 @@ public class SignUpActivity extends AppCompatActivity {
                 for(int i=0;i<response.body().size();i++)
                 {
                     JsonObject obj = response.body().get(i).getAsJsonObject();
-                    Toast.makeText(getApplicationContext(),obj.get("id").toString(),Toast.LENGTH_SHORT).show();
-                    //majorvsid.put(obj.get("name").toString(),obj.get("id").toString());
+                    majorvsid.put((String) obj.get("name").getAsString(),(String) obj.get("_id").getAsString());
                     forma_list.add((String) obj.get("name").getAsString());
                     Log.d("name major",obj.get("name").toString());
 
