@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,8 +31,8 @@ import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
-import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.filiere.Utils.Data;
+import tn.igc.projectone.upload.fragments.NewFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +57,7 @@ public class MainUploadFragment extends Fragment {
     private ImageView plusImg;
     private TextView plusTxt;
     private ProgressBar load;
+    private Button upload;
 
     public MainUploadFragment() {
         // Required empty public constructor
@@ -77,10 +79,6 @@ public class MainUploadFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //todo remove this
-        SaveSharedPreference.setToken(getContext(), "Bearer 70534cf480e57f69465d2ebabe3a8e35138d437df3dc9b658258c1bb4c1d8bf9");
-
-
 //        selectedMajors = new ArrayList<>();
         selectedMajorsData = new ArrayList<>();
 
@@ -88,6 +86,15 @@ public class MainUploadFragment extends Fragment {
         plusImg = view.findViewById(R.id.plusImg);
         plusTxt = view.findViewById(R.id.plusTxt);
         load = view.findViewById(R.id.load);
+        upload = view.findViewById(R.id.uploadBtn);
+
+        //upload btn
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upload();
+            }
+        });
 
         //arrays used for static values
         String semArr[] = {"Semestre 1", "Semestre 2"};
@@ -99,23 +106,23 @@ public class MainUploadFragment extends Fragment {
 
         spinnerType = view.findViewById(R.id.spinner_type);
         final Spinner spinnerSem = view.findViewById(R.id.spinner_semester);
-// session section
+        // session section
         spinnerSession = view.findViewById(R.id.spinner_session);
         sessionLayout = view.findViewById(R.id.session_section);
 
         majorsList();
 
-// Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
 
         ArrayAdapter<String> adapterSem = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.support_simple_spinner_dropdown_item, semArr);
         ArrayAdapter<String> adapterType = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, typeArr);
 
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
 
         spinnerSem.setAdapter(adapterSem);
         spinnerType.setAdapter(adapterType);
 
-// Setup listener
+        // Setup listener
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -193,7 +200,7 @@ public class MainUploadFragment extends Fragment {
         spinnerSem.setOnItemSelectedListener(listener);
         spinnerType.setOnItemSelectedListener(listener);
 
-//  multipleTags listener
+        //  multipleTags listener
         filiereListLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -363,14 +370,22 @@ public class MainUploadFragment extends Fragment {
      * pass the required data for the upload
      */
     public void upload() {
-        String type, session = null, subId = spinnerMat.getSelectedItem().toString();
-        subId = Data.getIdFromName(subId, subjectsSem);
-        type = spinnerType.getSelectedItem().toString();
+        String type;
+        String session = null;
+        String subId;
+        try {
+            subId = spinnerMat.getSelectedItem().toString();
+            subId = Data.getIdFromName(subId, subjectsSem);
+            type = spinnerType.getSelectedItem().toString();
+        } catch (NullPointerException ex) {
+            Toast.makeText(getContext(), "Choisir une matiere !! ", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (sessionLayout.getVisibility() == View.VISIBLE)
             session = spinnerSession.getSelectedItem().toString();
 
-        //todo : send data
-
+        Fragment fragment = NewFragment.newInstance(subId, type,session);
+        getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, fragment).commit();
     }
 
 
