@@ -3,6 +3,8 @@ package tn.igc.projectone.upload.fragments;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -44,6 +46,7 @@ public class DocumentFragment extends Fragment {
 
     private ArrayList<String> pathlist ;
     private String subId,type,session;
+    private EditText et_annee,et_desc ;
 
     public DocumentFragment() {
         // Required empty public constructor
@@ -73,11 +76,9 @@ public class DocumentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_document, container, false);
 
-        EditText et_annee = (EditText) view.findViewById(R.id.et_anne) ;
-        EditText et_desc = (EditText) view.findViewById(R.id.et_desc) ;
+         et_annee = (EditText) view.findViewById(R.id.et_anne) ;
+         et_desc = (EditText) view.findViewById(R.id.et_desc) ;
 
-        final String year = et_annee.getText().toString();
-        final String desc =  et_desc.getText().toString();
 
         pathlist = getArguments().getStringArrayList("pathlist");
         subId = getArguments().getString("subId");
@@ -88,49 +89,60 @@ public class DocumentFragment extends Fragment {
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String year = et_annee.getText().toString();
+                String desc =  et_desc.getText().toString();
+                Toast.makeText(getContext(),subId+"*"+type+"*"+session+"*"+year+"*"+desc+"*"+pathlist.get(0), Toast.LENGTH_LONG).show();
 
-                apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+                if(year.equals("")){
+                    et_annee.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    Toast.makeText(getContext(), "saisie l'année", Toast.LENGTH_LONG).show();
 
-                Call<JsonObject> call_create_task = apiInterface.createdocument(type,pathlist,subId,year,desc,session);
+                }else {
 
-                call_create_task.enqueue(new Callback<JsonObject>() {
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        if(response.code()==400){
-                            Toast.makeText(getContext(),"400", Toast.LENGTH_LONG).show();
+                    apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
 
+                    Call<JsonObject> call_create_task = apiInterface.createdocument(type, pathlist, subId, year, desc, session);
+
+                    call_create_task.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            if (response.code() == 400) {
+                                Toast.makeText(getContext(), "400", Toast.LENGTH_LONG).show();
+
+                            }
+                            if (response.code() == 401) {
+                                Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(getContext(), LoginActivity.class);
+                                startActivity(i);
+
+
+                            }
+                            if (response.code() == 500) {
+                                Toast.makeText(getContext(), "500", Toast.LENGTH_LONG).show();
+
+                            }
+
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getContext(), "mrighel", Toast.LENGTH_LONG).show();
+
+                            }
                         }
-                        if (response.code()==401){
-                            Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(getContext(), LoginActivity.class);
-                            startActivity(i);
 
-
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            if (ClassisOnline.isOnline() == false) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                                alertDialog.setTitle("connexion");
+                                alertDialog.setMessage("Aucune connexion internet");
+                                alertDialog.show();
+                            } else {
+                                Toast.makeText(getContext(), "réessayer " + t.toString(), Toast.LENGTH_LONG).show();
+                            }
                         }
-                        if(response.code()==500){
-                            Toast.makeText(getContext(),"500", Toast.LENGTH_LONG).show();
+                    });
 
-                        }
+                }
 
-                        if(response.isSuccessful()){
-                            Toast.makeText(getContext(),"mrighel", Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        if(ClassisOnline.isOnline()==false){
-                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                            alertDialog.setTitle("connexion");
-                            alertDialog.setMessage("Aucune connexion internet");
-                            alertDialog.show();
-                        }
-                        else{
-                            Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
             }
         });
         return view;

@@ -45,6 +45,7 @@ public class DocumentFragmentSubject extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private String IdDoc,b_title,description;
+    private EditText desc;
 
     public DocumentFragmentSubject() {
         // Required empty public constructor
@@ -76,18 +77,19 @@ public class DocumentFragmentSubject extends Fragment {
 
         Button btn_ajouter = v.findViewById(R.id.btn_ajouter);
         TextView subj = v.findViewById(R.id.tv_subj);
-        EditText desc = v.findViewById(R.id.et_desc);
+        desc = v.findViewById(R.id.et_desc);
 
         pathlist = getArguments().getStringArrayList("pathlist");
         IdDoc = getArguments().getString("IdDoc");
         b_title = getArguments().getString("b_title");
 
         subj.setText(b_title);
-        description = desc.toString();
 
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                description = desc.getText().toString();
 
                 APIInterface apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
 
