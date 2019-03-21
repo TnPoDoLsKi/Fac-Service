@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -25,7 +27,10 @@ import com.fxn.utility.PermUtil;
 import com.google.gson.JsonArray;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import androidx.fragment.app.FragmentManager;
@@ -236,13 +241,20 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
-                        Log.e("val", " ->  " + s);
                         File file = new File(s);
-                        Log.e("file name", " ->  " + file.getName());
-                        Log.e("file to string", " ->  " + file.toString());
+                        //***************
+                        Bitmap d = new BitmapDrawable(getResources(), file.getAbsolutePath()).getBitmap();
+                        OutputStream imagefile = null;
+                        try {
+                            imagefile = new FileOutputStream(file);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        d.compress(Bitmap.CompressFormat.JPEG, 80, imagefile);
+
+                        //***************
                         ProgressRequestBody fileBody = new ProgressRequestBody(MediaType.parse("image/*"),file, this);
-                        MultipartBody.Part part = MultipartBody.Part.createFormData(file.getName(), file.getName(), fileBody);
-                        Log.e("part to string", " ->  " + part.toString());
+                        MultipartBody.Part part = MultipartBody.Part.createFormData(" ", file.getName(), fileBody);
                         FileImage fileImage = new FileImage(s,"",part);
                         filelist.add(fileImage);
                     }
