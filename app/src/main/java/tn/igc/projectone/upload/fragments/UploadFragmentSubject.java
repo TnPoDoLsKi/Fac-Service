@@ -104,7 +104,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_new, container, false);
+        View v = inflater.inflate(R.layout.fragment_upload_fragment_subject, container, false);
 
         Button btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
@@ -112,7 +112,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
         TextView nomMatiere = v.findViewById(R.id.tv_nomMatiere);
 
-       // nomMatiere.setText(mParam2);
+        nomMatiere.setText(mParam2);
         Toast.makeText(getActivity(), "params"+ mParam1+" "+mParam2, Toast.LENGTH_LONG).show();
 
 
