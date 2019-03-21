@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import tn.igc.projectone.R;
 
 import com.google.gson.JsonObject;
 
@@ -25,10 +24,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
-import tn.igc.projectone.authentification.util.SaveSharedPreference;
+import tn.igc.projectone.MainActivity;
+import tn.igc.projectone.R;
+import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.filiere.FiliereActivity;
 
 public class LoginActivity extends Activity {
@@ -162,8 +162,6 @@ public class LoginActivity extends Activity {
                             SaveSharedPreference.setMajorName(getApplicationContext(),majorname);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
-
-
 
                         }
                         else

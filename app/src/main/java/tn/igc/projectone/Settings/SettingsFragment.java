@@ -56,6 +56,7 @@ public class SettingsFragment extends Fragment {
     private ProgressBar loadIco;
     private String token;
     private String majorId;
+    private String majorName;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -128,9 +129,11 @@ public class SettingsFragment extends Fragment {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    majorId = spinnerFil.getSelectedItem().toString();
-                    majorId = Data.getIdFromName(majorId, majors);
+                    majorName = spinnerFil.getSelectedItem().toString();
+                    majorId = Data.getIdFromName(majorName, majors);
+
                     SaveSharedPreference.setMajor(getContext(), majorId);
+                    SaveSharedPreference.setMajorName(getContext(), majorName);
                 }
             });
             //return to login btn
@@ -150,8 +153,8 @@ public class SettingsFragment extends Fragment {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    majorId = spinnerFil.getSelectedItem().toString();
-                    majorId = Data.getIdFromName(majorId, majors);
+                    majorName = spinnerFil.getSelectedItem().toString();
+                    majorId = Data.getIdFromName(majorName, majors);
                     updateUserInfo(majorId);
                 }
             });
@@ -264,7 +267,9 @@ public class SettingsFragment extends Fragment {
                     return;
                 } else if (response.code() == 200)
                     Toast.makeText(getContext(), "Succès", Toast.LENGTH_LONG).show();
+
                 SaveSharedPreference.setMajor(getContext(), majorId);
+                SaveSharedPreference.setMajorName(getContext(), majorName);
             }
 
             @Override
