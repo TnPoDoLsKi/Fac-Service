@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ import tn.igc.projectone.documentList.adapters.DocumentRecyclerViewAdapterInCorr
 import tn.igc.projectone.documentList.classes.CorrectionDoc;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
+import tn.igc.projectone.upload.fragments.NewFragment;
+import tn.igc.projectone.upload.fragments.UploadFragmentSubject;
 
 public class CorrectionList extends Fragment {
 
@@ -55,6 +58,7 @@ public class CorrectionList extends Fragment {
     CorrectionRecyclerViewAdapter cRecyclerViewAdapter;
 
     TextView textView1;
+    private Button btn_uploadCorrection;
 
 
     public CorrectionList() {
@@ -97,6 +101,8 @@ public class CorrectionList extends Fragment {
 
         v = inflater.inflate(R.layout.correction_fragment, container, false);
 
+        btn_uploadCorrection =(Button) v.findViewById(R.id.Buttonuploadcorrection);
+
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mtr_list);
@@ -116,13 +122,13 @@ public class CorrectionList extends Fragment {
 
         Bundle bundle = getArguments();
 
-        String _id = bundle.getString("b_id");
+        final String _id = bundle.getString("b_id");
 
         String b_avatar = bundle.getString("b_avatar");
 
         final boolean b_verifiedByProf = bundle.getBoolean("b_verifiedByProf");
 
-        String b_title = bundle.getString("b_title");
+        final String b_title = bundle.getString("b_title");
 
         String b_firstName = bundle.getString("b_firstName");
 
@@ -138,7 +144,15 @@ public class CorrectionList extends Fragment {
 
         textView.setText(b_description);
 
+        btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UploadFragmentSubject uploadFragmentSubject = UploadFragmentSubject.newInstance(_id,b_title);
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, uploadFragmentSubject).commit();
 
+
+            }
+        });
 
         Document doc = new Document(_id,b_verifiedByProf,b_title,new User(b_firstName,b_lastName,b_avatar),b_filePath);
 

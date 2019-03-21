@@ -5,8 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,10 +25,7 @@ import com.fxn.utility.PermUtil;
 import com.google.gson.JsonArray;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 import androidx.fragment.app.FragmentManager;
@@ -55,7 +50,7 @@ import tn.igc.projectone.upload.other.FileImage;
 import tn.igc.projectone.upload.other.ProgressRequestBody;
 
 
-public class NewFragment extends Fragment implements ProgressRequestBody.UploadCallbacks {
+public class UploadFragmentSubject extends Fragment implements ProgressRequestBody.UploadCallbacks {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -69,11 +64,9 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     private ArrayList<FileImage> filelist = new ArrayList<>();
     private ArrayList<String> pathlist = new ArrayList<>();
 
-
-
     private String mParam1;
     private String mParam2;
-    private String mParam3;
+
 
     private OnFragmentInteractionListener mListener;
     private MyAdapter myAdapter;
@@ -81,16 +74,16 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     private TextView tv_aucuneImage;
     private LinearLayout layout;
 
-    public NewFragment() {
+    public UploadFragmentSubject() {
         // Required empty public constructor
     }
 
-    public static NewFragment newInstance(String param1, String param2, String param3) {
-        NewFragment fragment = new NewFragment();
+
+    public static UploadFragmentSubject newInstance(String param1, String param2) {
+        UploadFragmentSubject fragment = new UploadFragmentSubject();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -101,8 +94,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
-
         }
     }
 
@@ -110,13 +101,15 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_new, container, false);
+        View v = inflater.inflate(R.layout.fragment_upload_fragment_subject, container, false);
 
         Button btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
+        TextView nomMatiere = v.findViewById(R.id.tv_nomMatiere);
 
+        nomMatiere.setText(mParam2);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
@@ -149,8 +142,8 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                 for(int i=0;i<filelist.size();i++){
                     multipart.add(filelist.get(i).getPart());
                 }
+                Log.e("multipartsize", " ->  " + multipart.size());
                 APIInterface apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
-
                 Call<JsonArray> call_create_task = apiInterface.uploadimage(multipart);
 
                 call_create_task.enqueue(new Callback<JsonArray>() {
@@ -175,20 +168,12 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                             for(int i=0;i<response.body().size();i++) {
                                 pathlist.add(response.body().getAsJsonArray().get(i).getAsString());
                             }
-                            if (mParam2.equals("Examen"))
-                                mParam2="EX";
-                            if (mParam2.equals("Cours"))
-                                mParam2="C";
-
                             dialog.dismiss();
-
-                            DocumentFragment documentFragment = new DocumentFragment();
-
+                            DocumentFragmentSubject documentFragment = new DocumentFragmentSubject();
                             Bundle args = new Bundle();
                             args.putStringArrayList("pathlist",pathlist);
-                            args.putString("subId",mParam1);
-                            args.putString("type",mParam2);
-                            args.putString("session",mParam3);
+                            args.putString("IdDoc",mParam1);
+                            args.putString("b_title",mParam2);
                             documentFragment.setArguments(args);
 
                             FragmentManager fragmentManager = getFragmentManager();
@@ -239,29 +224,24 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                   // myAdapter.addImage(returnValue);
+                    // myAdapter.addImage(returnValue);
                     for (String s : returnValue) {
+                        Log.e("val", " ->  " + s);
                         File file = new File(s);
-                        //***************
-                        Bitmap d = new BitmapDrawable(getResources(), file.getAbsolutePath()).getBitmap();
-                        OutputStream imagefile = null;
-                        try {
-                            imagefile = new FileOutputStream(file);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        d.compress(Bitmap.CompressFormat.JPEG, 80, imagefile);
-
-                        //***************
+                        Log.e("file name", " ->  " + file.getName());
+                        Log.e("file to string", " ->  " + file.toString());
                         ProgressRequestBody fileBody = new ProgressRequestBody(MediaType.parse("image/*"),file, this);
-                        MultipartBody.Part part = MultipartBody.Part.createFormData(" ", file.getName(), fileBody);
+                        MultipartBody.Part part = MultipartBody.Part.createFormData(file.getName(), file.getName(), fileBody);
+                        Log.e("part to string", " ->  " + part.toString());
                         FileImage fileImage = new FileImage(s,"",part);
                         filelist.add(fileImage);
                     }
                     myAdapter.addImage(filelist);
                     if(filelist.size()!=0)
                     {btn_valider.setVisibility(View.VISIBLE);
-                    tv_aucuneImage.setVisibility(View.INVISIBLE);}
+                        tv_aucuneImage.setVisibility(View.INVISIBLE);}
+
+
                 }
             }
             break;
@@ -299,10 +279,10 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     public void onFinish() {
         conteur_nbre_file_upload++;
         if(conteur_nbre_file_upload<=filelist.size()) {
-            dialog.setMessage("télechargement en cours.. " + conteur_nbre_file_upload + "/" + filelist.size());
+            dialog.setMessage("télechargement en cours  " + conteur_nbre_file_upload + "/" + filelist.size());
         }else{
             conteur_nbre_file_upload--;
-            dialog.setMessage("télechargement en cours.. " + conteur_nbre_file_upload + "/" + filelist.size());
+            dialog.setMessage("télechargement en cours  " + conteur_nbre_file_upload + "/" + filelist.size());
         }
 
     }
@@ -314,7 +294,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
     private ProgressDialog createProgressDialog() {
         dialog = new ProgressDialog(getContext());
-        dialog.setMessage("télechargement en cours.. "+conteur_nbre_file_upload+"/"+filelist.size());
+        dialog.setMessage("télechargement en cours  "+conteur_nbre_file_upload+"/"+filelist.size());
         dialog.setProgress(0);
         dialog.setProgressNumberFormat("");
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

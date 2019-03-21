@@ -27,6 +27,7 @@ import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
 
 
@@ -42,6 +43,7 @@ public class DocumentFragment extends Fragment {
     private APIInterface apiInterface;
 
     private ArrayList<String> pathlist ;
+    private String subId,type,session;
 
     public DocumentFragment() {
         // Required empty public constructor
@@ -70,29 +72,26 @@ public class DocumentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_document, container, false);
+
         EditText et_annee = (EditText) view.findViewById(R.id.et_anne) ;
         EditText et_desc = (EditText) view.findViewById(R.id.et_desc) ;
 
         final String year = et_annee.getText().toString();
         final String desc =  et_desc.getText().toString();
 
-
-        //Retrieve the filePath
         pathlist = getArguments().getStringArrayList("pathlist");
-        Toast.makeText(getContext(),pathlist.get(0), Toast.LENGTH_LONG).show();
-        Toast.makeText(getContext(),pathlist.get(1), Toast.LENGTH_LONG).show();
-
+        subId = getArguments().getString("subId");
+        type = getArguments().getString("type");
+        session = getArguments().getString("session");
 
         Button btn_ajouter = view.findViewById(R.id.btn_ajouter);
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> arrayList=new ArrayList<>();
-                arrayList.add("hi");
-                arrayList.add("hii");
-                apiInterface = APIClient.getClientWithToken("Bearer "+"1402961e1a10d96891b60503992cf39e4b7887c48e5244ba8aafa00f8ecc84da").create(APIInterface.class);
-                Call<JsonObject> call_create_task = apiInterface.createdocument("DS",pathlist,"5c892b3b6ffe7e798d20b3d7",year,desc,"Rattrapage");
-                Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
+
+                apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+
+                Call<JsonObject> call_create_task = apiInterface.createdocument(type,pathlist,subId,year,desc,session);
 
                 call_create_task.enqueue(new Callback<JsonObject>() {
                     @Override
@@ -129,22 +128,11 @@ public class DocumentFragment extends Fragment {
                         }
                         else{
                             Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
-
                         }
-
-
-
-
                     }
                 });
-
-
             }
         });
-
-
-
-
         return view;
     }
 
@@ -153,7 +141,6 @@ public class DocumentFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
 
     @Override

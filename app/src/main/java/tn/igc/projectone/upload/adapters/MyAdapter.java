@@ -2,7 +2,9 @@ package tn.igc.projectone.upload.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ThumbnailUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         View v = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.image, parent, false);
+            inflate(R.layout.image, parent, false);
         Holder vholder = new Holder(v,mListener);
         Log.e("onCreateViewHolder", " 2  " );
 
@@ -65,20 +67,14 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //Uri imageUri = Uri.fromFile(new File(list.get(position)));// For files on device
         //Log.e("hello", "- " + imageUri.toString());
         File f = new File(list.get(position).getImage());
-        Bitmap d = new BitmapDrawable(context.getResources(), f.getAbsolutePath()).getBitmap();
-        //Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExifCorrectedBitmap(f));
-        Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, d);
 
-        OutputStream imagefile = null;
-        try {
-            imagefile = new FileOutputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        d.compress(Bitmap.CompressFormat.JPEG, 70, imagefile);
+        final int THUMBSIZE = 64;
+
+        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(list.get(position).getImage()),
+            THUMBSIZE, THUMBSIZE);
 
 
-        ((Holder) holder).iv.setImageBitmap(d);
+        ((Holder) holder).iv.setImageBitmap(ThumbImage);
 
         ((Holder) holder).txt_name.setText(f.getName());
         Log.e("onBindViewHolder", " 1  " );

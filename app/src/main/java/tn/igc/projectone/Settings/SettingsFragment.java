@@ -56,6 +56,7 @@ public class SettingsFragment extends Fragment {
     private ProgressBar loadIco;
     private String token;
     private String majorId;
+    private String majorName;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -128,9 +129,11 @@ public class SettingsFragment extends Fragment {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    majorId = spinnerFil.getSelectedItem().toString();
-                    majorId = Data.getIdFromName(majorId, majors);
+                    majorName = spinnerFil.getSelectedItem().toString();
+                    majorId = Data.getIdFromName(majorName, majors);
+
                     SaveSharedPreference.setMajor(getContext(), majorId);
+                    SaveSharedPreference.setMajorName(getContext(), majorName);
                 }
             });
             //return to login btn
@@ -138,6 +141,8 @@ public class SettingsFragment extends Fragment {
             retBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SaveSharedPreference.setToken(getContext(), "");
+                    SaveSharedPreference.setMajor(getContext(), "");
                     startActivity(new Intent(getContext(), LoginActivity.class));
                 }
             });
@@ -148,8 +153,8 @@ public class SettingsFragment extends Fragment {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    majorId = spinnerFil.getSelectedItem().toString();
-                    majorId = Data.getIdFromName(majorId, majors);
+                    majorName = spinnerFil.getSelectedItem().toString();
+                    majorId = Data.getIdFromName(majorName, majors);
                     updateUserInfo(majorId);
                 }
             });
@@ -262,7 +267,9 @@ public class SettingsFragment extends Fragment {
                     return;
                 } else if (response.code() == 200)
                     Toast.makeText(getContext(), "Succès", Toast.LENGTH_LONG).show();
+
                 SaveSharedPreference.setMajor(getContext(), majorId);
+                SaveSharedPreference.setMajorName(getContext(), majorName);
             }
 
             @Override
@@ -279,6 +286,10 @@ public class SettingsFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.settings_bar, menu);
         MenuItem signOutBtn = menu.findItem(R.id.sign_out_btn);
+        if (SaveSharedPreference.getToken(getContext()).equals(""))
+            signOutBtn.setVisible(false);
+        else
+            signOutBtn.setVisible(true);
 
         //Sign out Button
         signOutBtn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -288,6 +299,7 @@ public class SettingsFragment extends Fragment {
                 SaveSharedPreference.setToken(getContext(), "");
                 Toast.makeText(getContext(), "Déconnecté", Toast.LENGTH_LONG).show();
                 onResume();
+                item.setVisible(false);
                 return false;
             }
         });
