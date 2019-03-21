@@ -34,7 +34,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("corrections")
-    Call<JsonObject> createcorrection(@Field("filesStaging")ArrayList<String> filesStaging,@Field("document")String document);
+    Call<JsonObject> createcorrection(@Field("filesStaging")ArrayList<String> filesStaging,@Field("document")String document,@Field("description")String description);
 
     @GET("search")
     Call<JsonArray> getFiltre(@Query("name") String name);

@@ -58,14 +58,11 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
 
     private static int conteur_nbre_file_upload=1;
 
-
     private ProgressDialog mProgressDialog;
     private ProgressDialog dialog;
 
     private ArrayList<FileImage> filelist = new ArrayList<>();
     private ArrayList<String> pathlist = new ArrayList<>();
-
-
 
     private String mParam1;
     private String mParam2;
@@ -113,8 +110,6 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
         TextView nomMatiere = v.findViewById(R.id.tv_nomMatiere);
 
         nomMatiere.setText(mParam2);
-        Toast.makeText(getActivity(), "params"+ mParam1+" "+mParam2, Toast.LENGTH_LONG).show();
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
@@ -148,7 +143,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
                     multipart.add(filelist.get(i).getPart());
                 }
                 Log.e("multipartsize", " ->  " + multipart.size());
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+                APIInterface apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
                 Call<JsonArray> call_create_task = apiInterface.uploadimage(multipart);
 
                 call_create_task.enqueue(new Callback<JsonArray>() {
@@ -174,10 +169,11 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
                                 pathlist.add(response.body().getAsJsonArray().get(i).getAsString());
                             }
                             dialog.dismiss();
-                            DocumentFragment documentFragment = new DocumentFragment();
+                            DocumentFragmentSubject documentFragment = new DocumentFragmentSubject();
                             Bundle args = new Bundle();
                             args.putStringArrayList("pathlist",pathlist);
                             args.putString("IdDoc",mParam1);
+                            args.putString("b_title",mParam2);
                             documentFragment.setArguments(args);
 
                             FragmentManager fragmentManager = getFragmentManager();
@@ -275,7 +271,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
 
     @Override
     public void onError() {
-        Toast.makeText(getContext(), "Uploaded Failed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Échec du téléchargement!", Toast.LENGTH_LONG).show();
 
     }
 

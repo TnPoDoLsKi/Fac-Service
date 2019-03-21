@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
@@ -38,10 +40,11 @@ public class DocumentFragmentSubject extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
     private ArrayList<String> pathlist ;
 
-
     private OnFragmentInteractionListener mListener;
+    private String IdDoc,b_title,description;
 
     public DocumentFragmentSubject() {
         // Required empty public constructor
@@ -70,17 +73,25 @@ public class DocumentFragmentSubject extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_document_fragment_subject, container, false);
+
         Button btn_ajouter = v.findViewById(R.id.btn_ajouter);
+        TextView subj = v.findViewById(R.id.tv_subj);
+        EditText desc = v.findViewById(R.id.et_desc);
+
         pathlist = getArguments().getStringArrayList("pathlist");
+        IdDoc = getArguments().getString("IdDoc");
+        b_title = getArguments().getString("b_title");
+
+        subj.setText(b_title);
+        description = desc.toString();
+
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> arrayList=new ArrayList<>();
-                arrayList.add("hi");
-                arrayList.add("hii");
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
-                Call<JsonObject> call_create_task = apiInterface.createcorrection(pathlist,"5c8930956ffe7e798d20b3e2");
-                Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
+
+                APIInterface apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+
+                Call<JsonObject> call_create_task = apiInterface.createcorrection(pathlist,IdDoc,description);
 
                 call_create_task.enqueue(new Callback<JsonObject>() {
                     @Override
@@ -117,16 +128,9 @@ public class DocumentFragmentSubject extends Fragment {
                         }
                         else{
                             Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
-
                         }
-
-
-
-
                     }
                 });
-
-
             }
         });
         return v;

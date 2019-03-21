@@ -44,6 +44,7 @@ public class DocumentFragment extends Fragment {
 
     private ArrayList<String> pathlist ;
     private String subId,type,session;
+
     public DocumentFragment() {
         // Required empty public constructor
     }
@@ -71,34 +72,26 @@ public class DocumentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_document, container, false);
+
         EditText et_annee = (EditText) view.findViewById(R.id.et_anne) ;
         EditText et_desc = (EditText) view.findViewById(R.id.et_desc) ;
 
         final String year = et_annee.getText().toString();
         final String desc =  et_desc.getText().toString();
 
-
-        //Retrieve the filePath
         pathlist = getArguments().getStringArrayList("pathlist");
         subId = getArguments().getString("subId");
         type = getArguments().getString("type");
         session = getArguments().getString("session");
 
-
-        Toast.makeText(getContext(),pathlist.get(0), Toast.LENGTH_LONG).show();
-        //Toast.makeText(getContext(),pathlist.get(1), Toast.LENGTH_LONG).show();
-
-
         Button btn_ajouter = view.findViewById(R.id.btn_ajouter);
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> arrayList=new ArrayList<>();
-                arrayList.add("hi");
-                arrayList.add("hii");
-                apiInterface = APIClient.getClientWithToken("Bearer "+SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+
+                apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+
                 Call<JsonObject> call_create_task = apiInterface.createdocument(type,pathlist,subId,year,desc,session);
-                Toast.makeText(getContext(),"hhhhhhhhhhh", Toast.LENGTH_LONG).show();
 
                 call_create_task.enqueue(new Callback<JsonObject>() {
                     @Override
@@ -135,22 +128,11 @@ public class DocumentFragment extends Fragment {
                         }
                         else{
                             Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
-
                         }
-
-
-
-
                     }
                 });
-
-
             }
         });
-
-
-
-
         return view;
     }
 
@@ -159,7 +141,6 @@ public class DocumentFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
 
     @Override

@@ -21,11 +21,12 @@
             <TextView
                 android:id="@+id/tv_ajouterCorrection"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="19dp"
                 android:layout_marginTop="8dp"
-                android:textAlignment="center"
                 android:text="Ajouter d'une correction à l'énoncé:"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,12 +34,16 @@
                 android:id="@+id/tv_nomMatiere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
                 android:text="TextView"
                 android:textAlignment="center"
-
                 android:textColor="@color/colornoir"
                 android:textSize="20sp"
-                tools:layout_editor_absoluteY="35dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ajouterCorrection" />
 
 
             <Button
@@ -50,6 +55,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/uploadd"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.489"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_nomMatiere" />
 

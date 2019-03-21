@@ -58,7 +58,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
     private static int conteur_nbre_file_upload=1;
 
-
     private ProgressDialog mProgressDialog;
     private ProgressDialog dialog;
 
@@ -81,7 +80,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         // Required empty public constructor
     }
 
-
     public static NewFragment newInstance(String param1, String param2, String param3) {
         NewFragment fragment = new NewFragment();
         Bundle args = new Bundle();
@@ -98,6 +96,8 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam3 = getArguments().getString(ARG_PARAM3);
+
         }
     }
 
@@ -111,8 +111,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
-
-        Toast.makeText(getActivity(), "params"+ mParam1+" "+mParam2, Toast.LENGTH_LONG).show();
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -146,8 +144,8 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                 for(int i=0;i<filelist.size();i++){
                     multipart.add(filelist.get(i).getPart());
                 }
-                Log.e("multipartsize", " ->  " + multipart.size());
-                APIInterface apiInterface = APIClient.getClientWithToken("Bearer "+SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+                APIInterface apiInterface = APIClient.getClientWithToken(SaveSharedPreference.getToken(getContext())).create(APIInterface.class);
+
                 Call<JsonArray> call_create_task = apiInterface.uploadimage(multipart);
 
                 call_create_task.enqueue(new Callback<JsonArray>() {
@@ -176,8 +174,11 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                                 mParam2="EX";
                             if (mParam2.equals("Cours"))
                                 mParam2="C";
+
                             dialog.dismiss();
+
                             DocumentFragment documentFragment = new DocumentFragment();
+
                             Bundle args = new Bundle();
                             args.putStringArrayList("pathlist",pathlist);
                             args.putString("subId",mParam1);
@@ -249,8 +250,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
                     if(filelist.size()!=0)
                     {btn_valider.setVisibility(View.VISIBLE);
                     tv_aucuneImage.setVisibility(View.INVISIBLE);}
-
-
                 }
             }
             break;
@@ -280,7 +279,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
     @Override
     public void onError() {
-        Toast.makeText(getContext(), "Uploaded Failed!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Échec du téléchargement!", Toast.LENGTH_LONG).show();
 
     }
 
@@ -288,10 +287,10 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     public void onFinish() {
         conteur_nbre_file_upload++;
         if(conteur_nbre_file_upload<=filelist.size()) {
-            dialog.setMessage("télechargement en cours  " + conteur_nbre_file_upload + "/" + filelist.size());
+            dialog.setMessage("télechargement en cours.. " + conteur_nbre_file_upload + "/" + filelist.size());
         }else{
             conteur_nbre_file_upload--;
-            dialog.setMessage("télechargement en cours  " + conteur_nbre_file_upload + "/" + filelist.size());
+            dialog.setMessage("télechargement en cours.. " + conteur_nbre_file_upload + "/" + filelist.size());
         }
 
     }
@@ -303,7 +302,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
     private ProgressDialog createProgressDialog() {
         dialog = new ProgressDialog(getContext());
-        dialog.setMessage("télechargement en cours  "+conteur_nbre_file_upload+"/"+filelist.size());
+        dialog.setMessage("télechargement en cours.. "+conteur_nbre_file_upload+"/"+filelist.size());
         dialog.setProgress(0);
         dialog.setProgressNumberFormat("");
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
