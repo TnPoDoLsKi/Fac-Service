@@ -43,7 +43,7 @@ import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
-import tn.igc.projectone.authentification.util.SaveSharedPreference;
+import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
 import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
@@ -155,7 +155,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         radioGroup1 = (RadioGroup) v.findViewById(R.id.rg1);
         radioGroup2 = (RadioGroup) v.findViewById(R.id.rg2);
         myMajor=(RadioButton) v.findViewById(R.id.Major);
-        major=SaveSharedPreference.getMajor(getContext());
+        major= SaveSharedPreference.getMajor(getContext());
         myMajor.setText(SaveSharedPreference.getMajorName(getContext()));
 
         FIL.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

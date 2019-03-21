@@ -33,7 +33,7 @@ public class APIClient {
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
                     Request request = original.newBuilder()
-                        .header("Authorization", token)
+                        .header("Authorization", "Bearer " + token)
                         .method(original.method(), original.body())
                         .build();
                     return chain.proceed(request);

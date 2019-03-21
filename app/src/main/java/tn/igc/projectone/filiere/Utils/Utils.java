@@ -74,8 +74,10 @@ public class Utils {
 
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar progressBar, Data dataToPass, Context context) {
         selectedMajor.add(processProgress - 1, dataToPass);
+        Log.d("toPass", "nextProcess: " + dataToPass);
         SaveSharedPreference.setMajor(context, dataToPass.getId());
-        Log.d("toPass", "nextProcess: " + dataToPass.getId());
+        SaveSharedPreference.setMajorName(context, dataToPass.getName());
+
         context.startActivity(new Intent(context, MainActivity.class));
     }
 }
