@@ -85,18 +85,38 @@
 
             <Button
                 android:id="@+id/Buttonuploadcorrection"
-                android:layout_width="125dp"
+                android:layout_width="150dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="16dp"
-
+                android:alpha="0"
                 android:background="@drawable/buttonshape2"
                 android:text="Upload correction"
                 android:textColor="#FFFFFF"
-                android:textSize="10sp"
                 app:layout_constraintBottom_toTopOf="@+id/corr"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description" />
 
+            <TextView
+                android:id="@+id/Textuploadcorrection"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:text="Ajouter une correction"
+                android:textColor="#56D779"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/corr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/hahhahah"
+                app:layout_constraintBottom_toTopOf="@+id/corr"
+                app:layout_constraintEnd_toStartOf="@+id/Textuploadcorrection"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/corr"
                 android:layout_width="match_parent"
@@ -111,31 +131,36 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:indeterminate="true"
-                android:indeterminateTintMode="src_atop"
-                android:indeterminateTint="@color/colorPrimary"
-                android:maxHeight="30dip"
-                android:minHeight="30dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimary"
+                android:indeterminateTintMode="src_atop"
+                android:maxHeight="30dip"
+                android:minHeight="30dip"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/corr" />
-<TextView
-    android:id="@+id/Textview2"
-    android:indeterminate="true"
-    android:indeterminateTintMode="src_atop"
-    android:indeterminateTint="@color/colorPrimary"
-    android:maxHeight="30dip"
-    android:minHeight="30dip"
-    android:textSize="15sp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/corr" />
+
+            <TextView
+                android:id="@+id/Textview2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimary"
+                android:indeterminateTintMode="src_atop"
+                android:maxHeight="30dip"
+                android:minHeight="30dip"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/corr" />
 
 
 
