@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -129,6 +130,13 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String etpasschange=s.toString();
+                String confirmed=confirm.getText().toString();
+                if(!(etpasschange.equals(confirmed))){
+                    confirm.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    confirm.setError("mot de passe incorrect");
+                }
+                else
+                {confirm.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));}
                 if(etpasschange.length()<8){
                     pass.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     pass.setError("mot de passe courte");
@@ -197,54 +205,48 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
 
-                            if (response.isSuccessful()){
-                                nom.setText("");
-                                prenom.setText("");
-                                email.setText("");
-                                pass.setText("");
-                                // error response, no access to resource?
-                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
-                                dlgAlert.setMessage("Utilisateur crée avec succés");
-                                dlgAlert.setTitle("Succés!");
-                                dlgAlert.setPositiveButton("OK", null);
-                                dlgAlert.setCancelable(true);
-                                dlgAlert.create().show();
-                                dlgAlert.setPositiveButton("Ok",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        });
-                                Handler mHandler = new Handler();
-                                mHandler.postDelayed(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        //start your activity here
-                                        Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
-                                        startActivity(i);
+                        if (response.isSuccessful()){
+                            nom.setText("");
+                            prenom.setText("");
+                            email.setText("");
+                            pass.setText("");
+                            // error response, no access to resource?
+                            new IOSDialog.Builder(SignUpActivity.this)
+                                .setTitle("notification")
+                                .setMessage("Utilisateur crée avec succés")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
                                     }
+                                }).show();
 
-                                }, 1500);
+                            Handler mHandler = new Handler();
+                            mHandler.postDelayed(new Runnable() {
 
+                                @Override
+                                public void run() {
+                                    //start your activity here
+                                    Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                                    startActivity(i);
 
-                            }else {
-                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(SignUpActivity.this);
-                                dlgAlert.setMessage("Utilisateur existe déja!");
-                                dlgAlert.setTitle("Ressayer!");
-                                dlgAlert.setPositiveButton("OK", null);
-                                dlgAlert.setCancelable(true);
-                                dlgAlert.create().show();
-                                dlgAlert.setPositiveButton("Ok",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
+                                }
 
-                                            }
-                                        });
+                            }, 2000);
 
 
-                            }
+                        }else {
+                            new IOSDialog.Builder(SignUpActivity.this)
+                                .setTitle("notification")
+                                .setMessage("Utilisateur existe déja!")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+
+                        }
 
 
 

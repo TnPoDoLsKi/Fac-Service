@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -167,20 +168,17 @@ public class LoginActivity extends Activity {
                         else
                         {
                             // error response, no access to resource?
-                            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
 
-                            dlgAlert.setMessage("wrong password or Email");
-                            dlgAlert.setTitle("Error Message...");
-                            dlgAlert.setPositiveButton("OK", null);
-                            dlgAlert.setCancelable(true);
-                            dlgAlert.create().show();
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("notification")
+                                .setMessage("Email ou mot de passe incorrecte")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                            dlgAlert.setPositiveButton("Ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                }).show();
 
-                                        }
-                                    });
+
                         }
 
                     }
