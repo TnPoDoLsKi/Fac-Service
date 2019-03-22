@@ -16,17 +16,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn"
-            android:layout_width="346dp"
-            android:layout_height="99dp"
-            android:layout_marginStart="32dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/uploadd"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="346dp"
+                android:layout_height="99dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/uploadd"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bVio_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="100dp"
+                android:text="Ajouter des fichiers/images..."
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.85" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -37,7 +69,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn">
+            app:layout_constraintTop_toBottomOf="@+id/btn1">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -67,7 +99,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn" />
+            app:layout_constraintTop_toBottomOf="@+id/btn1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

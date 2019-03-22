@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorWhite">
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="3dp"
-            android:id="@+id/docs_recyclerView"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView">
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="3dp"
+                android:id="@+id/docs_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </ScrollView>
+        <TextView
+            android:id="@+id/InfoTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            android:maxHeight="30dip"
+
+            android:minHeight="30dip"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/scrollView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

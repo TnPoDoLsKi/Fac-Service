@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Project One</string>
-    <string name="home">accuei</string>
+    <string name="home">accueil</string>
     <string name="search">recherche</string>
-    <string name="settings">parametre</string>
+    <string name="settings">parametrès</string>
     <string name="add">ajouter</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

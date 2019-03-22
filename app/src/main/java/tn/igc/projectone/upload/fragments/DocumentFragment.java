@@ -2,6 +2,7 @@ package tn.igc.projectone.upload.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -20,12 +21,17 @@ import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.ClassisOnline;
+import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.R;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
@@ -123,7 +129,20 @@ public class DocumentFragment extends Fragment {
                             }
 
                             if (response.isSuccessful()) {
-                                Toast.makeText(getContext(), "mrighel", Toast.LENGTH_LONG).show();
+                                new IOSDialog.Builder(getContext())
+                                    .setTitle("notification")
+                                    .setMessage("Votre Document a été ajouté avec succès")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Matiere_Fragment matiere_fragment = new Matiere_Fragment();
+
+                                            FragmentManager fragmentManager = getFragmentManager();
+                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            fragmentTransaction.replace(R.id.container, matiere_fragment);
+                                            fragmentTransaction.commit();
+
+                                        }
+                                    }).show();
 
                             }
                         }

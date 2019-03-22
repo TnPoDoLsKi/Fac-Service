@@ -10,7 +10,8 @@
     <color name="colornoir">#000000</color>
     <color name="colorblanc">#FFFFFF</color>
     <color name="colorgrille">#B4AFAF</color>
-    <color name="colorbackground">#F0F0F0</color>
+    <color name="colorbackground">#FAFAFA</color>
+    <color name="colorbar">#F0F0F0</color>
 
     <color name="lightBlue">#35b0de</color>
     <color name="darkBlue">#2c91b7</color>
