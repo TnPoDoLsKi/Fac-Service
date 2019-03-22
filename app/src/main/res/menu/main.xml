@@ -2,9 +2,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+android:title="s"
         android:id="@+id/search"
-        android:title="search_hint"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 
 </menu>
