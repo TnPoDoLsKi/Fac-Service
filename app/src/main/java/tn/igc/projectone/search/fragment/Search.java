@@ -107,14 +107,17 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
        inflater.inflate(R.menu.main, menu);
         MenuItem menuItem = menu.findItem(R.id.search);
         searchView = (SearchView) menuItem.getActionView();
-        searchView.setIconifiedByDefault(true);
-        searchView.setFocusable(true);
         searchView.setQuery(searchText,true);
-        searchView.setMaxWidth(2000);
+        searchView.setMaxWidth(4000);
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Rechercher...");
         searchView.setSubmitButtonEnabled(false);
+        searchView.setIconifiedByDefault(true);
+
         searchView.setIconified(false);
+        searchView.onActionViewExpanded();
+
+
         SharedPreferences settings = getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
         searchView.setQuery(settings.getString("query",""), true);
 
@@ -230,7 +233,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                         T="TD";
                     }
                     if (cours.isChecked()){
-                        T="Cours";
+                        T="C";
                     }
 
                     if (searchView.getQuery().toString().equals("")) {
@@ -292,8 +295,9 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
 
         return false;
 
