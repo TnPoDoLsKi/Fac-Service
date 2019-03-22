@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -30,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.filiere.Utils.Data;
 import tn.igc.projectone.upload.fragments.NewFragment;
@@ -73,6 +75,24 @@ public class MainUploadFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_main_upload, container, false);
 
 
+    }
+    BottomNavigationView bottomNavigationView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Upload");
+        if (bottomNavigationView.getSelectedItemId()!=R.id.add_button)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.add_button);
+        }
     }
 
     @Override
