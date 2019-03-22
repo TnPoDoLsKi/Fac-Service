@@ -233,7 +233,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
                         T="TD";
                     }
                     if (cours.isChecked()){
-                        T="Cours";
+                        T="C";
                     }
 
                     if (searchView.getQuery().toString().equals("")) {

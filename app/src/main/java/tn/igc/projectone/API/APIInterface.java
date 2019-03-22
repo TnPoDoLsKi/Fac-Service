@@ -43,7 +43,7 @@ public interface APIInterface {
     @GET("search")
     Call<JsonArray> getFilterMajor(@Query("major") String type,@Query("name") String name);
     @GET("documents/search")
-    Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("major") String major,@Query("name") String name);
+    Call<JsonArray> getFilterTypeMajor(@Query("type") String type,@Query("majorID") String major,@Query("name") String name);
 
 
     @GET("documents")
