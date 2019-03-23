@@ -2,6 +2,7 @@ package tn.igc.projectone.upload.fragments;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -11,12 +12,16 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -53,6 +58,7 @@ public class DocumentFragment extends Fragment {
     private ArrayList<String> pathlist ;
     private String subId,type,session;
     private EditText et_annee,et_desc ;
+    private int year;
 
     public DocumentFragment() {
         // Required empty public constructor
@@ -91,6 +97,15 @@ public class DocumentFragment extends Fragment {
         type = getArguments().getString("type");
         session = getArguments().getString("session");
 
+        et_annee.setText("");
+
+        et_annee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showYearDialog();
+            }
+        });
+
         Button btn_ajouter = view.findViewById(R.id.btn_ajouter);
         btn_ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +115,15 @@ public class DocumentFragment extends Fragment {
                 Toast.makeText(getContext(),subId+"*"+type+"*"+session+"*"+year+"*"+desc+"*"+pathlist.get(0), Toast.LENGTH_LONG).show();
 
                 if(year.equals("")){
-                    et_annee.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-                    Toast.makeText(getContext(), "saisie l'année", Toast.LENGTH_LONG).show();
+
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Notification")
+                        .setMessage("Sélectionnez l'année de votre document.")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                showYearDialog();
+                            }
+                        }).show();
 
                 }else {
 
@@ -130,7 +152,7 @@ public class DocumentFragment extends Fragment {
 
                             if (response.isSuccessful()) {
                                 new IOSDialog.Builder(getContext())
-                                    .setTitle("notification")
+                                    .setTitle("succès")
                                     .setMessage("Votre Document a été ajouté avec succès")
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
@@ -172,6 +194,47 @@ public class DocumentFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    public void showYearDialog()
+    {
+
+        final Dialog d = new Dialog(getContext());
+        d.setTitle("Ajouter anneé de document");
+        d.setContentView(R.layout.yeardialog);
+        Button set = (Button) d.findViewById(R.id.button1);
+        Button cancel = (Button) d.findViewById(R.id.button2);
+        final TextView year_text=(TextView)d.findViewById(R.id.year_text);
+        year = 2000;
+        year_text.setHint("");
+        final NumberPicker nopicker = (NumberPicker) d.findViewById(R.id.numberPicker1);
+
+        nopicker.setMaxValue(year+20);
+        nopicker.setMinValue(year-20);
+        nopicker.setWrapSelectorWheel(false);
+        nopicker.setValue(year);
+        nopicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+        set.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                et_annee.setText(String.valueOf(nopicker.getValue()));
+                d.dismiss();
+                year_text.setHint(""+year);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
+
+
+    }
+
 
 
     @Override

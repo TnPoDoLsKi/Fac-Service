@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,7 +104,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_upload_fragment_subject, container, false);
 
-        Button btn_add = v.findViewById(R.id.btn);
+        ImageView btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
         tv_aucuneImage = v.findViewById(R.id.tv_choisirImage);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
