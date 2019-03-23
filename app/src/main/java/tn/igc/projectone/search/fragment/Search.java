@@ -530,11 +530,11 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+       /* SharedPreferences settings = getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("query", searchView.getQuery().toString());
 
-        editor.apply();
+        editor.apply();*/
     }
 
 
