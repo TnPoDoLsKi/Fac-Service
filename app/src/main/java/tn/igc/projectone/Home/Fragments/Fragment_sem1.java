@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -178,6 +179,8 @@ public class Fragment_sem1 extends Fragment {
             }
         });
     }
+
+
 
     /*  matiereList.add(new Matiere("1", "Algorithme et Structure des Données", R.mipmap.ic_code));
                 matiereList.add(new Matiere("2", "Mathématiques Discrétes", R.mipmap.ic_math));

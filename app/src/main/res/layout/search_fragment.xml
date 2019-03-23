@@ -110,14 +110,15 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
                 android:checked="true"
+                android:gravity="center_vertical"
                 android:paddingRight="10dp"
-                android:text="Tous  " />
+                android:text="Tous   " />
 
             <RadioButton
                 android:id="@+id/Exams"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:gravity="center_vertical"
                 android:buttonTint="@color/colorPrimary"
                 android:paddingRight="10dp"
                 android:text="Exams" />
@@ -128,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
                 android:paddingRight="10dp"
+                android:gravity="center_vertical"
                 android:text="DS" />
         </RadioGroup>
 
@@ -146,6 +148,7 @@
                 android:id="@+id/Cours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:buttonTint="@color/colorPrimary"
                 android:paddingRight="10dp"
                 android:text="Cours" />
@@ -156,13 +159,15 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
                 android:paddingRight="10dp"
-                android:text="TD       " />
+                android:text="TD        "
+                android:gravity="center_vertical"/>
 
             <RadioButton
                 android:id="@+id/TP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
+                android:gravity="center_vertical"
                 android:paddingRight="10dp"
                 android:text="TP" />
         </RadioGroup>

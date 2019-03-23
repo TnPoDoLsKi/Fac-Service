@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new Matiere_Fragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null).replace(R.id.container, fragment).commit();
+        fragmentTransaction.replace(R.id.container, fragment).commit();
         bottomNavigationView.setOnNavigationItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) navigationItemReselectedListener);
     }
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment = new Search() ;
+                    Fragment selectedFragment=new Matiere_Fragment()  ;
                     switch (menuItem.getItemId()){
 
                         case R.id.home_button:
@@ -92,5 +94,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setInvisibleProgressBar(){  progressBar.setVisibility(View.INVISIBLE);}
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,7 +19,7 @@ import tn.igc.projectone.Home.Adapters.ViewPagerAdapter;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 
-public class Matiere_Fragment extends Fragment {
+public class Matiere_Fragment extends Fragment  {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -92,4 +93,6 @@ public class Matiere_Fragment extends Fragment {
 
 
     }
+
+
 }
