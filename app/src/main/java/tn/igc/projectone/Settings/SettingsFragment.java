@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -57,6 +58,7 @@ public class SettingsFragment extends Fragment {
     private String token;
     private String majorId;
     private String majorName;
+    BottomNavigationView bottomNavigationView;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -67,8 +69,11 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //for signOut btn
         setHasOptionsMenu(true);
+        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+
 
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -110,6 +115,11 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Objects.requireNonNull(getActivity()).setTitle("Settings");
+        if (bottomNavigationView.getSelectedItemId()!=R.id.parametre_button)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.parametre_button);
+        }
         token = SaveSharedPreference.getToken(getContext());
 //        majorId = Data.getIdFromName(spinnerFil.getSelectedItem().toString(),majors);
 

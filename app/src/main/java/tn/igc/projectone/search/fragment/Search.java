@@ -30,6 +30,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +52,7 @@ import tn.igc.projectone.documentList.classes.User;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
-public class    Search extends Fragment implements SearchView.OnQueryTextListener, View.OnTouchListener {
+public class    Search extends Fragment implements SearchView.OnQueryTextListener, View.OnTouchListener{
     ArrayList<Document> documents;
     RecyclerViewAdapter recyclerViewAdapter;
     ProgressBar progressBar;
@@ -513,7 +514,6 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         });
     }
 
-
     public boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();
         try {
@@ -536,6 +536,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
 
         editor.apply();*/
     }
+
 
 
 }
