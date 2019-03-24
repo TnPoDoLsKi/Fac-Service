@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                                             startActivity(i);
                                         }
                                     })
-                                .setNegativeButton("Cancel",
+                                .setNegativeButton("Annuler",
                                     new DialogInterface.OnClickListener() {
 
                                         @Override
