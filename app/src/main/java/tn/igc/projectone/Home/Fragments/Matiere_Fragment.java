@@ -1,7 +1,6 @@
 package tn.igc.projectone.Home.Fragments;
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +34,10 @@ public class Matiere_Fragment extends Fragment  {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.matiere_fragment, container, false);
-        tabLayout = (TabLayout)v.findViewById(R.id.tablayout_id);
-        viewPager = (ViewPager)v.findViewById(R.id.viewPager_id);
+        tabLayout = v.findViewById(R.id.tablayout_id);
+        viewPager = v.findViewById(R.id.viewPager_id);
         setupViewPager(viewPager);
-        ll = (LinearLayout)v.findViewById(R.id.lvv);
+        ll = v.findViewById(R.id.lvv);
         tabLayout.setupWithViewPager(viewPager);
 
         return v;
@@ -47,8 +46,7 @@ public class Matiere_Fragment extends Fragment  {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setActionBarTitle("Matières");
-        if (bottomNavigationView.getSelectedItemId()!=R.id.home_button)
-        {
+        if (bottomNavigationView.getSelectedItemId() != R.id.home_button) {
             bottomNavigationView.setSelectedItemId(R.id.home_button);
         }
     }
@@ -82,14 +80,13 @@ public class Matiere_Fragment extends Fragment  {
         });
 
 
-
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
+        bottomNavigationView = getActivity().findViewById(R.id.bottomBar);
 
 
     }

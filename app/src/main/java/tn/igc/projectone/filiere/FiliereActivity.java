@@ -13,7 +13,8 @@ public class FiliereActivity extends AppCompatActivity {
 	ProgressBar bar ;
 	FragmentManager fragmentManager =  getSupportFragmentManager();
 
-	@Override
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filiere);
