@@ -31,6 +31,7 @@ import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.R;
+import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.filiere.Utils.Data;
 import tn.igc.projectone.upload.fragments.NewFragment;
 
@@ -54,6 +55,8 @@ public class MainUploadFragment extends Fragment {
     private Spinner spinnerFil;
     private Spinner spinnerMat, spinnerType, spinnerSession;
     private int semesterNbr = 1;
+    private int oldMajorPos;
+    private String oldMajorId;
     private ImageView plusImg;
     private TextView plusTxt;
     private ProgressBar load;
@@ -336,6 +339,8 @@ public class MainUploadFragment extends Fragment {
                     String name = obj.get("name").getAsString();
                     String id = obj.get("_id").getAsString();
                     majors.add(new Data(id, name));
+                    if (obj.get("_id").getAsString().equals(oldMajorId))
+                        oldMajorPos = i;
 
 
                 }
@@ -348,6 +353,12 @@ public class MainUploadFragment extends Fragment {
                 } catch (NullPointerException ignored) {
 
                 }
+
+                oldMajorId = SaveSharedPreference.getMajor(getContext());
+                String oldMajor = Data.getNameFromId(oldMajorId, majors);
+
+                oldMajorPos = majors.indexOf(Data.getDataFromName(oldMajor, majors));
+                spinnerFil.setSelection(oldMajorPos);
 
                 load.setVisibility(View.GONE);
 
@@ -378,7 +389,7 @@ public class MainUploadFragment extends Fragment {
             subId = Data.getIdFromName(subId, subjectsSem);
             type = spinnerType.getSelectedItem().toString();
         } catch (NullPointerException ex) {
-            Toast.makeText(getContext(), "Choisir une matiere !! ", Toast.LENGTH_SHORT).show();
+            //todo : error
             return;
         }
         if (sessionLayout.getVisibility() == View.VISIBLE)

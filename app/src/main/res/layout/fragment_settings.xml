@@ -60,34 +60,7 @@
                 android:hint="Prénom"
                 android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/text3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Mot de passe" />
 
-            <EditText
-                android:id="@+id/editPasswordOld"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/lightBlue"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Actuel"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/editPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/lightBlue"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Nouveau"
-                android:inputType="textPassword" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -100,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+                android:background="@drawable/bottom_border">
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -137,6 +111,34 @@
                 android:ems="10"
                 android:hint="E-mail"
                 android:inputType="textEmailAddress" />
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Mot de passe" />
+
+            <EditText
+                android:id="@+id/editPasswordOld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/lightBlue"
+                android:drawableStart="@drawable/ic_security_black_24dp"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Actuel"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/lightBlue"
+                android:drawableStart="@drawable/ic_security_black_24dp"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Nouveau"
+                android:inputType="textPassword" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

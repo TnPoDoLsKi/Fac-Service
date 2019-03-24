@@ -22,7 +22,6 @@ import tn.igc.projectone.filiere.Fragments.Process3Fragment;
 public class Utils {
 
     public static int processProgress = 0;
-    //    public static String[] selectedMajor;
     public static ArrayList<Data> selectedMajor;
     /**
      * @param fragmentManager : a Fragment Manager
@@ -33,7 +32,6 @@ public class Utils {
     //	this method calls the next fragment (process)
     // this version is only called the first time
     public static void nextProcess(FragmentManager fragmentManager, ProgressBar bar) {
-//		selectedMajor = new String[3];
         selectedMajor = new ArrayList<>();
 
         nextProcess(fragmentManager, bar, null);
@@ -44,13 +42,6 @@ public class Utils {
         if (toSend != null) {
             selectedMajor.add(processProgress - 1, toSend);
         }
-
-
-//		if (fragmentManager == null) {
-//            Log.d("Oops", selectedMajor.get(0).getName() + "|" + selectedMajor.get(2).getName() + "|" + selectedMajor.get(3).getName() + "|");
-//			// here pass to next activity
-//			return;
-//		}
 
 
         Fragment fragment;

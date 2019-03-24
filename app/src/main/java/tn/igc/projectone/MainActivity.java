@@ -5,7 +5,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.Settings.SettingsFragment;
 import tn.igc.projectone.search.fragment.Search;
-import tn.igc.projectone.upload.fragments.NewFragment;
 import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
 public class MainActivity extends AppCompatActivity {
