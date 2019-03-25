@@ -147,7 +147,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        token = "Bearer "+SaveSharedPreference.getToken(getContext());
+        token = SaveSharedPreference.getToken(getContext());
 
         if (token.equals("")) {
             //hiding Layout Parts
