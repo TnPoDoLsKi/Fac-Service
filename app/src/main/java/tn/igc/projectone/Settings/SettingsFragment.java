@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -281,7 +282,14 @@ public class SettingsFragment extends Fragment {
 
     public void updateUserInfo(final String majorId) {
         //password verification
-        if (!ver) return;
+        if (!ver){
+            new IOSDialog.Builder(getContext())
+                .setTitle("Courte mot de passe")
+                .setMessage("Le mot de passe entré est courte")
+                .setPositiveButton("OK",null).show();
+            ver=true;
+            return;
+        }
         //check for empty field
         if (!verifyData()) {
             new IOSDialog.Builder(getContext())
@@ -307,14 +315,15 @@ public class SettingsFragment extends Fragment {
                     new IOSDialog.Builder(getContext())
                         .setTitle("Notification")
                         .setMessage("le mot de passe entré est incorrect")
-                        .setPositiveButton("OK",null).show();
-                    return;
-                } else if (response.code() == 200)
-                    new IOSDialog.Builder(getContext())
-                        .setTitle("Modification réussie")
-                        .setMessage("Vos données ont été modifiées avec succès")
-                        .setPositiveButton("OK",null).show();
-                SaveSharedPreference.setMajor(getContext(), majorId);
+                        .setPositiveButton("OK", null).show();
+                }
+                 if (response.isSuccessful()) {
+                     new IOSDialog.Builder(getContext())
+                         .setTitle("Modification réussie")
+                         .setMessage("Vos données ont été modifiées avec succès")
+                         .setPositiveButton("OK", null).show();
+                     SaveSharedPreference.setMajor(getContext(), majorId);
+                 }
             }
 
             @Override

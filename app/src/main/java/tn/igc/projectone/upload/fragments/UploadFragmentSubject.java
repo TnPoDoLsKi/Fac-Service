@@ -3,6 +3,7 @@ package tn.igc.projectone.upload.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.PermUtil;
 import com.google.gson.JsonArray;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -155,14 +157,25 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
 
                         }
                         if (response.code()==401){
-                            Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(getContext(),LoginActivity.class);
-                            startActivity(i);
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Session expiré")
+                                .setMessage("S'il vous plait reconnecter")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SaveSharedPreference.setMajor(getContext(),"");
+                                        Intent i = new Intent(getContext(),LoginActivity.class);
+                                        startActivity(i);
+                                    }
+                                }).show();
+
 
 
                         }
                         if(response.code()==500){
-                            Toast.makeText(getContext(),"500", Toast.LENGTH_LONG).show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();
 
                         }
                         if(response.isSuccessful()){
@@ -190,14 +203,16 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
                         if(ClassisOnline.isOnline()==false){
-                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                            alertDialog.setTitle("connexion");
-                            alertDialog.setMessage("Aucune connexion internet");
-                            alertDialog.show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("connexion")
+                                .setMessage("Aucune connexion internet")
+                                .setPositiveButton("OK",null).show();
                         }
                         else{
-                            Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
-                            Log.e("errrreur", " ->  " + t.toString());
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
 
                         }
 

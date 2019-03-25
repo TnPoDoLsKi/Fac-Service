@@ -108,14 +108,25 @@ public class DocumentFragmentSubject extends Fragment {
 
                         }
                         if (response.code()==401){
-                            Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(getContext(), LoginActivity.class);
-                            startActivity(i);
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Session expiré")
+                                .setMessage("S'il vous plait reconnecter")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SaveSharedPreference.setMajor(getContext(),"");
+                                        Intent i = new Intent(getContext(),LoginActivity.class);
+                                        startActivity(i);
+                                    }
+                                }).show();
+
 
 
                         }
                         if(response.code()==500){
-                            Toast.makeText(getContext(),"500", Toast.LENGTH_LONG).show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();
 
                         }
 
@@ -141,13 +152,17 @@ public class DocumentFragmentSubject extends Fragment {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         if(ClassisOnline.isOnline()==false){
-                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                            alertDialog.setTitle("connexion");
-                            alertDialog.setMessage("Aucune connexion internet");
-                            alertDialog.show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("connexion")
+                                .setMessage("Aucune connexion internet")
+                                .setPositiveButton("OK",null).show();
                         }
                         else{
-                            Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
                         }
                     }
                 });
