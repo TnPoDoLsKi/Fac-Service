@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 
 import android.os.Handler;
@@ -234,7 +236,8 @@ public class SignUpActivity extends AppCompatActivity {
                             }, 2000);
 
 
-                        }else {
+                        }
+                        if (response.code()==400){
                             new IOSDialog.Builder(SignUpActivity.this)
                                 .setTitle("notification")
                                 .setMessage("Utilisateur existe déja!")
@@ -247,7 +250,21 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                         }
+                        if(response.code()==500)
+                        {
+                            // error response, no access to resource?
 
+                            new IOSDialog.Builder(SignUpActivity.this)
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+                        }
 
 
 
@@ -256,8 +273,20 @@ public class SignUpActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                         Log.d("Error", t.getMessage());
+                        if(ClassisOnline.isOnline()==false){
+                            new IOSDialog.Builder(SignUpActivity.this)
+                                .setTitle("connexion")
+                                .setMessage("Aucune connexion internet")
+                                .setPositiveButton("OK",null).show();
+                        }
+                        else{
+                            new IOSDialog.Builder(SignUpActivity.this)
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
+                        }
 
                     }
                 });

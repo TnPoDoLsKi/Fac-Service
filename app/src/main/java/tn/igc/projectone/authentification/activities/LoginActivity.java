@@ -27,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
@@ -165,13 +166,43 @@ public class LoginActivity extends Activity {
                             startActivity(intent);
 
                         }
-                        else
+                        if(response.code()==400)
                         {
                             // error response, no access to resource?
 
                             new IOSDialog.Builder(LoginActivity.this)
                                 .setTitle("notification")
-                                .setMessage("Email ou mot de passe incorrecte")
+                                .setMessage("Email incorrecte")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+                        }
+                        if(response.code()==401)
+                        {
+                            // error response, no access to resource?
+
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("notification")
+                                .setMessage("Mot de passe incorrecte")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+                        }
+                        if(response.code()==500)
+                        {
+                            // error response, no access to resource?
+
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Ressayer")
+                                .setMessage("")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
@@ -186,6 +217,19 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         Log.d("Error", t.getMessage());
+                        if(ClassisOnline.isOnline()==false){
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("connexion")
+                                .setMessage("Aucune connexion internet")
+                                .setPositiveButton("OK",null).show();
+                        }
+                        else{
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
+                        }
 
                     }
                 });

@@ -1,6 +1,7 @@
 package tn.igc.projectone.Settings;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
@@ -317,6 +319,21 @@ public class SettingsFragment extends Fragment {
                         .setMessage("le mot de passe entré est incorrect")
                         .setPositiveButton("OK", null).show();
                 }
+                if (response.code()==401){
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Session expiré")
+                        .setMessage("S'il vous plait reconnecter")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SaveSharedPreference.setMajor(getContext(),"");
+                                Intent i = new Intent(getContext(),LoginActivity.class);
+                                startActivity(i);
+                            }
+                        }).show();
+
+
+
+                }
                  if (response.isSuccessful()) {
                      new IOSDialog.Builder(getContext())
                          .setTitle("Modification réussie")
@@ -329,6 +346,19 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("Oops", "onFailure: " + t.getMessage());
+                if(ClassisOnline.isOnline()==false){
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("connexion")
+                        .setMessage("Aucune connexion internet")
+                        .setPositiveButton("OK",null).show();
+                }
+                else{
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Ressayer")
+                        .setMessage("")
+                        .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
+                }
 
             }
         });
