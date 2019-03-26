@@ -66,6 +66,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.itlgl:iosdialog:1.0.1'
+
+
 
     implementation project(':pix')
 

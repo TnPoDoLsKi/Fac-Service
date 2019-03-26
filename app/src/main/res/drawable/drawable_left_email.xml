@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     // I think it should be more smaller if i set 15sp.
     <item
-        android:drawable="@drawable/passicon"
+        android:drawable="@drawable/email"
         android:width="15sp"
         android:height="15sp"
         />

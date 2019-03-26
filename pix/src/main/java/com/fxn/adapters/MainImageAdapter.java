@@ -74,7 +74,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
         Img i = list.get(position);
         return (i.getContentUrl().equalsIgnoreCase("")) ?
-                HEADER : ITEM;
+            HEADER : ITEM;
     }
 
     public void clearList() {
@@ -96,10 +96,10 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == HEADER) {
             return new HeaderHolder(LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.header_row, parent, false));
+                inflate(R.layout.header_row, parent, false));
         } else {
             View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.main_image, parent, false);
+                inflate(R.layout.main_image, parent, false);
             return new Holder(view);
         }
     }

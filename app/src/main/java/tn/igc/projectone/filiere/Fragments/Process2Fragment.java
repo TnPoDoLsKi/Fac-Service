@@ -94,19 +94,23 @@ public class Process2Fragment extends Fragment {
         call_all_levels.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                if (response.body() == null) {
-                    Log.d("Oops", "onResponse: " + response.code());
+
+                //get all (formation)
+                JsonArray resArr;
+                try{
+                    resArr = response.body().getAsJsonArray();
+                }catch (NullPointerException ex){
                     return;
                 }
-                //get all (formation)
-                JsonArray resArr = response.body().getAsJsonArray();
-                Log.d("Oops", "onResponse: " + resArr);
+                if (resArr.size()==0) {
+                    Log.d("Oops", "erreur !!");
+                    return;
+                }
                 int size = resArr.size();
                 for (int i = 0; i < size; i++) {
                     //get all levels here
                     JsonObject obj = resArr.get(i).getAsJsonObject();
                     String name = obj.get("name").getAsString();
-//                    levels.add(new Data(obj.get("_id").getAsString(),b[i].getText().toString()));
                     levels.add(new Data(obj.get("_id").getAsString(), name));
                     b[i].setText(name);
 

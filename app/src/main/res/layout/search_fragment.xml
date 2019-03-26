@@ -5,13 +5,11 @@
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/colorbackground"
     android:orientation="vertical"
     tools:context="tn.igc.projectone.search.fragment.Search"
 
     >
-
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -178,8 +176,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/scrollviewSearch"

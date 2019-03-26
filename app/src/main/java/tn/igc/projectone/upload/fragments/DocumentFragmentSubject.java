@@ -2,6 +2,7 @@ package tn.igc.projectone.upload.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,15 +19,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.ClassisOnline;
+import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
@@ -103,19 +108,43 @@ public class DocumentFragmentSubject extends Fragment {
 
                         }
                         if (response.code()==401){
-                            Toast.makeText(getContext(), "session expiré", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(getContext(), LoginActivity.class);
-                            startActivity(i);
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Session expiré")
+                                .setMessage("S'il vous plait reconnecter")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SaveSharedPreference.setMajor(getContext(),"");
+                                        Intent i = new Intent(getContext(),LoginActivity.class);
+                                        startActivity(i);
+                                    }
+                                }).show();
+
 
 
                         }
                         if(response.code()==500){
-                            Toast.makeText(getContext(),"500", Toast.LENGTH_LONG).show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();
 
                         }
 
                         if(response.isSuccessful()){
-                            Toast.makeText(getContext(),"mrighel", Toast.LENGTH_LONG).show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("notification")
+                                .setMessage("Votre Document a été ajouté avec succès")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Matiere_Fragment matiere_fragment = new Matiere_Fragment();
+
+                                        FragmentManager fragmentManager = getFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.container, matiere_fragment);
+                                        fragmentTransaction.commit();
+
+                                    }
+                                }).show();
 
                         }
                     }
@@ -123,13 +152,17 @@ public class DocumentFragmentSubject extends Fragment {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         if(ClassisOnline.isOnline()==false){
-                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                            alertDialog.setTitle("connexion");
-                            alertDialog.setMessage("Aucune connexion internet");
-                            alertDialog.show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("connexion")
+                                .setMessage("Aucune connexion internet")
+                                .setPositiveButton("OK",null).show();
                         }
                         else{
-                            Toast.makeText(getContext(),"réessayer " + t.toString(), Toast.LENGTH_LONG).show();
+                            new IOSDialog.Builder(getContext())
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
                         }
                     }
                 });

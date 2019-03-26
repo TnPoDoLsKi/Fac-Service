@@ -40,7 +40,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Button btds;
     String type;
     String mat_id;
-     String id_m;
+    String id_m;
+    int nb_c;
+    int nb_td;
+    int nb_ds;
+    int nb_ex;
+    int nb_tp;
 
 
     public RecyclerViewAdapter(Context context,List<Matiere> lstMatieres) {
@@ -77,16 +82,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
                 id_m = lstMatieres.get(vHolder.getAdapterPosition()).getId();
-                btc.setText("COURS("+lstMatieres.get(vHolder.getAdapterPosition()).getCour_c()+")");
-                bttd.setText("TD("+lstMatieres.get(vHolder.getAdapterPosition()).getTD_c()+")");
-                bttp.setText("TP("+lstMatieres.get(vHolder.getAdapterPosition()).getTP_c()+")");
-                btds.setText("DS("+lstMatieres.get(vHolder.getAdapterPosition()).getDS_c()+")");
-                btex.setText("EX("+lstMatieres.get(vHolder.getAdapterPosition()).getEX_c()+")");
+                nb_c = lstMatieres.get(vHolder.getAdapterPosition()).getCour_c();
+                nb_td=lstMatieres.get(vHolder.getAdapterPosition()).getTD_c();
+                nb_tp=lstMatieres.get(vHolder.getAdapterPosition()).getTP_c();
+                nb_ds=lstMatieres.get(vHolder.getAdapterPosition()).getDS_c();
+                nb_ex=lstMatieres.get(vHolder.getAdapterPosition()).getEX_c();
+                btc.setText("COURS("+nb_c+")");
+                bttd.setText("TD("+nb_td+")");
+                bttp.setText("TP("+nb_tp+")");
+                btds.setText("DS("+nb_ds+")");
+                btex.setText("EX("+nb_ex+")");
+
+                btc.setEnabled(nb_c>0);
+                bttd.setEnabled(nb_td>0);
+                bttp.setEnabled(nb_tp>0);
+                btds.setEnabled(nb_ds>0);
+                btex.setEnabled(nb_ex>0);
 
 
                 dialog.show();
             }
         });
+
+
+
         btc.setOnClickListener(this);
         bttd.setOnClickListener(this);
         bttp.setOnClickListener(this);
@@ -150,18 +169,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onClick(View v) {
 
-            if (v==btc)
-                type="C";
-            else if(v==bttd)
-                type="TD";
-            else if(v==bttp)
-                type="TP";
-            else if(v==btds)
-                type="DS";
-            else if(v==btex)
-                type="EX";
+        if (v==btc)
+            type="C";
+        else if(v==bttd)
+            type="TD";
+        else if(v==bttp)
+            type="TP";
+        else if(v==btds)
+            type="DS";
+        else if(v==btex)
+            type="EX";
 
-            trans();
+        trans();
 
 
     }
