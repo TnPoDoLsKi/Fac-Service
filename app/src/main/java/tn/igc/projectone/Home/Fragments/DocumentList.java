@@ -69,9 +69,15 @@ public class DocumentList extends Fragment {
         id_doc = data.getString("mat_id");
         tType = type;
         if (tType=="C")
-            tType="Cours";
+            tType="Liste des Cours";
         else if (tType=="EX")
-            tType="Examens";
+            tType="Liste des Examens";
+        else if (tType=="DS")
+            tType="Liste des DS";
+        else if (tType=="TP")
+            tType="Liste des TP";
+        else
+            tType="Liste des TD";
 
         ((MainActivity) getActivity()).setActionBarTitle(tType);
 
@@ -260,7 +266,6 @@ public class DocumentList extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(),"Offline Use ",Toast.LENGTH_LONG).show();
 
                 /*mRealm.executeTransaction(new Realm.Transaction() {
                     @Override

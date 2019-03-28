@@ -48,7 +48,6 @@ public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdap
         vHolder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Downloading", Toast.LENGTH_LONG).show();
                 dm = (DownloadManager) v.getContext().getSystemService(DOWNLOAD_SERVICE);
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(path));
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

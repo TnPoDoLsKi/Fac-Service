@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }else {
                             selectedFragment = new MainUploadFragment();
-                            setActionBarTitle("Ajouter");
+                            setActionBarTitle("Importer");
                             //title.setText("Ajouter");
                         }
                         break;

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.adapters.CorrectionRecyclerViewAdapter;
@@ -59,6 +61,9 @@ public class CorrectionList extends Fragment {
 
     TextView textView1;
     private Button btn_uploadCorrection;
+    private TextView tv_description;
+    private String letter;
+    private String b_description;
 
 
     public CorrectionList() {
@@ -77,7 +82,7 @@ public class CorrectionList extends Fragment {
      //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
-        ((MainActivity) getActivity()).setActionBarTitle("Détailles");
+
 
     }
     @Override
@@ -110,8 +115,14 @@ public class CorrectionList extends Fragment {
         cRecyclerView = (RecyclerView) v.findViewById(R.id.corr);
 
         textView1 =(TextView) v.findViewById(R.id.Textview2);
+        tv_description =(TextView) v.findViewById(R.id.textView12);
+        TextView textView= (TextView) v.findViewById(R.id.description);
+        TextView tv_correction= (TextView) v.findViewById(R.id.textView9);
+        TextView tv_uploadcorrection= (TextView) v.findViewById(R.id.Textuploadcorrection);
+        ImageView iconeupload = (ImageView) v.findViewById(R.id.iconupload);
 
-        textView1.setText("No Corrections");
+
+        textView1.setText("Aucune correction");
 
         textView1.setVisibility(View.INVISIBLE);
 
@@ -136,13 +147,31 @@ public class CorrectionList extends Fragment {
 
         String b_filePath=bundle.getString("b_filePath");
 
-        String b_description=bundle.getString("b_description");
+        b_description=bundle.getString("b_description");
 
         getActivity().setTitle(b_title);
 
-        final TextView textView= (TextView) v.findViewById(R.id.description);
+
 
         textView.setText(b_description);
+        ((MainActivity) getActivity()).setActionBarTitle("Document");
+
+        //deseable description if description ""
+        if ((b_description.equals(""))){
+            tv_description.setVisibility(View.INVISIBLE);
+            textView.setVisibility(View.INVISIBLE);
+        }
+        //deseable if ...
+        letter = Character.toString(b_title.charAt(0));
+        if(letter.equals("C")){
+            btn_uploadCorrection.setVisibility(View.INVISIBLE);
+            tv_correction.setVisibility(View.INVISIBLE);
+            tv_uploadcorrection.setVisibility(View.INVISIBLE);
+            iconeupload.setVisibility(View.INVISIBLE);
+            cRecyclerView.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            textView1.setVisibility(View.INVISIBLE);
+        }
 
         btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,8 +300,13 @@ public class CorrectionList extends Fragment {
 
                     cRecyclerView.setAdapter(cRecyclerViewAdapter);
 
-                    if (CorList.size()==0)
-                        textView1.setVisibility(View.VISIBLE);
+                    if (CorList.size()==0) {
+                        if (letter.equals("C")) {
+                            textView1.setVisibility(View.INVISIBLE);
+                        } else {
+                            textView1.setVisibility(View.VISIBLE);
+                        }
+                    }
 
                 }
 
@@ -282,7 +316,7 @@ public class CorrectionList extends Fragment {
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
 
-                if(isOnline()==false){
+                if(ClassisOnline.isOnline()==false){
                     textView1.setText("Aucune connexion trouvée");
                     textView1.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
@@ -301,18 +335,7 @@ public class CorrectionList extends Fragment {
 
         return v;
     }
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace();  return false;}
-        catch (InterruptedException e) { e.printStackTrace();  return false;}
 
-
-    }
 
 
 }

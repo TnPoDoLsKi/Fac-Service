@@ -38,7 +38,6 @@ app:cardElevation="6dp">
             android:layout_width="50dp"
             android:layout_height="50dp"
 
-            android:src="@mipmap/ic_code"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="1dp"

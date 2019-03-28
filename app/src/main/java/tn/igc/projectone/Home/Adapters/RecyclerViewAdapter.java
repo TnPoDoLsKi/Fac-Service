@@ -80,18 +80,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
                 id_m = lstMatieres.get(vHolder.getAdapterPosition()).getId();
                 nb_c = lstMatieres.get(vHolder.getAdapterPosition()).getCour_c();
                 nb_td=lstMatieres.get(vHolder.getAdapterPosition()).getTD_c();
                 nb_tp=lstMatieres.get(vHolder.getAdapterPosition()).getTP_c();
                 nb_ds=lstMatieres.get(vHolder.getAdapterPosition()).getDS_c();
                 nb_ex=lstMatieres.get(vHolder.getAdapterPosition()).getEX_c();
-                btc.setText("COURS("+nb_c+")");
-                bttd.setText("TD("+nb_td+")");
-                bttp.setText("TP("+nb_tp+")");
-                btds.setText("DS("+nb_ds+")");
-                btex.setText("EX("+nb_ex+")");
+                btc.setText("COURS ("+nb_c+")");
+                bttd.setText("TD ("+nb_td+")");
+                bttp.setText("TP ("+nb_tp+")");
+                btds.setText("DS ("+nb_ds+")");
+                btex.setText("EX ("+nb_ex+")");
 
                 btc.setEnabled(nb_c>0);
                 bttd.setEnabled(nb_td>0);

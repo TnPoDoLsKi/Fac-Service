@@ -124,7 +124,7 @@ public class Fragment_sem2 extends Fragment {
                             int td_c = doc_count.get("TP").getAsInt();
                             final String id = sub_id.getAsString();
 
-                            m = new Matiere(id, name, R.mipmap.ic_soc,c_c,td_c,ds_c,ex_c,tp_c);
+                            m = new Matiere(id, name, R.mipmap.ic_folder,c_c,td_c,ds_c,ex_c,tp_c);
                             matiereList.add(m);
                         /*realm = Realm.getDefaultInstance();
                         realm.executeTransaction(new Realm.Transaction() {

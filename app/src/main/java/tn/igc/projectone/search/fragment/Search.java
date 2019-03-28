@@ -43,6 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
@@ -497,7 +498,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
 
-                if(isOnline()==false){
+                if(ClassisOnline.isOnline()==false){
                     textView.setText("Aucune connexion trouvée");
                     textView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
@@ -514,18 +515,6 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         });
     }
 
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace();  return false;}
-        catch (InterruptedException e) { e.printStackTrace();  return false;}
-
-
-    }
 
     @Override
     public void onPause() {

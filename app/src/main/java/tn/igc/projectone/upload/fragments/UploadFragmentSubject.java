@@ -43,6 +43,7 @@ import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.ClassisOnline;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 
 import tn.igc.projectone.SaveSharedPreference;
@@ -105,6 +106,8 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_upload_fragment_subject, container, false);
+
+        ((MainActivity) getActivity()).setActionBarTitle("Importer correction");
 
         ImageView btn_add = v.findViewById(R.id.btn);
         btn_valider = v.findViewById(R.id.btn_valider);
