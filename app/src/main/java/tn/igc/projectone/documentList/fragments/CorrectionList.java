@@ -62,6 +62,8 @@ public class CorrectionList extends Fragment {
     TextView textView1;
     private Button btn_uploadCorrection;
     private TextView tv_description;
+    private String letter;
+    private String b_description;
 
 
     public CorrectionList() {
@@ -145,7 +147,7 @@ public class CorrectionList extends Fragment {
 
         String b_filePath=bundle.getString("b_filePath");
 
-        String b_description=bundle.getString("b_description");
+        b_description=bundle.getString("b_description");
 
         getActivity().setTitle(b_title);
 
@@ -160,7 +162,7 @@ public class CorrectionList extends Fragment {
             textView.setVisibility(View.INVISIBLE);
         }
         //deseable if ...
-        String letter = Character.toString(b_title.charAt(0));
+        letter = Character.toString(b_title.charAt(0));
         if(letter.equals("C")){
             btn_uploadCorrection.setVisibility(View.INVISIBLE);
             tv_correction.setVisibility(View.INVISIBLE);
@@ -298,8 +300,13 @@ public class CorrectionList extends Fragment {
 
                     cRecyclerView.setAdapter(cRecyclerViewAdapter);
 
-                    if (CorList.size()==0)
-                        textView1.setVisibility(View.VISIBLE);
+                    if (CorList.size()==0) {
+                        if (letter.equals("C")) {
+                            textView1.setVisibility(View.INVISIBLE);
+                        } else {
+                            textView1.setVisibility(View.VISIBLE);
+                        }
+                    }
 
                 }
 
