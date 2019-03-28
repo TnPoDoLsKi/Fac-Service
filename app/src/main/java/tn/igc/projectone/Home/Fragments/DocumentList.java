@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -36,6 +37,8 @@ public class DocumentList extends Fragment {
     private RecyclerView mRecyclerView;
     private ArrayList<Document> docList ;
     public APIInterface apiInterface;
+
+
     RecyclerViewAdapter recyclerViewAdapter;
     BottomNavigationView bottomNavigationView;
 

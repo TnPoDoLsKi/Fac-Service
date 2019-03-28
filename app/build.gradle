@@ -67,6 +67,8 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.itlgl:iosdialog:1.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
 
 
 
@@ -74,3 +76,5 @@ dependencies {
 
 
 }
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'

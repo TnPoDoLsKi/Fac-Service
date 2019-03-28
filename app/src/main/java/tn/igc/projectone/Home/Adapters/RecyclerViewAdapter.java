@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     Context mContext ;
+    private FirebaseAnalytics mFirebaseAnalytics;
     List<Matiere> lstMatieres;
     Dialog dialog ;
     Button btc;
@@ -60,6 +63,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View v;
         v=LayoutInflater.from(mContext).inflate(R.layout.item_matiere,viewGroup,false);
         final MyViewHolder vHolder = new MyViewHolder(v);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+
         dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.dialog_choix);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -167,9 +172,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onClick(View v) {
+        int id ;
+        Bundle bundle = new Bundle();
+
 
         if (v==btc)
             type="C";
+
         else if(v==bttd)
             type="TD";
         else if(v==bttp)
@@ -179,6 +188,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else if(v==btex)
             type="EX";
 
+
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, type);
+
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         trans();
 
 
