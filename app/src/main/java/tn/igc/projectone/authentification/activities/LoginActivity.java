@@ -186,8 +186,23 @@ public class LoginActivity extends Activity {
                             // error response, no access to resource?
 
                             new IOSDialog.Builder(LoginActivity.this)
-                                .setTitle("notification")
-                                .setMessage("Mot de passe incorrecte")
+                                .setTitle("Mot de passe incorrecte.")
+                                .setMessage("veuillez vérifier votre mot de passe.")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+                        }
+                        if(response.code()==403)
+                        {
+                            // error response, no access to resource?
+
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Compte non activé")
+                                .setMessage("Veuillez vérifier votre boite mails pour l'activer")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 

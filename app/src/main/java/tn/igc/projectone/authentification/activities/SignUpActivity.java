@@ -214,8 +214,8 @@ public class SignUpActivity extends AppCompatActivity {
                             pass.setText("");
                             // error response, no access to resource?
                             new IOSDialog.Builder(SignUpActivity.this)
-                                .setTitle("notification")
-                                .setMessage("Utilisateur crée avec succés")
+                                .setTitle("succés")
+                                .setMessage("vous devez activer votre compte a partir de votre boite mails.")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
@@ -239,7 +239,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                         if (response.code()==400){
                             new IOSDialog.Builder(SignUpActivity.this)
-                                .setTitle("notification")
+                                .setTitle("Utilisateur existe")
                                 .setMessage("Utilisateur existe déja!")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {

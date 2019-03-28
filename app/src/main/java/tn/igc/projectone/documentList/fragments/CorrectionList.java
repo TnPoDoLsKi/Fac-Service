@@ -77,7 +77,7 @@ public class CorrectionList extends Fragment {
      //   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
-        ((MainActivity) getActivity()).setActionBarTitle("Détailles");
+
 
     }
     @Override
@@ -143,6 +143,7 @@ public class CorrectionList extends Fragment {
         final TextView textView= (TextView) v.findViewById(R.id.description);
 
         textView.setText(b_description);
+        ((MainActivity) getActivity()).setActionBarTitle(b_title);
 
         btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
             @Override

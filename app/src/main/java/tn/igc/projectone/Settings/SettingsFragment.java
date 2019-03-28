@@ -127,13 +127,14 @@ public class SettingsFragment extends Fragment {
                 String s1=s.toString();
                 EditText view1 = (EditText) getActivity().getCurrentFocus();
 
-                if(s1.length()<8){
+                if(s1.length()<8 && s1.length()>0){
                     view1.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     view1.setError("mot de passe courte");
                     ver = false;
 
                 }
                 else{
+                    ver = true;
                     view1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
                 }
 
@@ -283,21 +284,21 @@ public class SettingsFragment extends Fragment {
     }
 
     public void updateUserInfo(final String majorId) {
-        //password verification
-        if (!ver){
-            new IOSDialog.Builder(getContext())
-                .setTitle("Courte mot de passe")
-                .setMessage("Le mot de passe entré est courte")
-                .setPositiveButton("OK",null).show();
-            ver=true;
-            return;
-        }
-        //check for empty field
+
+
         if (!verifyData()) {
             new IOSDialog.Builder(getContext())
                 .setTitle("Champ vide")
                 .setMessage("S'il vous plait remplissez tous les champs")
                 .setPositiveButton("OK",null).show();
+            return;
+        }
+        if (password.getText().toString().length()<8 && password.getText().toString().length()>0){
+            new IOSDialog.Builder(getContext())
+                .setTitle("Courte mot de passe")
+                .setMessage("Le mot de passe entré est courte")
+                .setPositiveButton("OK",null).show();
+            ver=true;
             return;
         }
 
@@ -366,17 +367,15 @@ public class SettingsFragment extends Fragment {
     }
 
     private Boolean verifyData() {
-        if (fname.getText().toString().trim().equals("")) {
+        if (fname.getText().toString().trim().equals("")|| email.getText().toString().trim().equals("")||lname.getText().toString().trim().equals("")||(password.getText().toString().length()!=0&& oldPassword.getText().toString().trim().equals(""))||(password.getText().toString().trim().equals("")&& oldPassword.getText().toString().length()!=0))
+        {
             return false;
         }
-        if (lname.getText().toString().trim().equals(""))
-            return false;
-        if (email.getText().toString().trim().equals(""))
-            return false;
-        if (password.getText().toString().trim().equals(""))
+
+  /*      if (password.getText().toString().trim().equals(""))
             return false;
         if (oldPassword.getText().toString().trim().equals(""))
-            return false;
+            return false;*/
         return true;
     }
 
