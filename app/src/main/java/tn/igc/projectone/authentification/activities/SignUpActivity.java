@@ -214,7 +214,7 @@ public class SignUpActivity extends AppCompatActivity {
                             pass.setText("");
                             // error response, no access to resource?
                             new IOSDialog.Builder(SignUpActivity.this)
-                                .setTitle("succés")
+                                .setTitle("Compte crée avec succès")
                                 .setMessage("vous devez activer votre compte a partir de votre boite mails.")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -367,7 +367,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                 Log.d("Error", t.getMessage());
 
             }

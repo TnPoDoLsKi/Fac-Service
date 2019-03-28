@@ -171,8 +171,8 @@ public class LoginActivity extends Activity {
                             // error response, no access to resource?
 
                             new IOSDialog.Builder(LoginActivity.this)
-                                .setTitle("notification")
-                                .setMessage("Email incorrecte")
+                                .setTitle("Email incorrecte")
+                                .setMessage("veuillez vérifier votre email.")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
@@ -186,7 +186,7 @@ public class LoginActivity extends Activity {
                             // error response, no access to resource?
 
                             new IOSDialog.Builder(LoginActivity.this)
-                                .setTitle("Mot de passe incorrecte.")
+                                .setTitle("Mot de passe incorrecte")
                                 .setMessage("veuillez vérifier votre mot de passe.")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {

@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
@@ -259,7 +260,7 @@ public class DocumentList extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                if(isOnline()==false){
+                if(ClassisOnline.isOnline()==false){
                     textView1.setText("Aucune connexion trouvée");
                     textView1.setVisibility(View.VISIBLE);
 
@@ -291,18 +292,6 @@ public class DocumentList extends Fragment {
 
             }
         });
-    }
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace();  return false;}
-        catch (InterruptedException e) { e.printStackTrace();  return false;}
-
-
     }
     @Override
     public void onResume() {

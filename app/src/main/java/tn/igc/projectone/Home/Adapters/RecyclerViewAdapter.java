@@ -80,7 +80,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext," "+lstMatieres.get(vHolder.getAdapterPosition()).getNom_matr(),Toast.LENGTH_SHORT).show();
                 id_m = lstMatieres.get(vHolder.getAdapterPosition()).getId();
                 nb_c = lstMatieres.get(vHolder.getAdapterPosition()).getCour_c();
                 nb_td=lstMatieres.get(vHolder.getAdapterPosition()).getTD_c();

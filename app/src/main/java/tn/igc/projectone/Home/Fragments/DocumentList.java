@@ -266,7 +266,6 @@ public class DocumentList extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(),"Offline Use ",Toast.LENGTH_LONG).show();
 
                 /*mRealm.executeTransaction(new Realm.Transaction() {
                     @Override

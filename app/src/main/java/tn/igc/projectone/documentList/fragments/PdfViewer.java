@@ -20,6 +20,7 @@ import java.net.URL;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 
 
@@ -54,7 +55,7 @@ public class PdfViewer extends Fragment {
         pdfView = view.findViewById(R.id.pdfView1);
         textView = view.findViewById(R.id.TextviewPdf);
         new RetreivePDFstream().execute(b_filePath);
-        if (isOnline() == false) {
+        if (ClassisOnline.isOnline() == false) {
             textView.setText("Aucune connexion trouvee");
             textView.setTextSize(20);
             pdfView.setVisibility(View.INVISIBLE);
@@ -63,22 +64,6 @@ public class PdfViewer extends Fragment {
         }
 
         return view;
-
-
-    }
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
 
 
     }
