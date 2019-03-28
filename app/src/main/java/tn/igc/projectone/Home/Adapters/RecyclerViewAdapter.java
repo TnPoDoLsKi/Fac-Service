@@ -87,11 +87,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 nb_tp=lstMatieres.get(vHolder.getAdapterPosition()).getTP_c();
                 nb_ds=lstMatieres.get(vHolder.getAdapterPosition()).getDS_c();
                 nb_ex=lstMatieres.get(vHolder.getAdapterPosition()).getEX_c();
-                btc.setText("COURS("+nb_c+")");
-                bttd.setText("TD("+nb_td+")");
-                bttp.setText("TP("+nb_tp+")");
-                btds.setText("DS("+nb_ds+")");
-                btex.setText("EX("+nb_ex+")");
+                btc.setText("COURS ("+nb_c+")");
+                bttd.setText("TD ("+nb_td+")");
+                bttp.setText("TP ("+nb_tp+")");
+                btds.setText("DS ("+nb_ds+")");
+                btex.setText("EX ("+nb_ex+")");
 
                 btc.setEnabled(nb_c>0);
                 bttd.setEnabled(nb_td>0);

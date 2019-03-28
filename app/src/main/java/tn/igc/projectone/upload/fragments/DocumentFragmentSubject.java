@@ -32,6 +32,7 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.Home.Fragments.Matiere_Fragment;
+import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
@@ -79,6 +80,8 @@ public class DocumentFragmentSubject extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_document_fragment_subject, container, false);
+
+        ((MainActivity) getActivity()).setActionBarTitle("Importer correction");
 
         Button btn_ajouter = v.findViewById(R.id.btn_ajouter);
         TextView subj = v.findViewById(R.id.tv_subj);

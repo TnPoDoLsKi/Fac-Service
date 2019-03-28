@@ -129,7 +129,7 @@ public class Fragment_sem1 extends Fragment {
 
                             final String id = sub_id.getAsString();
 
-                            m = new Matiere(id, name, R.mipmap.ic_folderspecial,c_c,td_c,ds_c,ex_c,tp_c);
+                            m = new Matiere(id, name, R.mipmap.ic_folder,c_c,td_c,ds_c,ex_c,tp_c);
                             matiereList.add(m);
 
 

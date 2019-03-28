@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class CorrectionList extends Fragment {
 
     TextView textView1;
     private Button btn_uploadCorrection;
+    private TextView tv_description;
 
 
     public CorrectionList() {
@@ -110,8 +112,14 @@ public class CorrectionList extends Fragment {
         cRecyclerView = (RecyclerView) v.findViewById(R.id.corr);
 
         textView1 =(TextView) v.findViewById(R.id.Textview2);
+        tv_description =(TextView) v.findViewById(R.id.textView12);
+        TextView textView= (TextView) v.findViewById(R.id.description);
+        TextView tv_correction= (TextView) v.findViewById(R.id.textView9);
+        TextView tv_uploadcorrection= (TextView) v.findViewById(R.id.Textuploadcorrection);
+        ImageView iconeupload = (ImageView) v.findViewById(R.id.iconupload);
 
-        textView1.setText("No Corrections");
+
+        textView1.setText("Aucune correction");
 
         textView1.setVisibility(View.INVISIBLE);
 
@@ -140,10 +148,27 @@ public class CorrectionList extends Fragment {
 
         getActivity().setTitle(b_title);
 
-        final TextView textView= (TextView) v.findViewById(R.id.description);
+
 
         textView.setText(b_description);
-        ((MainActivity) getActivity()).setActionBarTitle(b_title);
+        ((MainActivity) getActivity()).setActionBarTitle("Document");
+
+        //deseable description if description ""
+        if ((b_description.equals(""))){
+            tv_description.setVisibility(View.INVISIBLE);
+            textView.setVisibility(View.INVISIBLE);
+        }
+        //deseable if ...
+        String letter = Character.toString(b_title.charAt(0));
+        if(letter.equals("C")){
+            btn_uploadCorrection.setVisibility(View.INVISIBLE);
+            tv_correction.setVisibility(View.INVISIBLE);
+            tv_uploadcorrection.setVisibility(View.INVISIBLE);
+            iconeupload.setVisibility(View.INVISIBLE);
+            cRecyclerView.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            textView1.setVisibility(View.INVISIBLE);
+        }
 
         btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
             @Override
