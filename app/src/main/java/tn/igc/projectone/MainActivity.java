@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.action_bar_title);
         progressBar = (ProgressBar) findViewById(R.id.progressBarS);
         setActionBarTitle("Matières");
-
+            //******
         bottomNavigationView = findViewById(R.id.bottomBar);
         Fragment fragment = new Matiere_Fragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
