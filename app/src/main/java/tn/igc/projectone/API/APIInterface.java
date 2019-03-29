@@ -89,4 +89,6 @@ public interface APIInterface {
 
     @GET("user")
     Call<JsonObject> getUserInfo();
+    @GET("version/{clientVersion}")
+    Call<JsonObject> isUpdated(@Path("clientVersion") String clientVersion);
 }
