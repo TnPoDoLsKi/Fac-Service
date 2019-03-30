@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -116,10 +117,11 @@ public class CorrectionList extends Fragment {
 
         textView1 =(TextView) v.findViewById(R.id.Textview2);
         tv_description =(TextView) v.findViewById(R.id.textView12);
-        TextView textView= (TextView) v.findViewById(R.id.description);
+        TextView textView= (TextView) v.findViewById(R.id.description1);
         TextView tv_correction= (TextView) v.findViewById(R.id.textView9);
         TextView tv_uploadcorrection= (TextView) v.findViewById(R.id.Textuploadcorrection);
         ImageView iconeupload = (ImageView) v.findViewById(R.id.iconupload);
+        LinearLayout linearLayoutDescription = (LinearLayout) v.findViewById(R.id.description);
 
 
         textView1.setText("Aucune correction");
@@ -158,8 +160,11 @@ public class CorrectionList extends Fragment {
 
         //deseable description if description ""
         if ((b_description.equals(""))){
-            tv_description.setVisibility(View.INVISIBLE);
-            textView.setVisibility(View.INVISIBLE);
+            ViewGroup.LayoutParams params = linearLayoutDescription.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+            params.height = 0;
+            params.width = 0;
+            linearLayoutDescription.setLayoutParams(params);
         }
         //deseable if ...
         letter = Character.toString(b_title.charAt(0));

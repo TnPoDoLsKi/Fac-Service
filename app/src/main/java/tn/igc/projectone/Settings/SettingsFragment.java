@@ -55,7 +55,7 @@ public class SettingsFragment extends Fragment {
 
     private ArrayList<Data> majors;
     private APIInterface apiInterfaceToken;
-    private EditText email, fname, lname, password, oldPassword;
+    private EditText fname, lname, password, oldPassword;
     private TextView t, t1, t2, t3;
     private Button saveBtn, retBtn;
     private String oldMajorId;
@@ -102,7 +102,6 @@ public class SettingsFragment extends Fragment {
         //textFields:
         fname = view.findViewById(R.id.editNom);
         lname = view.findViewById(R.id.editPrenom);
-        email = view.findViewById(R.id.editEmail);
         password = view.findViewById(R.id.editPassword);
         oldPassword = view.findViewById(R.id.editPasswordOld);
         //loading icon
@@ -161,7 +160,6 @@ public class SettingsFragment extends Fragment {
             t3.setVisibility(View.GONE);
             fname.setVisibility(View.GONE);
             lname.setVisibility(View.GONE);
-            email.setVisibility(View.GONE);
             password.setVisibility(View.GONE);
             oldPassword.setVisibility(View.GONE);
             loadIco.setVisibility(View.GONE);
@@ -261,7 +259,6 @@ public class SettingsFragment extends Fragment {
                 JsonObject obj = response.body().getAsJsonObject();
                 fname.setText(obj.get("firstName").getAsString());
                 lname.setText(obj.get("lastName").getAsString());
-                email.setText(obj.get("email").getAsString());
 
                 oldMajorId = obj.get("major").getAsString();
                 String oldMajor = Data.getNameFromId(oldMajorId, majors);
@@ -306,7 +303,7 @@ public class SettingsFragment extends Fragment {
         //getting the major id
 
         Call<Void> call_update_user = apiInterfaceToken.updateUser(
-            fname.getText().toString(), lname.getText().toString(), email.getText().toString(), majorId,
+            fname.getText().toString(), lname.getText().toString(), majorId,
             oldPassword.getText().toString(),
             password.getText().toString()
         );
@@ -367,7 +364,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private Boolean verifyData() {
-        if (fname.getText().toString().trim().equals("")|| email.getText().toString().trim().equals("")||lname.getText().toString().trim().equals("")||(password.getText().toString().length()!=0&& oldPassword.getText().toString().trim().equals(""))||(password.getText().toString().trim().equals("")&& oldPassword.getText().toString().length()!=0))
+        if (fname.getText().toString().trim().equals("")||lname.getText().toString().trim().equals("")||(password.getText().toString().length()!=0&& oldPassword.getText().toString().trim().equals(""))||(password.getText().toString().trim().equals("")&& oldPassword.getText().toString().length()!=0))
         {
             return false;
         }
