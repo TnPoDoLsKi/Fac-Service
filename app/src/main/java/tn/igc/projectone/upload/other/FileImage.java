@@ -43,9 +43,9 @@ public class FileImage {
     @Override
     public String toString() {
         return "FileImage{" +
-                "image='" + image + '\'' +
-                ", name='" + name + '\'' +
-                ", part=" + part +
-                '}';
+            "image='" + image + '\'' +
+            ", name='" + name + '\'' +
+            ", part=" + part +
+            '}';
     }
 }

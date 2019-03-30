@@ -1,8 +1,13 @@
 package tn.igc.projectone.Settings;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,9 +23,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
@@ -57,8 +63,7 @@ public class SettingsFragment extends Fragment {
     private ProgressBar loadIco;
     private String token;
     private String majorId;
-    private String majorName;
-    BottomNavigationView bottomNavigationView;
+    private boolean ver = true;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -69,11 +74,8 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //for signOut btn
         setHasOptionsMenu(true);
-        bottomNavigationView =(BottomNavigationView) getActivity().findViewById(R.id.bottomBar);
-
 
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -108,6 +110,40 @@ public class SettingsFragment extends Fragment {
         //button
         saveBtn = view.findViewById(R.id.btnSave);
         retBtn = view.findViewById(R.id.btnReturn);
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String s1=s.toString();
+                EditText view1 = (EditText) getActivity().getCurrentFocus();
+
+                if(s1.length()<8 && s1.length()>0){
+                    view1.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    view1.setError("mot de passe courte");
+                    ver = false;
+
+                }
+                else{
+                    ver = true;
+                    view1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlue)));
+                }
+
+            }
+        };
+        password.addTextChangedListener(textWatcher);
+
+
+
         majorsList();
 
     }
@@ -115,13 +151,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Objects.requireNonNull(getActivity()).setTitle("Settings");
-        if (bottomNavigationView.getSelectedItemId()!=R.id.parametre_button)
-        {
-            bottomNavigationView.setSelectedItemId(R.id.parametre_button);
-        }
         token = SaveSharedPreference.getToken(getContext());
-//        majorId = Data.getIdFromName(spinnerFil.getSelectedItem().toString(),majors);
 
         if (token.equals("")) {
             //hiding Layout Parts
@@ -139,11 +169,9 @@ public class SettingsFragment extends Fragment {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    majorName = spinnerFil.getSelectedItem().toString();
-                    majorId = Data.getIdFromName(majorName, majors);
-
+                    majorId = spinnerFil.getSelectedItem().toString();
+                    majorId = Data.getIdFromName(majorId, majors);
                     SaveSharedPreference.setMajor(getContext(), majorId);
-                    SaveSharedPreference.setMajorName(getContext(), majorName);
                 }
             });
             //return to login btn
@@ -163,8 +191,8 @@ public class SettingsFragment extends Fragment {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    majorName = spinnerFil.getSelectedItem().toString();
-                    majorId = Data.getIdFromName(majorName, majors);
+                    majorId = spinnerFil.getSelectedItem().toString();
+                    majorId = Data.getIdFromName(majorId, majors);
                     updateUserInfo(majorId);
                 }
             });
@@ -227,7 +255,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.body() == null) {
-                    Log.d("userInfo", "onResponse: " + response.code());
+                    Log.d("Oops", "User info"+token+" " + response.code());
                     return;
                 }
                 JsonObject obj = response.body().getAsJsonObject();
@@ -249,17 +277,31 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                try {
-                    Toast.makeText(getContext(), "No Connection", Toast.LENGTH_LONG).show();
-                } catch (Exception ignored) {
 
-                }
             }
         });
 
     }
 
     public void updateUserInfo(final String majorId) {
+
+
+        if (!verifyData()) {
+            new IOSDialog.Builder(getContext())
+                .setTitle("Champ vide")
+                .setMessage("S'il vous plait remplissez tous les champs")
+                .setPositiveButton("OK",null).show();
+            return;
+        }
+        if (password.getText().toString().length()<8 && password.getText().toString().length()>0){
+            new IOSDialog.Builder(getContext())
+                .setTitle("Courte mot de passe")
+                .setMessage("Le mot de passe entré est courte")
+                .setPositiveButton("OK",null).show();
+            ver=true;
+            return;
+        }
+
         apiInterfaceToken = APIClient.getClientWithToken(token).create(APIInterface.class);
         //getting the major id
 
@@ -273,22 +315,68 @@ public class SettingsFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
 
                 if (response.code() == 400) {
-                    Toast.makeText(getContext(), "Pas autorisé" + response.body(), Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (response.code() == 200)
-                    Toast.makeText(getContext(), "Succès", Toast.LENGTH_LONG).show();
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Notification")
+                        .setMessage("le mot de passe entré est incorrect")
+                        .setPositiveButton("OK", null).show();
+                }
+                if (response.code()==401){
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Session expiré")
+                        .setMessage("S'il vous plait reconnecter")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SaveSharedPreference.setMajor(getContext(),"");
+                                Intent i = new Intent(getContext(),LoginActivity.class);
+                                startActivity(i);
+                            }
+                        }).show();
 
-                SaveSharedPreference.setMajor(getContext(), majorId);
-                SaveSharedPreference.setMajorName(getContext(), majorName);
+
+
+                }
+                 if (response.isSuccessful()) {
+                     new IOSDialog.Builder(getContext())
+                         .setTitle("Modification réussie")
+                         .setMessage("Vos données ont été modifiées avec succès")
+                         .setPositiveButton("OK", null).show();
+                     SaveSharedPreference.setMajor(getContext(), majorId);
+                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("Oops", "onFailure: " + t.getMessage());
+                if(ClassisOnline.isOnline()==false){
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("connexion")
+                        .setMessage("Aucune connexion internet")
+                        .setPositiveButton("OK",null).show();
+                }
+                else{
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Ressayer")
+                        .setMessage("")
+                        .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
+                }
 
             }
         });
 
+    }
+
+    private Boolean verifyData() {
+        if (fname.getText().toString().trim().equals("")|| email.getText().toString().trim().equals("")||lname.getText().toString().trim().equals("")||(password.getText().toString().length()!=0&& oldPassword.getText().toString().trim().equals(""))||(password.getText().toString().trim().equals("")&& oldPassword.getText().toString().length()!=0))
+        {
+            return false;
+        }
+
+  /*      if (password.getText().toString().trim().equals(""))
+            return false;
+        if (oldPassword.getText().toString().trim().equals(""))
+            return false;*/
+        return true;
     }
 
     @Override
@@ -307,7 +395,6 @@ public class SettingsFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 SaveSharedPreference.setMajor(getContext(), "");
                 SaveSharedPreference.setToken(getContext(), "");
-                Toast.makeText(getContext(), "Déconnecté", Toast.LENGTH_LONG).show();
                 onResume();
                 item.setVisible(false);
                 return false;

@@ -78,11 +78,11 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MainImageAdapter.HEADER) {
             View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.inital_image, parent, false);
+                inflate(R.layout.inital_image, parent, false);
             return new HolderNone(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.inital_image, parent, false);
+                inflate(R.layout.inital_image, parent, false);
             return new Holder(view);
         }
     }

@@ -27,10 +27,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
@@ -297,8 +296,14 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = getActivity().getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(getActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
         return false;
 
@@ -497,7 +502,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
 
-                if(isOnline()==false){
+                if(ClassisOnline.isOnline()==false){
                     textView.setText("Aucune connexion trouvée");
                     textView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
@@ -514,27 +519,15 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         });
     }
 
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace();  return false;}
-        catch (InterruptedException e) { e.printStackTrace();  return false;}
-
-
-    }
 
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+       /* SharedPreferences settings = getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("query", searchView.getQuery().toString());
 
-        editor.apply();
+        editor.apply();*/
     }
 
 

@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.classes.Document;
@@ -24,7 +23,7 @@ import tn.igc.projectone.documentList.classes.Document;
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdapter.MyViewHolder> {
-    Context mContext ;
+    Context mContext;
     private ArrayList<Document> lsDocument;
     private ArrayList<Document> documentListFull;
     DownloadManager dm;
@@ -33,23 +32,22 @@ public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdap
 
     public DRecyclerViewAdapter(Context context, ArrayList<Document> lsDocument) {
         this.mContext = context;
-        this.lsDocument= lsDocument;
+        this.lsDocument = lsDocument;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v;
-        v=LayoutInflater.from(mContext).inflate(R.layout.cardview,viewGroup,false);
+        v = LayoutInflater.from(mContext).inflate(R.layout.cardview, viewGroup, false);
         // ------------------------------- Add final to vHolder declart -------------------------------------------------------
         final MyViewHolder vHolder = new MyViewHolder(v);
-        final String path =lsDocument.get(i).getFilePath();
-        final String title =lsDocument.get(i).getTitle();
+        final String path = lsDocument.get(i).getFilePath();
+        final String title = lsDocument.get(i).getTitle();
 
         vHolder.downloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Downloading", Toast.LENGTH_LONG).show();
                 dm = (DownloadManager) v.getContext().getSystemService(DOWNLOAD_SERVICE);
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(path));
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
@@ -120,27 +118,28 @@ public class DRecyclerViewAdapter extends RecyclerView.Adapter<DRecyclerViewAdap
         return lsDocument.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public View cardView;
         public Button downloadButton;
 
         private TextView docTitle;
-        private ImageView verifiedImage ;
+        private ImageView verifiedImage;
         private TextView userName;
-        private ImageView avatar ;
+        private ImageView avatar;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView =(CardView) itemView.findViewById(R.id.doc_card);
-            downloadButton=(Button) itemView.findViewById(R.id.download) ;
-            docTitle = (TextView) itemView.findViewById(R.id.docTitle) ;
-            verifiedImage = (ImageView) itemView.findViewById(R.id.verifiedImage);
-            userName = (TextView) itemView.findViewById(R.id.userName) ;
-            avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            cardView = itemView.findViewById(R.id.doc_card);
+            downloadButton = itemView.findViewById(R.id.download);
+            docTitle = itemView.findViewById(R.id.docTitle);
+            verifiedImage = itemView.findViewById(R.id.verifiedImage);
+            userName = itemView.findViewById(R.id.userName);
+            avatar = itemView.findViewById(R.id.avatar);
         }
     }
-    public void updateList(ArrayList<Document> newList){
-        lsDocument =new ArrayList<>();
+
+    public void updateList(ArrayList<Document> newList) {
+        lsDocument = new ArrayList<>();
         lsDocument.addAll(newList);
         notifyDataSetChanged();
     }

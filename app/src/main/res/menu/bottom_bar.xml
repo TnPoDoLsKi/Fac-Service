@@ -14,7 +14,7 @@
         android:title="@string/add" />
     <item
         android:id="@+id/parametre_button"
-        android:icon="@drawable/tools"
+        android:icon="@drawable/settingsbar"
         android:title="@string/settings" />
 
 </menu>

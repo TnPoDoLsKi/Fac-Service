@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.SaveSharedPreference;
@@ -164,23 +166,65 @@ public class LoginActivity extends Activity {
                             startActivity(intent);
 
                         }
-                        else
+                        if(response.code()==400)
                         {
                             // error response, no access to resource?
-                            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(LoginActivity.this);
 
-                            dlgAlert.setMessage("wrong password or Email");
-                            dlgAlert.setTitle("Error Message...");
-                            dlgAlert.setPositiveButton("OK", null);
-                            dlgAlert.setCancelable(true);
-                            dlgAlert.create().show();
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Email incorrecte")
+                                .setMessage("veuillez vérifier votre email.")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                            dlgAlert.setPositiveButton("Ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                }).show();
 
-                                        }
-                                    });
+
+                        }
+                        if(response.code()==401)
+                        {
+                            // error response, no access to resource?
+
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Mot de passe incorrecte")
+                                .setMessage("veuillez vérifier votre mot de passe.")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+                        }
+                        if(response.code()==403)
+                        {
+                            // error response, no access to resource?
+
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Compte non activé")
+                                .setMessage("Veuillez vérifier votre boite mails pour l'activer")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
+                        }
+                        if(response.code()==500)
+                        {
+                            // error response, no access to resource?
+
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).show();
+
+
                         }
 
                     }
@@ -188,6 +232,19 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         Log.d("Error", t.getMessage());
+                        if(ClassisOnline.isOnline()==false){
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("connexion")
+                                .setMessage("Aucune connexion internet")
+                                .setPositiveButton("OK",null).show();
+                        }
+                        else{
+                            new IOSDialog.Builder(LoginActivity.this)
+                                .setTitle("Ressayer")
+                                .setMessage("")
+                                .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
+                        }
 
                     }
                 });

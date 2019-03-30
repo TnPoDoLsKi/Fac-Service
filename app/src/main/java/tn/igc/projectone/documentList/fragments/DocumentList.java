@@ -9,8 +9,10 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
+import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
 import tn.igc.projectone.documentList.adapters.RecyclerViewAdapter;
@@ -38,7 +41,7 @@ public class DocumentList extends Fragment {
     RecyclerViewAdapter recyclerViewAdapter;
     BottomNavigationView bottomNavigationView;
 
-
+    TextView textView1 ;
     TextView abTitle ;
     String tType ;
     String type ;
@@ -51,6 +54,11 @@ public class DocumentList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.document_fragment,container,false);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.docs_recyclerView);
+        textView1 =(TextView) v.findViewById(R.id.InfoTextview);
+
+        textView1.setText("Aucun document trouvé");
+
+        textView1.setVisibility(View.INVISIBLE);
         ((MainActivity) getActivity()).setVisibleProgressBar();
 
         return v ;
@@ -92,81 +100,81 @@ public class DocumentList extends Fragment {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 ((MainActivity) getActivity()).setInvisibleProgressBar();
-                if (docList!=null)
+                if (docList != null)
                     docList.clear();
+                JsonArray resArr = null;
                 if (response.isSuccessful()) {
-                    JsonArray resArr = response.body().getAsJsonArray();
+                    resArr = response.body().getAsJsonArray();
 
                     for (int i = 0; i < resArr.size(); i++) {
                         JsonObject obj = resArr.get(i).getAsJsonObject();
-                        Boolean approved ;
-                        if (obj.get("approved")==null) {
-                            approved = false;                        }
-                        else{
-                            approved = obj.get("approved").getAsBoolean();                        }
+                        Boolean approved;
+                        if (obj.get("approved") == null) {
+                            approved = false;
+                        } else {
+                            approved = obj.get("approved").getAsBoolean();
+                        }
 //document attributs init
                         String type;
-                        if (obj.get("type")==null) {
+                        if (obj.get("type") == null) {
                             type = "";
-                        }
-                        else{
+                        } else {
                             type = obj.get("type").getAsString();
                         }
 
-                        int semestre ;
-                        if (obj.get("semestre")==null) {
-                            semestre =0;                            }
-                        else{
-                            semestre = obj.get("semestre").getAsInt();                           }
+                        int semestre;
+                        if (obj.get("semestre") == null) {
+                            semestre = 0;
+                        } else {
+                            semestre = obj.get("semestre").getAsInt();
+                        }
 
-                        int NBDownloads ;
+                        int NBDownloads;
 
-                        if (obj.get("NBDowloads")==null) {
+                        if (obj.get("NBDowloads") == null) {
                             NBDownloads = 0;
+                        } else {
+                            NBDownloads = obj.get("NBDowloads").getAsInt();
                         }
-                        else{
-                            NBDownloads = obj.get("NBDowloads").getAsInt();                            }
 
 
-                        Boolean verifiedByProf ;
-                        if (obj.get("verifiedByProf")==null) {
+                        Boolean verifiedByProf;
+                        if (obj.get("verifiedByProf") == null) {
                             verifiedByProf = false;
+                        } else {
+                            verifiedByProf = obj.get("verifiedByProf").getAsBoolean();
                         }
-                        else{
-                            verifiedByProf = obj.get("verifiedByProf").getAsBoolean();                            }
 
 
-                        String session ;
-                        if (obj.get("session")==null) {
+                        String session;
+                        if (obj.get("session") == null) {
                             session = "";
+                        } else {
+                            session = obj.get("session").getAsString();
                         }
-                        else{
-                            session = obj.get("session").getAsString();                            }
 
-                        String _id ;
-                        if (obj.get("_id")==null) {
-                            _id = "";                            }
-                        else{
+                        String _id;
+                        if (obj.get("_id") == null) {
+                            _id = "";
+                        } else {
                             _id = obj.get("_id").getAsString();
                         }
 
-                        String title ;
-                        if (obj.get("title")==null) {
+                        String title;
+                        if (obj.get("title") == null) {
                             title = "";
-                        }
-                        else{
+                        } else {
                             title = obj.get("title").getAsString();
                         }
 
-                        String filePath ;
+                        String filePath;
 
-                        if (obj.get("filePath")==null){
+                        if (obj.get("filePath") == null) {
                             filePath = "";
-                        }
-                        else {
+                        } else {
                             filePath = obj.get("filePath").getAsString();
                         }
-                        String subject ="" ;
+                        String subject = "";
 
                          /*   if (obj.get("subject")==null){
                                  subject = "";
@@ -175,7 +183,7 @@ public class DocumentList extends Fragment {
                                  subject = obj.get("subject").getAsString();
 
                             }*/
-                        String majorApi="";
+                        String majorApi = "";
 /*                            if (obj.get("major")==null){
                                  majorApi ="";
                             }
@@ -185,65 +193,56 @@ public class DocumentList extends Fragment {
                             }*/
                         int year = 0;
 
-                        if (obj.get("year")==null){
+                        if (obj.get("year") == null) {
                             year = 0;
-                        }
-                        else{
+                        } else {
                             year = obj.get("year").getAsInt();
 
                         }
-                        String profName ;
+                        String profName;
 
-                        if (obj.get("profName")==null){
+                        if (obj.get("profName") == null) {
                             profName = "";
-                        }
-                        else{
+                        } else {
                             profName = obj.get("profName").getAsString();
 
                         }
-                        String description ;
+                        String description;
 
 
-                        if (obj.get("description")==null){
+                        if (obj.get("description") == null) {
                             description = "";
-                        }
-                        else{
+                        } else {
                             description = obj.get("description").getAsString();
 
                         }
                         String createdAt;
 
-                        if (obj.get("createdAt")==null){
-                            createdAt="";
-                        }
-                        else{
+                        if (obj.get("createdAt") == null) {
+                            createdAt = "";
+                        } else {
                             createdAt = obj.get("createdAt").getAsString();
 
                         }
                         String updatedAt;
-                        if (obj.get("updatedAt")==null){
+                        if (obj.get("updatedAt") == null) {
                             updatedAt = "";
-                        }
-                        else{
+                        } else {
                             updatedAt = obj.get("updatedAt").getAsString();
 
                         }
                         JsonObject oUser = obj.get("user").getAsJsonObject();
-                        String avatar= null;
 
-                        if(oUser.has("avatar"))
+                        String avatar = null;
+                        if (oUser.has("avatar"))
                             avatar = oUser.get("avatar").getAsString();
 
                         String firstName = oUser.get("firstName").getAsString();
                         String lastName = oUser.get("lastName").getAsString();
 
-                        docList.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User( firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
+                        docList.add(new Document(type, semestre, approved, NBDownloads, verifiedByProf, session, _id, title, filePath, new User(firstName, lastName, avatar), majorApi, subject, year, profName, description, createdAt, updatedAt));
 
                     }
-
-
-
-
 
 
                 }
@@ -252,6 +251,8 @@ public class DocumentList extends Fragment {
                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), docList);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(recyclerViewAdapter);
+                if (resArr.size() == 0)
+                    textView1.setVisibility(View.VISIBLE);
 
 
             }
@@ -259,7 +260,16 @@ public class DocumentList extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(getContext(),"Offline Use ",Toast.LENGTH_LONG).show();
+                if(ClassisOnline.isOnline()==false){
+                    textView1.setText("Aucune connexion trouvée");
+                    textView1.setVisibility(View.VISIBLE);
+
+                    recyclerViewAdapter = new RecyclerViewAdapter(getContext(), docList);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    mRecyclerView.setAdapter(recyclerViewAdapter);
+                }
+                else
+                    textView1.setText("Aucun document trouvé");
 
                 /*mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
