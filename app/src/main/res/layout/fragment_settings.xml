@@ -95,23 +95,7 @@
                     android:layout_weight="10" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Email" />
 
-            <EditText
-                android:id="@+id/editEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/lightBlue"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="E-mail"
-                android:inputType="textEmailAddress" />
             <TextView
                 android:id="@+id/text3"
                 android:layout_width="match_parent"
@@ -192,7 +176,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48000002" />
+        app:layout_constraintVertical_bias="0.334" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -85,7 +85,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @PUT("users")
-    Call<Void> updateUser(@Field("firstName") String fName, @Field("lastName") String lName, @Field("email") String email, @Field("major") String major, @Field("oldPassword") String oldPass, @Field("password") String pass);
+    Call<Void> updateUser(@Field("firstName") String fName, @Field("lastName") String lName, @Field("major") String major, @Field("oldPassword") String oldPass, @Field("password") String pass);
 
     @GET("user")
     Call<JsonObject> getUserInfo();
