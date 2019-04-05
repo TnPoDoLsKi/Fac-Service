@@ -56,7 +56,7 @@ public class SettingsFragment extends Fragment {
     private ArrayList<Data> majors;
     private APIInterface apiInterfaceToken;
     private EditText fname, lname, password, oldPassword;
-    private TextView t, t1, t2, t3;
+    private TextView t, t1, t3;
     private Button saveBtn, retBtn;
     private String oldMajorId;
     private int oldMajorPos;
@@ -95,7 +95,6 @@ public class SettingsFragment extends Fragment {
         //texts
         t = view.findViewById(R.id.text);
         t1 = view.findViewById(R.id.text1);
-        t2 = view.findViewById(R.id.text2);
         t3 = view.findViewById(R.id.text3);
         //majors spinner
         spinnerFil = view.findViewById(R.id.spinner_filier);
@@ -156,7 +155,6 @@ public class SettingsFragment extends Fragment {
             //hiding Layout Parts
             t.setVisibility(View.GONE);
             t1.setVisibility(View.GONE);
-            t2.setVisibility(View.GONE);
             t3.setVisibility(View.GONE);
             fname.setVisibility(View.GONE);
             lname.setVisibility(View.GONE);

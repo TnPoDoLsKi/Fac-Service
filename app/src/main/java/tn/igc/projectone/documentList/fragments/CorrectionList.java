@@ -1,5 +1,7 @@
 package tn.igc.projectone.documentList.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.ligl.android.widget.iosdialog.IOSDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.ClassisOnline;
 import tn.igc.projectone.MainActivity;
 import tn.igc.projectone.R;
+import tn.igc.projectone.SaveSharedPreference;
+import tn.igc.projectone.authentification.activities.SignUpActivity;
 import tn.igc.projectone.documentList.adapters.CorrectionRecyclerViewAdapter;
 import tn.igc.projectone.documentList.adapters.DocumentRecyclerViewAdapterInCorrection;
 import tn.igc.projectone.documentList.classes.CorrectionDoc;
@@ -38,6 +43,7 @@ import tn.igc.projectone.documentList.classes.Document;
 import tn.igc.projectone.documentList.classes.User;
 import tn.igc.projectone.upload.fragments.NewFragment;
 import tn.igc.projectone.upload.fragments.UploadFragmentSubject;
+import tn.igc.projectone.uploadEnonce.MainUploadFragment;
 
 public class CorrectionList extends Fragment {
 
@@ -181,8 +187,39 @@ public class CorrectionList extends Fragment {
         btn_uploadCorrection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UploadFragmentSubject uploadFragmentSubject = UploadFragmentSubject.newInstance(_id,b_title);
-                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, uploadFragmentSubject).commit();
+                if(SaveSharedPreference.getToken(getContext()).equals(""))
+                {
+                    new IOSDialog.Builder(getContext())
+                        .setTitle("Aucune Autorisation")
+                        .setMessage("vous devez se connecter à un compte pour ajouter des fichiers")
+
+                        .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    SaveSharedPreference.setMajor(getContext(),"");
+                                    SaveSharedPreference.setMajorName(getContext(),"");
+                                    Intent i = new Intent(getContext(), SignUpActivity.class);
+                                    startActivity(i);
+                                }
+                            })
+                        .setNegativeButton("Annuler",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
+                }else {
+                    UploadFragmentSubject uploadFragmentSubject = UploadFragmentSubject.newInstance(_id,b_title);
+                    getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, uploadFragmentSubject).commit();
+
+                }
 
 
             }

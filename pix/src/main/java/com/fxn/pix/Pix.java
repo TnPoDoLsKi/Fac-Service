@@ -446,7 +446,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mHandleView.setOnTouchListener(this);
         final CameraConfiguration cameraConfiguration = new CameraConfiguration();
         if (options.isFrontfacing()) {
-            fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
+            fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
         } else {
             fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
         }

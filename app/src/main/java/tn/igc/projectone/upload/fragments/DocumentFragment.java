@@ -7,9 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -42,6 +45,8 @@ import tn.igc.projectone.API.APIClient;
 import tn.igc.projectone.API.APIInterface;
 import tn.igc.projectone.SaveSharedPreference;
 import tn.igc.projectone.authentification.activities.LoginActivity;
+
+import static java.lang.Integer.parseInt;
 
 
 public class DocumentFragment extends Fragment {
@@ -100,6 +105,7 @@ public class DocumentFragment extends Fragment {
         et_annee.setText("");
 
         et_annee.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 showYearDialog();
@@ -112,14 +118,13 @@ public class DocumentFragment extends Fragment {
             public void onClick(View v) {
                 String year = et_annee.getText().toString();
                 String desc =  et_desc.getText().toString();
-                Toast.makeText(getContext(),subId+"*"+type+"*"+session+"*"+year+"*"+desc+"*"+pathlist.get(0), Toast.LENGTH_LONG).show();
-
                 if(year.equals("")){
 
                     new IOSDialog.Builder(getContext())
                         .setTitle("Notification")
                         .setMessage("Sélectionnez l'année de votre document.")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
                             public void onClick(DialogInterface dialog, int which) {
                                 showYearDialog();
                             }
@@ -210,6 +215,7 @@ public class DocumentFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void showYearDialog()
     {
 
@@ -219,14 +225,16 @@ public class DocumentFragment extends Fragment {
         Button set = (Button) d.findViewById(R.id.button1);
         Button cancel = (Button) d.findViewById(R.id.button2);
         final TextView year_text=(TextView)d.findViewById(R.id.year_text);
-        year = 2000;
+        //year = 2000;
+        year = Calendar.getInstance().get(Calendar.YEAR);
+        int intyear = Integer.parseInt(String.valueOf(year))-10;
         year_text.setHint("");
         final NumberPicker nopicker = (NumberPicker) d.findViewById(R.id.numberPicker1);
 
-        nopicker.setMaxValue(year+20);
-        nopicker.setMinValue(year-20);
+        nopicker.setMaxValue(intyear+10);
+        nopicker.setMinValue(intyear-10);
         nopicker.setWrapSelectorWheel(false);
-        nopicker.setValue(year);
+        nopicker.setValue(intyear);
         nopicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
         set.setOnClickListener(new View.OnClickListener()

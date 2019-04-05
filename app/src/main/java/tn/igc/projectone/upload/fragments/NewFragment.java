@@ -64,7 +64,7 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
 
-    private static int conteur_nbre_file_upload=1;
+    private int conteur_nbre_file_upload=1;
 
     private ProgressDialog mProgressDialog;
     private ProgressDialog dialog;
@@ -353,5 +353,12 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        Toast.makeText(getContext(), "onResume", Toast.LENGTH_LONG).show();
+
+
     }
 }
