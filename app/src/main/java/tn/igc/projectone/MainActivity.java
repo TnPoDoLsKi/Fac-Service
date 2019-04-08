@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                             SaveSharedPreference.setMajorName(MainActivity.this,"");
                                             Intent i = new Intent(MainActivity.this, SignUpActivity.class);
                                             startActivity(i);
+                                            finish();
                                         }
                                     })
                                 .setNegativeButton("Annuler",

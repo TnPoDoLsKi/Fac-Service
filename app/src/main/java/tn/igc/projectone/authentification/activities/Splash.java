@@ -8,6 +8,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 import com.ligl.android.widget.iosdialog.IOSDialog;
 
@@ -160,6 +162,20 @@ APIInterface apiInterface;
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                if(ClassisOnline.isOnline()==false){
+                    new IOSDialog.Builder(Splash.this)
+                        .setTitle("connexion")
+                        .setMessage("Aucune connexion internet")
+                        .setPositiveButton("OK",null).show();
+                }
+                else{
+                    new IOSDialog.Builder(Splash.this)
+                        .setTitle("Ressayer")
+                        .setMessage("")
+                        .setPositiveButton("OK",null).show();                            Log.e("errrreur", " ->  " + t.toString());
+
+                }
+
 
             }
         });

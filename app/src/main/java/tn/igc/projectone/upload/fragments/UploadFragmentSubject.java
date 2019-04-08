@@ -60,7 +60,7 @@ public class UploadFragmentSubject extends Fragment implements ProgressRequestBo
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
 
-    private static int conteur_nbre_file_upload=1;
+    private int conteur_nbre_file_upload=1;
 
     private ProgressDialog mProgressDialog;
     private ProgressDialog dialog;
