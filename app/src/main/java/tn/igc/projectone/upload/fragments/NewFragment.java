@@ -357,7 +357,6 @@ public class NewFragment extends Fragment implements ProgressRequestBody.UploadC
     @Override
     public void onResume(){
         super.onResume();
-        Toast.makeText(getContext(), "onResume", Toast.LENGTH_LONG).show();
 
 
     }

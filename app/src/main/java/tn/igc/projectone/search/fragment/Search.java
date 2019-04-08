@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
@@ -159,6 +160,7 @@ public class    Search extends Fragment implements SearchView.OnQueryTextListene
         radioGroup2 = (RadioGroup) v.findViewById(R.id.rg2);
         myMajor=(RadioButton) v.findViewById(R.id.Major);
         major= SaveSharedPreference.getMajor(getContext());
+        Toast.makeText(getContext(),SaveSharedPreference.getMajorName(getContext()),Toast.LENGTH_LONG).show();
         myMajor.setText(SaveSharedPreference.getMajorName(getContext()));
 
         FIL.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
